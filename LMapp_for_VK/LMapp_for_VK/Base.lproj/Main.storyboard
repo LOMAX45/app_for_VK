@@ -133,7 +133,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="RegProcess:" destination="krL-IR-vmp" eventType="touchUpInside" id="y2W-P1-2OV"/>
                                             <action selector="regButtonPressed:" destination="krL-IR-vmp" eventType="touchUpInside" id="kXZ-ys-opy"/>
                                             <segue destination="MfW-W0-kO8" kind="presentation" identifier="Registration" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="p5B-O4-SOH"/>
                                         </connections>
@@ -210,7 +209,7 @@
                     <connections>
                         <outlet property="familyNameRegInput" destination="Gg6-Fy-Z2l" id="ggB-m8-Ea0"/>
                         <outlet property="nameRegInput" destination="0wm-kE-1a5" id="brI-p2-HRs"/>
-                        <outlet property="nickNameregInput" destination="0xy-CI-sql" id="sOc-Z0-9bZ"/>
+                        <outlet property="nickNameRegInput" destination="0xy-CI-sql" id="kge-Ds-vpb"/>
                         <outlet property="passwordRegInput" destination="zfJ-Ge-Ise" id="mFe-Bc-UNl"/>
                         <outlet property="scrollingReg" destination="lg7-Ta-VAf" id="FuQ-A7-6cC"/>
                     </connections>
