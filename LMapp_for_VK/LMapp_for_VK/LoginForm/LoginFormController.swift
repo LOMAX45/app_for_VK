@@ -20,12 +20,34 @@ class LoginFormController: UIViewController {
     @IBOutlet weak var familyNameRegInput: UITextField!
     @IBOutlet weak var scrollingReg: UIScrollView!
     
-    var listOfUsers = [
-        ["admin", "admin", "admin", "admin"],
-        ["testuser", "12345", "Test", "User"]
-    ]
     
-    @IBAction func unwindSegue(sender: UIStoryboardSegue) {}
+    @IBOutlet weak var regButtonRegScreen: UIButton! {
+        didSet {
+            regButtonRegScreen.layer.cornerRadius = 10
+        }
+    }
+    @IBOutlet weak var cancellButtonRegScreen: UIButton! {
+        didSet {
+            cancellButtonRegScreen.layer.cornerRadius = 10
+        }
+    }
+    @IBOutlet weak var logOnButtonAfterRegScreen: UIButton! {
+        didSet {
+            logOnButtonAfterRegScreen.layer.cornerRadius = 10
+        }
+    }
+    @IBOutlet weak var logOnButtonLoginScreen: UIButton! {
+        didSet {
+            logOnButtonLoginScreen.layer.cornerRadius = 10
+        }
+    }
+    @IBOutlet weak var cancellButtonLoginScreen: UIButton! {
+        didSet {
+            cancellButtonLoginScreen.layer.cornerRadius = 10
+        }
+    }
+    
+    
     @IBAction func regButtonPressed(_ sender: Any) {}
     @IBAction func enterButtonPressed(_ sender: Any) {}
     
@@ -45,7 +67,7 @@ class LoginFormController: UIViewController {
     
     private func checkAvailabilityOfNick (nick: UITextField) -> Int {
         var i = 0
-        while i < listOfUsers.count && nick.text != listOfUsers[i][0] {
+        while i < listOfUsersDemo.count && nick.text != listOfUsersDemo[i].nickname {
             i += 1
         }
         return i
@@ -58,27 +80,33 @@ class LoginFormController: UIViewController {
             if !checkInputsFilling() {
                 alerting(title: "ОШИБКА", message: "Все поля должны быть заполнены")
                 return false
-            } else if checkAvailabilityOfNick(nick: nickNameRegInput) < listOfUsers.count {
+            } else if checkAvailabilityOfNick(nick: nickNameRegInput) < listOfUsersDemo.count || nickNameRegInput.text == "admin" {
                 alerting(title: "ОШИБКА", message: "Пользователь с таким ником уже существует.")
                 return false
             } else {
-                listOfUsers.append([nickNameRegInput.text!, passwordRegInput.text!, nameRegInput.text!, familyNameRegInput.text!])
-                print(listOfUsers)
+                currentUser = User(nickname: nickNameRegInput.text!, password: passwordRegInput.text!, name: nameRegInput.text!, familyName: familyNameRegInput.text!)
                 return true
             }
         case "LogOn":
-            if checkAvailabilityOfNick(nick: nickNameEntInput) < listOfUsers.count {
-                let checkPass = passwordEntInput.text == listOfUsers[checkAvailabilityOfNick(nick: nickNameEntInput)][1]
-                if checkPass == false {
-                    alerting(title: "ОШИБКА", message: "Вы ввели неверный пароль")
-                    return false
-                } else {
-                    return true
-                }
-            } else {
-                alerting(title: "ОШИБКА", message: "Пользователя с таким ником не существует")
-                return false
+            if nickNameEntInput.text! == "admin" && passwordEntInput.text! == "admin" {
+                currentUser = admin
+                return true
             }
+            let index = checkAvailabilityOfNick(nick: nickNameEntInput)
+                if  index < listOfUsersDemo.count {
+                    if listOfUsersDemo[index].check(inputedLogin: nickNameEntInput.text!, inputedPassword: passwordEntInput.text!) {
+                        currentUser = listOfUsersDemo[index]
+                        listOfUsersDemo.remove(at: index)
+                        return true
+                    } else {
+                        alerting(title: "ОШИБКА", message: "Вы ввели неверный пароль")
+                        passwordEntInput.text = ""
+                        return false
+                    }
+                } else {
+                    alerting(title: "ОШИБКА", message: "Пользователя с таким ником не существует")
+                    return false
+                }
         default:
             return true
         }
