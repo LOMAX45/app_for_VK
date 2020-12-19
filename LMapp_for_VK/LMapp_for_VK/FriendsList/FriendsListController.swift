@@ -27,7 +27,8 @@ class FriendsListController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendsListCell", for: indexPath) as! FriendsListCell
-        cell.setData(nick: listOfUsersDemo[indexPath.row].nickname, avatar: listOfUsersDemo[indexPath.row].avatar)
+        cell.addAvatarView(avatar: listOfUsersDemo[indexPath.row].avatar)
+        cell.setLabel(nick: listOfUsersDemo[indexPath.row].nickname)
         return cell
     }
     

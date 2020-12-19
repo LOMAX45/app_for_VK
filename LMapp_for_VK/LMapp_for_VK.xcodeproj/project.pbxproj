@@ -12,6 +12,8 @@
 		5018E0E52583A50200B82274 /* FriendPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018E0E42583A50200B82274 /* FriendPhotoCell.swift */; };
 		5018E0E92583A53F00B82274 /* FriendPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018E0E82583A53F00B82274 /* FriendPhotoController.swift */; };
 		5018E0EE2583A73200B82274 /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5018E0ED2583A73200B82274 /* UserClass.swift */; };
+		503CF0E6258B5E47008AC9D7 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CF0E5258B5E47008AC9D7 /* AvatarView.swift */; };
+		505C6202258CD42700BE727B /* BackGroundAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505C6201258CD42700BE727B /* BackGroundAvatarView.swift */; };
 		50EF397E258770B400E80D78 /* CurrentUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF397D258770B400E80D78 /* CurrentUserView.swift */; };
 		50EF39822587823B00E80D78 /* StartScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF39812587823B00E80D78 /* StartScreenController.swift */; };
 		50EF39892587A07E00E80D78 /* GroupInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF39882587A07E00E80D78 /* GroupInfoController.swift */; };
@@ -35,6 +37,8 @@
 		5018E0E42583A50200B82274 /* FriendPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCell.swift; sourceTree = "<group>"; };
 		5018E0E82583A53F00B82274 /* FriendPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoController.swift; sourceTree = "<group>"; };
 		5018E0ED2583A73200B82274 /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
+		503CF0E5258B5E47008AC9D7 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		505C6201258CD42700BE727B /* BackGroundAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundAvatarView.swift; sourceTree = "<group>"; };
 		50EF397D258770B400E80D78 /* CurrentUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserView.swift; sourceTree = "<group>"; };
 		50EF39812587823B00E80D78 /* StartScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenController.swift; sourceTree = "<group>"; };
 		50EF39882587A07E00E80D78 /* GroupInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		504E540D258CC5E20075D76A /* Customs */ = {
+			isa = PBXGroup;
+			children = (
+				503CF0E5258B5E47008AC9D7 /* AvatarView.swift */,
+				505C6201258CD42700BE727B /* BackGroundAvatarView.swift */,
+			);
+			path = Customs;
+			sourceTree = "<group>";
+		};
 		50EF3980258781E900E80D78 /* LoginForm */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +143,7 @@
 		C13370EC25797EA2001A2A86 /* LMapp_for_VK */ = {
 			isa = PBXGroup;
 			children = (
+				504E540D258CC5E20075D76A /* Customs */,
 				50EF3984258785A100E80D78 /* GroupInfo */,
 				50EF3980258781E900E80D78 /* LoginForm */,
 				C1D487B9258574A8001EC6E4 /* Groups */,
@@ -242,12 +256,14 @@
 				C1D487BF258574DE001EC6E4 /* GroupsCell.swift in Sources */,
 				C1D487B7258574A2001EC6E4 /* UserGroupsCell.swift in Sources */,
 				C13370EE25797EA2001A2A86 /* AppDelegate.swift in Sources */,
+				503CF0E6258B5E47008AC9D7 /* AvatarView.swift in Sources */,
 				C13370F025797EA2001A2A86 /* SceneDelegate.swift in Sources */,
 				50EF39892587A07E00E80D78 /* GroupInfoController.swift in Sources */,
 				50EF39822587823B00E80D78 /* StartScreenController.swift in Sources */,
 				C1D487C2258574FA001EC6E4 /* GroupClass.swift in Sources */,
 				50EF397E258770B400E80D78 /* CurrentUserView.swift in Sources */,
 				5018E0E92583A53F00B82274 /* FriendPhotoController.swift in Sources */,
+				505C6202258CD42700BE727B /* BackGroundAvatarView.swift in Sources */,
 				5018E0D92583A1E600B82274 /* FriendsListController.swift in Sources */,
 				5018E0EE2583A73200B82274 /* UserClass.swift in Sources */,
 				5018E0DD2583A1FE00B82274 /* FriendsListCell.swift in Sources */,
