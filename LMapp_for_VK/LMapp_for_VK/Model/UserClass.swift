@@ -13,7 +13,8 @@ enum Gender {
     case unspecified
 }
 
-class User {
+class User: Equatable, Comparable{
+    
     var nickname: String
     var password: String
     var name: String
@@ -25,9 +26,10 @@ class User {
     var age: UInt16
     var gender: Gender
     var avatar: UIImage
+    var photosLibrary: [UIImage]
     var memberOf: [Group]
     
-    init(nickname: String, name: String, familyName: String, emailAddress: String, dayOfBorn: UInt8, monthOfBorn: UInt8, yearOfBorn: UInt16, avatar: UIImage) {
+    init(nickname: String, name: String, familyName: String, emailAddress: String, dayOfBorn: UInt8, monthOfBorn: UInt8, yearOfBorn: UInt16, avatar: UIImage, photosLibrary: [UIImage]) {
         self.nickname = nickname
         self.password = " "
         self.name = name
@@ -39,6 +41,7 @@ class User {
         self.gender = Gender.unspecified
         self.age = UInt16((Date().description.split(separator: "-"))[0])! - yearOfBorn
         self.avatar = avatar
+        self.photosLibrary = photosLibrary
         self.memberOf = []
     }
     
@@ -54,6 +57,7 @@ class User {
         self.gender = Gender.unspecified
         self.age = UInt16((Date().description.split(separator: "-"))[0])! - yearOfBorn
         self.avatar = avatar
+        self.photosLibrary = []
         self.memberOf = memberOf
     }
     
@@ -69,7 +73,16 @@ class User {
         self.gender = Gender.unspecified
         self.age = 0
         self.avatar = UIImage(systemName: "person")!
+        self.photosLibrary = []
         self.memberOf = []
+    }
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.nickname == rhs.nickname
+    }
+    
+    static func < (lhs: User, rhs: User) -> Bool {
+        lhs.nickname < rhs.nickname
     }
     
     func check (inputedLogin: String, inputedPassword: String) -> Bool {
@@ -111,6 +124,14 @@ class User {
     
     func updatePersonalData (avatar: UIImage) {
         self.avatar = avatar
+    }
+    
+    func addPhoto (photo: UIImage) {
+        self.photosLibrary.append(photo)
+    }
+    
+    func removePhoto (photoId: Int) {
+        self.photosLibrary.remove(at: photoId)
     }
     
 }

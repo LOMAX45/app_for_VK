@@ -11,10 +11,14 @@ class UserGroupsCell: UITableViewCell {
     @IBOutlet weak var avatarPicture: UIImageView! {
         didSet {
             avatarPicture.layer.cornerRadius = 28
-            avatarPicture.layer.masksToBounds = true
         }
     }
+
+    @IBOutlet weak var backGroundView: BackGroundAvatarView!
+    
     @IBOutlet weak var groupName: UILabel!
+    
+    
     
     func setData (name: String, image: UIImage) {
         avatarPicture.image = image

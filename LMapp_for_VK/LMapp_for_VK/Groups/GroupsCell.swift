@@ -9,12 +9,19 @@ import UIKit
 
 class GroupsCell: UITableViewCell {
 
+
+    @IBOutlet weak var backGroundView: BackGroundAvatarView!
+    @IBOutlet weak var avatarImage: UIImageView! {
+        didSet {
+            layer.cornerRadius = 28
+        }
+    }
     @IBOutlet weak var groupName: UILabel!
-    @IBOutlet weak var logoView: AvatarView!
+
     
     func setData(name: String, avatar: UIImage) {
         groupName.text = name
-        logoView.setImage(avatar)
+        avatarImage.image = avatar
     }
 
 }
