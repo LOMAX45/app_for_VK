@@ -9,15 +9,14 @@
 //
 //class ChoosingLetter: UIControl {
 //    
-//    var existingLetters:[String] = []
+////    var existingLetters:[String] = []
 //
 //    func collectLetters() -> [String] {
 //        var letters:Set<Character> = []
-//        for user in listOfUsersDemo {
+//        for user in listOfUsers {
 //            letters.insert(user.nickname.first!)
 //        }
-//        existingLetters = letters.map({String($0)}).sorted()
-//        return existingLetters
+//        return letters.map({String($0)}).sorted()
 //    }
 //
 //    var selectedLetter:String? = nil {
@@ -26,9 +25,10 @@
 //            self.sendActions(for: .valueChanged)
 //        }
 //    }
-//
+//    
 //    private var buttons:[UIButton] = []
 //    private var stackView: UIStackView!
+//    
 //
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
@@ -41,8 +41,7 @@
 //    }
 //
 //    private func setupView() {
-//        self.collectLetters()
-//        for letter in existingLetters {
+//        for letter in collectLetters() {
 //            let button = UIButton(type: .system)
 //            button.setTitle(letter, for: .normal)
 //            button.setTitleColor(.lightGray, for: .normal)
@@ -63,7 +62,7 @@
 //
 //        private func updateSelectedLetter() {
 //            for (index, button) in self.buttons.enumerated() {
-//                let letter = existingLetters[index]
+//                let letter = collectLetters()[index]
 //                button.isSelected = letter == self.selectedLetter
 //            }
 //        }
@@ -75,7 +74,7 @@
 //
 //    @objc private func selectLetter(_ sender: UIButton) {
 //        guard let index = self.buttons.firstIndex(of: sender) else { return }
-//        let letter = existingLetters[index]
+//        let letter = collectLetters()[index]
 //        self.selectedLetter = letter
 //
 //    }

@@ -10,20 +10,13 @@ import UIKit
 class UserGroupsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userGroupsDemo = currentUser.memberOf
+    var checkReload = false
+    
     
     @IBOutlet weak var tableView: UITableView!
     
-    private func alerting (title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // Создаем кнопку для UIAlertController
-        let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-        // Добавляем кнопку на UIAlertController
-        alert.addAction(action)
-        // Показываем UIAlertController
-        present(alert, animated: true, completion: nil)
-    }
-    
     @IBAction func addGroup(segue: UIStoryboardSegue) {
+        
         if segue.identifier == "addGroup" {
             guard let groupsController = segue.source as? GroupsController else {
                 return
@@ -34,7 +27,7 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
                     userGroupsDemo.append(group)
                     tableView.reloadData()
                 } else {
-                    alerting(title: "", message: "Вы уже состоите в сообществе")
+                    alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
                 }
             }
         }
@@ -45,6 +38,11 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        if checkReload == true {
+            userGroupsDemo = currentUser.memberOf
+            tableView.reloadData()
+        }
 
     }
     
@@ -68,6 +66,8 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGroupInfo" {
