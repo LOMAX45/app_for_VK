@@ -7,11 +7,11 @@
 
 import UIKit
 
-@IBDesignable class AvatarView: UIView {
+class AvatarView: UIView {
     
-    @IBInspectable var shadowColor:UIColor = .black
-    @IBInspectable var shadowOpacity:Float = 1
-    @IBInspectable var shadowRadius: CGFloat = 5
+    var shadowColor:UIColor = .black
+    var shadowOpacity:Float = 1
+    var shadowRadius: CGFloat = 5
     
     var imageView: UIImageView? = nil
     

@@ -16,21 +16,27 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if segue.identifier == "addGroup" {
-            guard let groupController = segue.source as? GroupsController else { return }
             
-            if groupController.typeOfCell == "groupCell" {
-                if let indexPath = groupController.tableView.indexPathForSelectedRow {
-                    let group = groupsDemo[indexPath.row]
-                    if !userGroupsDemo.contains(group) {
-                        userGroupsDemo.append(group)
-                        tableView.reloadData()
-                    } else {
-                        alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
+            if let groupController = segue.source as? GroupsController {
+                if groupController.typeOfCell == "groupCell" {
+                    if let indexPath = groupController.tableView.indexPathForSelectedRow {
+                        let group = groupsDemo[indexPath.row]
+                        if !userGroupsDemo.contains(group) {
+                            userGroupsDemo.append(group)
+                            tableView.reloadData()
+                        } else {
+                            alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
+                        }
                     }
+                } else {
+                    userGroupsDemo = currentUser.memberOf
+                    tableView.reloadData()
                 }
-            } else {
+            } else if let groupInfoController = segue.source as? GroupInfoController {
                 userGroupsDemo = currentUser.memberOf
                 tableView.reloadData()
+            } else {
+                return
             }
             
         }
@@ -41,7 +47,6 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
-        
 
     }
     

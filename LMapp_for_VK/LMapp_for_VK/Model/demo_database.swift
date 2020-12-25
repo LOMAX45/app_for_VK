@@ -60,3 +60,10 @@ var groupsDemo: [Group] = [
 var demoUserMemberOf: [Group] = [groupsDemo[6], groupsDemo[8], groupsDemo[9]]
 
 var demoUser = User(nickname: "lomax45", password: "password", name: "Максим", familyName: "Лосев", emailAddress: "maxim.losev@geekbrains.ru", dayOfBorn: 02, monthOfBorn: 06, yearOfBorn: 1988, avatar: (UIImage(named: "avatar"))!, memberOf: demoUserMemberOf)
+
+var demoNews: [News] = [
+    News(header: "«КиноПоиск HD» представил рейтинг популярных фильмов 2020 года",
+         body: "Фильм британского режиссера Гая Ричи «Джентльмены» стал самой популярной картиной по версии пользователей «Кинопоиск HD». Криминальная комедия вышла в кинотеатрах в феврале 2020 года, позднее она появилась на платформе «КиноПоиска».",
+         pictures: [UIImage(named: "news1_img1")!, UIImage(named: "news1_img2")!, UIImage(named: "news1_img3")!, UIImage(named: "news1_img4")!],
+         comments: ["Кинцо отпад", "Еще не смотрел", "А сколько собрал в кинотеатрах?"])
+]

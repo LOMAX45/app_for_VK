@@ -17,7 +17,6 @@ class FriendsListCell: UITableViewCell {
     }
     @IBOutlet weak var nickLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
-
     
     func setData (nick: String, info: String, avatar: UIImage) {
         nickLabel.text = nick
@@ -25,6 +24,4 @@ class FriendsListCell: UITableViewCell {
         avatarImage.image = avatar
     }
     
-    
-
 }

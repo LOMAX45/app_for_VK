@@ -11,10 +11,10 @@ class FriendsListController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var sections: [String : [User]] = [:]
     var keys: [String] = []
-    var filteredArray: [User] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,7 @@ class FriendsListController: UIViewController {
             }
         }
         keys = Array(sections.keys).sorted(by: <)
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,9 +56,19 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         return keys
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return keys[section]
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.layer.bounds.width, height: 32))
+        let textLabel = UILabel(frame: CGRect(x: 32, y: 0, width: tableView.layer.bounds.width - 64, height: 32))
+        headerView.addSubview(textLabel)
+        headerView.backgroundColor = UIColor.systemGray6
+        headerView.layer.opacity = 0.5
+        textLabel.text = keys[section]
+        return headerView
     }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return keys[section]
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let key = keys[section]
@@ -87,15 +98,20 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension FriendsListController: UISearchBarDelegate {
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        <#code#>
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        filteredArray = listOfUsers
+//
+//        if searchText.isEmpty == false {
+//            filteredArray = listOfUsers.filter({ $0.nickname.contains(searchText) })
+//        }
+//    }
+//
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        self.searchBar.endEditing(true)
 //    }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-         filteredArray = listOfUsers
-        
-        if searchText.isEmpty == false {
-            filteredArray = filteredArray.filter({ $0.nickname.contains(searchText) })
-        }
-    }
 }

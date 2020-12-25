@@ -7,11 +7,11 @@
 
 import UIKit
 
-@IBDesignable class BackGroundAvatarView: UIView {
+class BackGroundAvatarView: UIView {
     
-    @IBInspectable var shadowColor:UIColor = UIColor.black
-    @IBInspectable var shadowRadius:CGFloat = 5
-    @IBInspectable var shadowOpacity:Float = 1
+    var shadowColor:UIColor = UIColor.black
+    var shadowRadius:CGFloat = 5
+    var shadowOpacity:Float = 1
         
     override func draw(_ rect: CGRect) {
         layer.shadowColor = shadowColor.cgColor
