@@ -10,26 +10,29 @@ import UIKit
 class UserGroupsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userGroupsDemo = currentUser.memberOf
-    var checkReload = false
     
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
-        
         if segue.identifier == "addGroup" {
-            guard let groupsController = segue.source as? GroupsController else {
-                return
-            }
-            if let indexPath = groupsController.tableView.indexPathForSelectedRow {
-                let group = groupsDemo[indexPath.row]
-                if !userGroupsDemo.contains(group) {
-                    userGroupsDemo.append(group)
-                    tableView.reloadData()
-                } else {
-                    alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
+            guard let groupController = segue.source as? GroupsController else { return }
+            
+            if groupController.typeOfCell == "groupCell" {
+                if let indexPath = groupController.tableView.indexPathForSelectedRow {
+                    let group = groupsDemo[indexPath.row]
+                    if !userGroupsDemo.contains(group) {
+                        userGroupsDemo.append(group)
+                        tableView.reloadData()
+                    } else {
+                        alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
+                    }
                 }
+            } else {
+                userGroupsDemo = currentUser.memberOf
+                tableView.reloadData()
             }
+            
         }
     }
     
@@ -39,10 +42,6 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         
-        if checkReload == true {
-            userGroupsDemo = currentUser.memberOf
-            tableView.reloadData()
-        }
 
     }
     
@@ -74,9 +73,8 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
             if let indexPath = tableView.indexPathForSelectedRow {
                 let group = userGroupsDemo[indexPath.row]
                 let groupInfoController = segue.destination as! GroupInfoController
-                groupInfoController.selectedGroup.append(group)
+                groupInfoController.selectedGroup = group
             }
         }
     }
-    
 }

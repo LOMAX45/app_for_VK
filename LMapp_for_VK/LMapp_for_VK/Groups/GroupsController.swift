@@ -35,30 +35,34 @@ class GroupsController: UIViewController, UITableViewDataSource, UITableViewDele
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "templateGroupCell") as! TemplateGroupCell
-                
                 let index = indexPath.row
-                
                 cell.setData(name: groupsDemo[index].name, avatar: groupsDemo[index].avatar)
                 return cell
             }
         }
     
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "groupInfo") as! GroupInfoController
+        
+        let index = indexPath.row
+        
+        controller.selectedGroup = groupsDemo[index]
+        show(controller, sender: nil)
+        
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if typeOfCell == "templateGroupCell" {
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateViewController(identifier: "UserGroupsController") as! UserGroupsController
-            
             let index = indexPath.row
             let group = groupsDemo[index]
             if  currentUser.memberOf.contains(group) {
                 alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
             } else {
                 currentUser.memberOf.append(group)
-                controller.checkReload = true
-                show(controller, sender: nil)
+                performSegue(withIdentifier: "addGroup", sender: nil)
             }
             
         }

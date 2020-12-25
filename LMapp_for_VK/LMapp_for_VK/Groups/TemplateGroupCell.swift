@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TemplateGroupCellDelegate  {
+    func templateGroupCellButtonPressed(_ sender: Any)
+}
+
 class TemplateGroupCell: UITableViewCell {
 
     @IBOutlet weak var shadowView: BackGroundAvatarView!
@@ -29,5 +33,5 @@ class TemplateGroupCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
 }

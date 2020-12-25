@@ -14,6 +14,7 @@ class FriendsListController: UIViewController {
     
     var sections: [String : [User]] = [:]
     var keys: [String] = []
+    var filteredArray: [User] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,4 +84,18 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+}
+
+extension FriendsListController: UISearchBarDelegate {
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        <#code#>
+//    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+         filteredArray = listOfUsers
+        
+        if searchText.isEmpty == false {
+            filteredArray = filteredArray.filter({ $0.nickname.contains(searchText) })
+        }
+    }
 }
