@@ -15,13 +15,8 @@ class FriendsListController: UIViewController {
     
     var sections: [String : [User]] = [:]
     var keys: [String] = []
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.dataSource = self
-        tableView.delegate = self
-        
+    
+    func sort() {
         listOfUsers.forEach { user in
             let firstletter = String(user.nickname.first!)
             if sections[firstletter] != nil {
@@ -31,6 +26,15 @@ class FriendsListController: UIViewController {
             }
         }
         keys = Array(sections.keys).sorted(by: <)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        sort()
         
     }
 
@@ -98,20 +102,44 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension FriendsListController: UISearchBarDelegate {
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        filteredArray = listOfUsers
-//
-//        if searchText.isEmpty == false {
-//            filteredArray = listOfUsers.filter({ $0.nickname.contains(searchText) })
-//        }
-//    }
-//
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        self.searchBar.endEditing(true)
-//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchText.isEmpty == false {
+            
+            sections = [:]
+            keys = []
+            
+            listOfUsers.forEach { user in
+                if user.nickname.starts(with: searchText) {
+                    let firstletter = String(user.nickname.first!)
+                    if sections[firstletter] != nil {
+                        sections[firstletter]?.append(user)
+                    } else {
+                        sections[firstletter] = [user]
+                    }
+                }
+            }
+            keys = Array(sections.keys).sorted(by: <)
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+        searchBar.text = nil
+        sort()
+        tableView.reloadData()
+    }
+
     
 }
