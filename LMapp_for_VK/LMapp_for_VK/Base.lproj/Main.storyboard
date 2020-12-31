@@ -451,8 +451,9 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZP-86-kpL" customClass="BackGroundAvatarView" customModule="LMapp_for_VK" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="4" width="56" height="56"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YZu-59-Wgl">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YZu-59-Wgl">
                                                             <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                                            <gestureRecognizers/>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
@@ -712,7 +713,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vN-jd-Evf" customClass="BackGroundAvatarView" customModule="LMapp_for_VK" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="4" width="56" height="56"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wKa-Za-yXj">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wKa-Za-yXj">
                                                             <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                                         </imageView>
                                                     </subviews>

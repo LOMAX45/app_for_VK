@@ -24,7 +24,26 @@ class AvatarView: UIView {
         
         self.backgroundColor = .clear
         
+        imageView?.isUserInteractionEnabled = true
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(animAvatar(_:)))
+        imageView!.addGestureRecognizer(recognizer)
+        
         self.addSubview(imageView!)
+    }
+    
+    @objc func animAvatar(_ sender: UITapGestureRecognizer) {
+        
+        let animation = CASpringAnimation(keyPath: "transform.scale")
+        animation.fromValue = 0.75
+        animation.toValue = 1
+        animation.stiffness = 200
+        animation.mass = 2
+        animation.duration = 2
+        animation.fillMode = CAMediaTimingFillMode.backwards
+        
+        self.imageView!.layer.add(animation, forKey: "transform.scale")
+        
     }
     
     

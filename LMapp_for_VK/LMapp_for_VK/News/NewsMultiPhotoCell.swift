@@ -39,14 +39,26 @@ class NewsMultiPhotoCell: UITableViewCell {
             likeButton.tintColor = UIColor.systemGray
             numbersOfLikes.textColor = UIColor.systemGray
             demoNews[index].likes -= 1
-            numbersOfLikes.text = "\(demoNews[index].likes)"
+            UIView.transition(with: numbersOfLikes,
+                              duration: 0.5,
+                              options: .transitionFlipFromLeft,
+                              animations: {
+                                self.numbersOfLikes.text = "\(demoNews[self.index].likes)"
+                              },
+                              completion: nil)
         } else {
             demoNews[index].likedBy.append(currentUser)
             likeButton.isSelected = true
             likeButton.tintColor = UIColor.systemRed
             numbersOfLikes.textColor = UIColor.systemRed
             demoNews[index].likes += 1
-            numbersOfLikes.text = "\(demoNews[index].likes)"
+            UIView.transition(with: numbersOfLikes,
+                              duration: 0.5,
+                              options: .transitionFlipFromLeft,
+                              animations: {
+                                self.numbersOfLikes.text = "\(demoNews[self.index].likes)"
+                              },
+                              completion: nil)
         }
     }
     @IBOutlet weak var numbersOfLikes: UILabel!
