@@ -7,9 +7,18 @@
 
 import UIKit
 
-class FriendPhotoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FriendPhotoController: UIViewController {
     
     var photosLibrary:[UIImage] = []
+    
+    var imageView:ShowPhotoImageView? = nil
+    var backgroundView:UIView? = nil
+    var closeButton: UIButton? = nil
+    
+    var row: Int = 0
+    var column: Int = 0
+    
+    let itemSize = UIScreen.main.bounds.width / 3 - 2
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -19,8 +28,6 @@ class FriendPhotoController: UIViewController, UICollectionViewDataSource, UICol
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        let itemSize = UIScreen.main.bounds.width/3 - 3
-        
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         
@@ -28,8 +35,78 @@ class FriendPhotoController: UIViewController, UICollectionViewDataSource, UICol
         layout.minimumLineSpacing = 3
         
         collectionView.collectionViewLayout = layout
-
+        
+        let threeDotLoadingIndicator = ThreeDotLoadingIndicator(frame: CGRect(x: self.view.center.x - 20, y: self.view.bounds.maxY - 120, width: 40, height: 10))
+        self.view.addSubview(threeDotLoadingIndicator)
+        threeDotLoadingIndicator.startAnimation()
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeShowPhotoViewBySwipe(_:)))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
+        
     }
+    
+    func showPhoto(selectedPhoto: Int) {
+        backgroundView = UIView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
+        backgroundView!.backgroundColor = .black
+        backgroundView!.layer.opacity = 0
+        self.view.addSubview(backgroundView!)
+        
+        imageView = ShowPhotoImageView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
+        imageView!.photosLibrary = self.photosLibrary
+        imageView!.selectedPhoto = selectedPhoto
+        imageView!.setImageView()
+        self.view.addSubview(imageView!)
+        
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 1.0,
+                       options: [],
+                       animations: {
+                        self.backgroundView?.frame = self.view.bounds
+                        self.backgroundView?.layer.opacity = 0.75
+                        self.imageView?.frame = CGRect(x: 0, y: self.view.center.y - self.view.bounds.width / 2, width: self.view.bounds.width, height: self.view.bounds.width)
+                        self.imageView?.imageView.frame = self.imageView!.bounds
+                       },
+                       completion: {_ in
+                        self.closeButton = UIButton(type: .custom)
+                        self.closeButton!.frame = CGRect(x: self.view.bounds.width - 40, y: 100, width: 30, height: 30)
+                        self.closeButton?.setImage(UIImage(named: "closeButton"), for: .normal)
+                        self.view.addSubview(self.closeButton!)
+                        self.closeButton!.addTarget(self, action: #selector(self.closeShowPhotoView(_:)), for: .touchUpInside)
+                       })
+    }
+    
+    @objc private func closeShowPhotoView(_ selector: UIButton) {
+        closeAnimation()
+    }
+    
+    @objc private func closeShowPhotoViewBySwipe(_ selector: UISwipeGestureRecognizer) {
+        closeAnimation()
+    }
+    
+    func closeAnimation() {
+        self.closeButton?.removeFromSuperview()
+        
+        UIView.animate(withDuration: 0.3,
+                       animations: {
+                        self.backgroundView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) , y: self.view.safeAreaInsets.bottom + self.itemSize * CGFloat(self.row)), size: CGSize(width: self.itemSize, height: self.itemSize))
+                        self.backgroundView?.alpha = 0
+                        
+                        self.imageView?.alpha = 0.5
+                        self.imageView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) , y: self.view.safeAreaInsets.bottom + self.itemSize * CGFloat(self.row)), size: CGSize(width: self.itemSize, height: self.itemSize))
+                        self.imageView?.imageView.frame = self.imageView!.bounds
+                       },
+                       completion: {_ in
+                        self.imageView?.removeFromSuperview()
+                        self.backgroundView?.removeFromSuperview()
+                       })
+    }
+    
+}
+
+extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photosLibrary.count
@@ -41,4 +118,19 @@ class FriendPhotoController: UIViewController, UICollectionViewDataSource, UICol
         cell.addLikeControl()
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.row < 3 {
+            self.row = 0
+            self.column = indexPath.row
+        } else {
+            self.row = indexPath.row / 3
+            self.column = indexPath.row % 3
+        }
+        
+        showPhoto(selectedPhoto: indexPath.row)
+        
+    }
+    
 }

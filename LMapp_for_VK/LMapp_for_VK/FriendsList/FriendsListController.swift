@@ -16,8 +16,13 @@ class FriendsListController: UIViewController {
     var sections: [String : [User]] = [:]
     var keys: [String] = []
     
-    func sort() {
-        listOfUsers.forEach { user in
+    func resetData() {
+        sections = [:]
+        keys = []
+    }
+    
+    func sort(array: [User]) {
+        array.forEach { user in
             let firstletter = String(user.nickname.first!)
             if sections[firstletter] != nil {
                 sections[firstletter]?.append(user)
@@ -27,17 +32,17 @@ class FriendsListController: UIViewController {
         }
         keys = Array(sections.keys).sorted(by: <)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.dataSource = self
         tableView.delegate = self
         
-        sort()
+        sort(array: listOfUsers)
         
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -69,10 +74,10 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         textLabel.text = keys[section]
         return headerView
     }
-//
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return keys[section]
-//    }
+    //
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        return keys[section]
+    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let key = keys[section]
@@ -108,38 +113,37 @@ extension FriendsListController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
+        
         if searchText.isEmpty == false {
             
-            sections = [:]
-            keys = []
+            resetData()
             
+            var foundedUsers:[User] = []
             listOfUsers.forEach { user in
-                if user.nickname.starts(with: searchText) {
-                    let firstletter = String(user.nickname.first!)
-                    if sections[firstletter] != nil {
-                        sections[firstletter]?.append(user)
-                    } else {
-                        sections[firstletter] = [user]
-                    }
+                if (user.nickname).lowercased().contains(searchText.lowercased()) {
+                    foundedUsers.append(user)
                 }
             }
-            keys = Array(sections.keys).sorted(by: <)
+            
+            sort(array: foundedUsers)
+            
         }
         tableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         searchBar.showsCancelButton = false
         searchBar.text = nil
-        sort()
+        resetData()
+        sort(array: listOfUsers)
         tableView.reloadData()
     }
-
+    
     
 }

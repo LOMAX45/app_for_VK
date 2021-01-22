@@ -21,8 +21,6 @@ class FriendsListCell: UITableViewCell {
     }
     
     
-    
-    
     @IBOutlet weak var nickLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     

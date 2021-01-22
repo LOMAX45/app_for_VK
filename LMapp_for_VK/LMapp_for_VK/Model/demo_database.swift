@@ -39,7 +39,7 @@ var listOfUsers:[User] = [
 
 //var listOfUsersDemo = listOfUsers.sorted()
 
-var currentUser:User = admin
+
 
 let dragon_description = "Драко́н (греч. δράκων) — собирательное название, объединяющее ряд мифологических и фантастических существ. Дракон связан с христианским культом святого Георгия и получил широкое распространение в европейском религиозном искусстве. Традиции Восточной Азии также содержат немало драконообразных персонажей, таких как японский рю (竜), китайский лун (龍), вьетнамский лонг (龍), корейский ён (용) и др.В XX и XXI веках интерес к дракону усилился и продолжает усиливаться. По утверждению В. Н. Дёмина, «идёт драконий бум», у фантастических жанров любых форм — картины, книги, кинематограф, интернет-сайты и компьютерные игры имеют огромное количество поклонников[1]. Дракон нашёл широкое распространение в фэнтези, а также используется в фэншуй и астрологии (год дракона)."
 
@@ -61,15 +61,40 @@ var demoUserMemberOf: [Group] = [groupsDemo[6], groupsDemo[8], groupsDemo[9]]
 
 var demoUser = User(nickname: "lomax45", password: "password", name: "Максим", familyName: "Лосев", emailAddress: "maxim.losev@geekbrains.ru", dayOfBorn: 02, monthOfBorn: 06, yearOfBorn: 1988, avatar: (UIImage(named: "avatar"))!, memberOf: demoUserMemberOf)
 
+var currentUser:User = demoUser
+
 var demoNews: [News] = [
-    News(owner: demoUser,
-         creationDate: "\(Date())",
-         body: "Фильм британского режиссера Гая Ричи «Джентльмены» стал самой популярной картиной по версии пользователей «Кинопоиск HD». Криминальная комедия вышла в кинотеатрах в феврале 2020 года, позднее она появилась на платформе «КиноПоиска».",
-         pictures: [UIImage(named: "news1_img1")!],
-         comments: ["Кинцо отпад", "Еще не смотрел", "А сколько собрал в кинотеатрах?"], likedBy: [demoUser]),
-    News(owner: demoUser,
-         creationDate: "\(Date())",
+    News(owner: randomUser(),
+         creationDate: randomDate(),
+         body: "Amazon официально представил сериал по «Властелину колец». В раме демонстрируется Вторая эпоха истории Средиземья. Как сообщает ToDay News Ufa, действия сюжета описывают времена, которые происходили до появления «Хоббита» и «Властелина колец».",
+         pictures: [UIImage(named: "news0_img1")!],
+         comments: ["Кинцо отпад", "Еще не смотрел", "А сколько собрал в кинотеатрах?"],
+         likedBy: [demoUser]),
+    News(owner: randomUser(),
+         creationDate: randomDate(),
          body: "Фильм британского режиссера Гая Ричи «Джентльмены» стал самой популярной картиной по версии пользователей «Кинопоиск HD». Криминальная комедия вышла в кинотеатрах в феврале 2020 года, позднее она появилась на платформе «КиноПоиска». Фильм британского режиссера Гая Ричи «Джентльмены» стал самой популярной картиной по версии пользователей «Кинопоиск HD». Криминальная комедия вышла в кинотеатрах в феврале 2020 года, позднее она появилась на платформе «КиноПоиска».",
          pictures: [UIImage(named: "news1_img1")!, UIImage(named: "news1_img2")!, UIImage(named: "news1_img3")!, UIImage(named: "news1_img4")!],
-         comments: ["Кинцо отпад", "Еще не смотрел", "А сколько собрал в кинотеатрах?"], likedBy: [])
+         comments: ["Кинцо отпад", "Еще не смотрел", "А сколько собрал в кинотеатрах?"],
+         likedBy: []),
+    News(owner: randomUser(),
+         creationDate: randomDate(),
+         body: "Представители сети «Москино» назвали самые популярные фильмы в кинотеатрах на новогодних праздниках. Фильм «Последний богатырь: Корень зла» посетили около 16 тысяч человек. Ранее сообщалось, что сиквел «Последнего богатыря» заработал в прокате более миллиарда рублей.",
+         pictures: [UIImage(named: "news2_img1")!, UIImage(named: "news2_img2")!],
+         comments: ["Кинцо отпад", "Еще не смотрел", "А сколько собрал в кинотеатрах?"],
+         likedBy: [])
 ]
+
+private func randomUser() -> User {
+    return listOfUsers[Int.random(in: 0..<listOfUsers.count)]
+}
+
+private func randomDate() -> String {
+    let hour = Int.random(in: 0..<24)
+    let minute = Int.random(in: 0..<60)
+    let day = Int.random(in: 0..<30)
+    let month = Int.random(in: 1...12)
+    let year = Int.random(in: 2013...2021)
+    
+    let date = "\(hour):\(minute) \(day)-\(month)-\(year)"
+    return date
+}

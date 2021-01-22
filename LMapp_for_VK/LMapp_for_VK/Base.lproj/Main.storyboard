@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Jz-6t-3o5">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -861,7 +861,7 @@
         <!--Friend Photo Controller-->
         <scene sceneID="LnN-Kl-UlC">
             <objects>
-                <viewController id="efD-C0-W52" customClass="FriendPhotoController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FriendPhotoController" id="efD-C0-W52" customClass="FriendPhotoController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YnS-mb-Kl6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -975,7 +975,7 @@
         <!--Друзья-->
         <scene sceneID="tWR-rf-GFD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Ej-zR-xWN" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Ej-zR-xWN" customClass="CustomNavigationController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person" catalog="system" id="Yhw-fI-fv9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QQc-7b-XNf">
@@ -994,10 +994,10 @@
         <!--Группы-->
         <scene sceneID="rYi-Cg-UlN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="63U-mv-o0j" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="63U-mv-o0j" customClass="CustomNavigationController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Группы" image="person.3" catalog="system" id="8Ga-Q7-IS4"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BmV-61-vBz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BmV-61-vBz" customClass="Custom">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
