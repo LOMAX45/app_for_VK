@@ -30,7 +30,7 @@ class NewsSinglePhotoCell: UITableViewCell {
     @IBAction func likeButtonTapped(_ sender: UIButton) {
 
         if likeButton.isSelected == true {
-            guard let i = demoNews[index].likedBy.firstIndex(of: currentUser) else { return }
+            guard let i = demoNews[index].likedBy.firstIndex(of: Session.instance.currentUser) else { return }
             demoNews[index].likedBy.remove(at: i)
             likeButton.isSelected = false
             likeButton.tintColor = UIColor.systemGray
@@ -44,7 +44,7 @@ class NewsSinglePhotoCell: UITableViewCell {
                               },
                               completion: nil)
         } else {
-            demoNews[index].likedBy.append(currentUser)
+            demoNews[index].likedBy.append(Session.instance.currentUser)
             likeButton.isSelected = true
             likeButton.tintColor = UIColor.systemRed
             numbersOfLikes.textColor = UIColor.systemRed
@@ -86,7 +86,7 @@ class NewsSinglePhotoCell: UITableViewCell {
     }
     
     func setupLikeButton () {
-        if demoNews[index].likedBy.contains(currentUser) {
+        if demoNews[index].likedBy.contains(Session.instance.currentUser) {
             likeButton.isSelected = true
             likeButton.tintColor = UIColor.systemRed
             numbersOfLikes.textColor = UIColor.systemRed

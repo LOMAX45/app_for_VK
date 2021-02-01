@@ -23,8 +23,8 @@ class StartScreenController: UIViewController {
     @IBAction func unwindSegue(sender: UIStoryboardSegue) {}
     
     @IBAction func signOut(segue: UIStoryboardSegue) {
-        if segue.identifier == "signOut" && currentUser.nickname != "admin" {
-            listOfUsers.append(currentUser)
+        if segue.identifier == "signOut" && Session.instance.currentUser.nickname != "admin" {
+            listOfUsers.append(Session.instance.currentUser)
         }
     }
     

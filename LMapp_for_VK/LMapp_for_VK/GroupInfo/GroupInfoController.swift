@@ -19,7 +19,7 @@ class GroupInfoController: UIViewController {
     
     private func addAddButton () {
         
-        guard !currentUser.memberOf.contains(selectedGroup) else { return }
+        guard !Session.instance.currentUser.memberOf.contains(selectedGroup) else { return }
         
 //        let addButton = UIBarButtonItem(barButtonSystemItem: .save , target: self, action: #selector(addGroup(_:)))
         
@@ -30,7 +30,7 @@ class GroupInfoController: UIViewController {
     }
     
     @objc private func addGroup(_ sender: UIBarButtonItem) {
-        currentUser.memberOf.append(selectedGroup)
+        Session.instance.currentUser.memberOf.append(selectedGroup)
         performSegue(withIdentifier: "addGroup", sender: nil)
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let controller = storyboard.instantiateViewController(withIdentifier: "UserGroupsController")
