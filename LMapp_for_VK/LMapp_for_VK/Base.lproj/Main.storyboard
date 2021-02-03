@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jEm-pT-C5X">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -83,6 +83,133 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="723" y="479"/>
+        </scene>
+        <!--Start Network Controller-->
+        <scene sceneID="5yQ-4l-BRB">
+            <objects>
+                <viewController storyboardIdentifier="StartNetworkController" id="jEm-pT-C5X" customClass="StartNetworkController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wEx-YA-eBP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nmO-IV-06A">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9An-Dl-0yp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nmO-IV-06A" firstAttribute="top" secondItem="9An-Dl-0yp" secondAttribute="top" id="5qh-0I-kFI"/>
+                            <constraint firstItem="nmO-IV-06A" firstAttribute="leading" secondItem="9An-Dl-0yp" secondAttribute="leading" id="JNi-ax-3P7"/>
+                            <constraint firstItem="9An-Dl-0yp" firstAttribute="bottom" secondItem="nmO-IV-06A" secondAttribute="bottom" id="QIv-ee-LXx"/>
+                            <constraint firstItem="9An-Dl-0yp" firstAttribute="trailing" secondItem="nmO-IV-06A" secondAttribute="trailing" id="ts6-Gy-29R"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webview" destination="nmO-IV-06A" id="04K-jA-r57"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f99-DJ-tOw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="722" y="1527"/>
+        </scene>
+        <!--Url Requests Controller-->
+        <scene sceneID="xtH-Xa-wiI">
+            <objects>
+                <viewController storyboardIdentifier="UrlRequestsController" modalPresentationStyle="fullScreen" id="cUf-nj-2hq" customClass="UrlRequestsController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vpy-bP-CAH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXJ-4q-9rd">
+                                <rect key="frame" x="32" y="109.5" width="311" height="48"/>
+                                <color key="backgroundColor" red="0.31737896799999998" green="0.45074021819999999" blue="0.64316034320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="35g-0F-uQU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Список друзей">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="getFriendList:" destination="cUf-nj-2hq" eventType="touchUpInside" id="yiy-yw-BTB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CaT-8c-vmg">
+                                <rect key="frame" x="32" y="243" width="311" height="48"/>
+                                <color key="backgroundColor" red="0.31737896799999998" green="0.45074021819999999" blue="0.64316034320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="Ydk-eD-INw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Фото">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="getPhotos:" destination="cUf-nj-2hq" eventType="touchUpInside" id="an8-RR-eTz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuC-ut-jvB">
+                                <rect key="frame" x="32" y="375" width="311" height="50"/>
+                                <color key="backgroundColor" red="0.31737896799999998" green="0.45074021819999999" blue="0.64316034320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="FxG-xN-TcD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Список групп">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="getGroupsList:" destination="cUf-nj-2hq" eventType="touchUpInside" id="3Ok-3o-WQM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSB-wg-ITg">
+                                <rect key="frame" x="32" y="508.5" width="311" height="50"/>
+                                <color key="backgroundColor" red="0.31737896799999998" green="0.45074021819999999" blue="0.64316034320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oCR-QY-qIr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Поиск групп">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchGroups:" destination="cUf-nj-2hq" eventType="touchUpInside" id="h5s-iQ-bdn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zlB-S3-9nG"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <constraints>
+                            <constraint firstItem="tXJ-4q-9rd" firstAttribute="centerY" secondItem="zlB-S3-9nG" secondAttribute="centerY" multiplier="0.4" id="98U-Q1-AjD"/>
+                            <constraint firstItem="CSB-wg-ITg" firstAttribute="centerY" secondItem="zlB-S3-9nG" secondAttribute="centerY" multiplier="1.6" id="NY9-Kn-fgW"/>
+                            <constraint firstItem="CaT-8c-vmg" firstAttribute="leading" secondItem="zlB-S3-9nG" secondAttribute="leading" constant="32" id="SHr-0f-kvg"/>
+                            <constraint firstItem="CaT-8c-vmg" firstAttribute="centerY" secondItem="zlB-S3-9nG" secondAttribute="centerY" multiplier="0.8" id="Xp6-ed-6ue"/>
+                            <constraint firstItem="zlB-S3-9nG" firstAttribute="trailing" secondItem="tXJ-4q-9rd" secondAttribute="trailing" constant="32" id="YOs-vv-lXT"/>
+                            <constraint firstItem="zlB-S3-9nG" firstAttribute="trailing" secondItem="CSB-wg-ITg" secondAttribute="trailing" constant="32" id="eW7-Aa-GJ1"/>
+                            <constraint firstItem="tXJ-4q-9rd" firstAttribute="leading" secondItem="zlB-S3-9nG" secondAttribute="leading" constant="32" id="fn5-Px-UCs"/>
+                            <constraint firstItem="zlB-S3-9nG" firstAttribute="trailing" secondItem="CaT-8c-vmg" secondAttribute="trailing" constant="32" id="pLi-3h-Bra"/>
+                            <constraint firstItem="NuC-ut-jvB" firstAttribute="leading" secondItem="zlB-S3-9nG" secondAttribute="leading" constant="32" id="raX-uw-jTA"/>
+                            <constraint firstItem="NuC-ut-jvB" firstAttribute="centerY" secondItem="zlB-S3-9nG" secondAttribute="centerY" multiplier="1.2" id="uWF-Zy-Ze9"/>
+                            <constraint firstItem="zlB-S3-9nG" firstAttribute="trailing" secondItem="NuC-ut-jvB" secondAttribute="trailing" constant="32" id="v30-hD-f4a"/>
+                            <constraint firstItem="CSB-wg-ITg" firstAttribute="leading" secondItem="zlB-S3-9nG" secondAttribute="leading" constant="32" id="whf-GF-uOb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="friendsListButton" destination="tXJ-4q-9rd" id="qYY-Ir-Cl7"/>
+                        <outlet property="groupsListButton" destination="NuC-ut-jvB" id="tGQ-HM-rxW"/>
+                        <outlet property="photoLibraryButton" destination="CaT-8c-vmg" id="jtj-kh-7bA"/>
+                        <outlet property="searchGroupsButton" destination="CSB-wg-ITg" id="wgS-Vq-PYL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tHy-Uk-hZh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1591" y="1527"/>
         </scene>
         <!--Login Form Controller-->
         <scene sceneID="CYL-j4-lqC">
@@ -1037,6 +1164,9 @@
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
