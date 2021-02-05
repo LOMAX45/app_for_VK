@@ -8,6 +8,7 @@
 import Foundation
 import WebKit
 
+//Создаем перечисление, чтобы не вводить методы вручную
 enum ApiMethods: String {
     case getFriends = "/method/users.get"
     case getPhotos = "/method/photos.getAll"
@@ -18,6 +19,9 @@ enum ApiMethods: String {
 
 class NetworkManager {
     
+    var searchText: String = ""
+    
+    //Фукция WEB авторизации из методички
     func authorize(_ webView: WKWebView) {
         var urlAuthorize = URLComponents()
         urlAuthorize.scheme = "https"
@@ -40,6 +44,7 @@ class NetworkManager {
         
     }
     
+    //Фукция создания шаблона URL
     private func createApiUrlTemplate(method: ApiMethods) -> URLComponents {
         var urlApi = URLComponents()
         urlApi.scheme = "https"
@@ -53,7 +58,7 @@ class NetworkManager {
         return urlApi
     }
     
-    
+    //Фукция получения данных в зависимости от метода
     func getData(method: ApiMethods, compltionHandler: @escaping (Any) -> ()) {
         //создаем URL для указанного метода
         var url:URL? = nil
@@ -74,7 +79,7 @@ class NetworkManager {
             url = getGroupsListConstructor.url
         case .searchGroups:
             var searchGroupsConstructor = createApiUrlTemplate(method: method)
-            searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "q", value: "Киномания"), at: 0)
+            searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "q", value: searchText), at: 0)
             searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "type", value: "group"), at: 1)
             searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "5"), at: 1)
             url = searchGroupsConstructor.url
@@ -83,8 +88,15 @@ class NetworkManager {
         if url != nil {
             let session = URLSession.shared
             let task = session.dataTask(with: url!) { (data, response, error) in
-                let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                     compltionHandler(json)
+                } catch {
+                    print(error.localizedDescription)
+                }
+                
+                
             }
             task.resume()
         }

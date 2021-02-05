@@ -15,6 +15,7 @@ class FriendPhotoController: UIViewController {
     var backgroundView:UIView? = nil
     var closeButton: UIButton? = nil
     
+    var index: Int = 0
     var row: Int = 0
     var column: Int = 0
     
@@ -89,6 +90,12 @@ class FriendPhotoController: UIViewController {
     func closeAnimation() {
         self.closeButton?.removeFromSuperview()
         
+        if self.imageView?.selectedPhoto != nil {
+            self.index = (self.imageView?.selectedPhoto)!
+        } else { return }
+        
+        controlPosition(index: self.index)
+        
         UIView.animate(withDuration: 0.3,
                        animations: {
                         self.backgroundView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) + 3, y: self.view.safeAreaInsets.top + self.itemSize * CGFloat(self.row) + 3), size: CGSize(width: self.itemSize, height: self.itemSize))
@@ -102,6 +109,20 @@ class FriendPhotoController: UIViewController {
                         self.imageView?.removeFromSuperview()
                         self.backgroundView?.removeFromSuperview()
                        })
+    }
+    
+    func controlPosition(index: Int) {
+        if index < 3 {
+            self.row = 0
+            self.column = index
+        } else {
+            self.row = index / 3
+            self.column = index % 3
+        }
+    }
+    
+    func updateIndex (index: Int) {
+        self.index = index
     }
     
 }
@@ -121,15 +142,10 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if indexPath.row < 3 {
-            self.row = 0
-            self.column = indexPath.row
-        } else {
-            self.row = indexPath.row / 3
-            self.column = indexPath.row % 3
-        }
+        index = indexPath.row
+        controlPosition(index: index)
         
-        showPhoto(selectedPhoto: indexPath.row)
+        showPhoto(selectedPhoto: index)
         
     }
     
