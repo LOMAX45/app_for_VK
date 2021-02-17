@@ -41,8 +41,11 @@
 		C178793225861F670034030F /* demo_database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178793125861F670034030F /* demo_database.swift */; };
 		C190323725B97EC100AC8334 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C190323625B97EC100AC8334 /* CustomInteractiveTransition.swift */; };
 		C1A6C40025C834BE00156FEB /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C3FF25C834BE00156FEB /* Session.swift */; };
-		C1A6C40425C8952100156FEB /* StartNetworkControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40325C8952100156FEB /* StartNetworkControllerViewController.swift */; };
+		C1A6C40425C8952100156FEB /* StartNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40325C8952100156FEB /* StartNetworkController.swift */; };
 		C1A6C40825C898C100156FEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40725C898C100156FEB /* NetworkManager.swift */; };
+		C1B8788C25DCDD420000A3E9 /* NetUserVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8788B25DCDD420000A3E9 /* NetUserVK.swift */; };
+		C1B8789225DCE33B0000A3E9 /* NetFriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8789125DCE33B0000A3E9 /* NetFriendsListController.swift */; };
+		C1B8789925DD128B0000A3E9 /* NetSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8789825DD128B0000A3E9 /* NetSession.swift */; };
 		C1CE0367259640F6003B1456 /* NewsSinglePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1CE0366259640F6003B1456 /* NewsSinglePhotoCell.xib */; };
 		C1CE036A25964E36003B1456 /* NewsLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE036925964E36003B1456 /* NewsLikeControl.swift */; };
 		C1D487B42585747A001EC6E4 /* UserGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487B32585747A001EC6E4 /* UserGroupsController.swift */; };
@@ -90,8 +93,11 @@
 		C178793125861F670034030F /* demo_database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demo_database.swift; sourceTree = "<group>"; };
 		C190323625B97EC100AC8334 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		C1A6C3FF25C834BE00156FEB /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		C1A6C40325C8952100156FEB /* StartNetworkControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNetworkControllerViewController.swift; sourceTree = "<group>"; };
+		C1A6C40325C8952100156FEB /* StartNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNetworkController.swift; sourceTree = "<group>"; };
 		C1A6C40725C898C100156FEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C1B8788B25DCDD420000A3E9 /* NetUserVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetUserVK.swift; sourceTree = "<group>"; };
+		C1B8789125DCE33B0000A3E9 /* NetFriendsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetFriendsListController.swift; sourceTree = "<group>"; };
+		C1B8789825DD128B0000A3E9 /* NetSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSession.swift; sourceTree = "<group>"; };
 		C1CE0366259640F6003B1456 /* NewsSinglePhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsSinglePhotoCell.xib; sourceTree = "<group>"; };
 		C1CE036925964E36003B1456 /* NewsLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLikeControl.swift; sourceTree = "<group>"; };
 		C1D487B32585747A001EC6E4 /* UserGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsController.swift; sourceTree = "<group>"; };
@@ -214,18 +220,8 @@
 		C13370EC25797EA2001A2A86 /* LMapp_for_VK */ = {
 			isa = PBXGroup;
 			children = (
-				C1A6C40225C894DE00156FEB /* Network */,
-				C1760B9E25B2294E0063F91E /* AnimationsNavigatioController */,
-				5018E0EC2583A6F200B82274 /* Model */,
-				50EF3980258781E900E80D78 /* LoginForm */,
-				50CA14AA2595F27800C43914 /* News */,
-				5018E0D72583A1BE00B82274 /* FriendsList */,
-				5018E0E02583A43200B82274 /* FriendPhoto */,
-				C1D487B22585745C001EC6E4 /* UserGroups */,
-				C1D487B9258574A8001EC6E4 /* Groups */,
-				50EF3984258785A100E80D78 /* GroupInfo */,
-				504E540D258CC5E20075D76A /* Customs */,
-				505C6204258F3CB000BE727B /* Controls */,
+				C1B8789D25DD49DD0000A3E9 /* LocalApp */,
+				C1B8789C25DD49CB0000A3E9 /* NetApp */,
 				C13370EF25797EA2001A2A86 /* SceneDelegate.swift */,
 				C13370ED25797EA2001A2A86 /* AppDelegate.swift */,
 				C13370F325797EA2001A2A86 /* Main.storyboard */,
@@ -251,10 +247,63 @@
 			isa = PBXGroup;
 			children = (
 				C1A6C40725C898C100156FEB /* NetworkManager.swift */,
-				C1A6C40325C8952100156FEB /* StartNetworkControllerViewController.swift */,
+				C1A6C40325C8952100156FEB /* StartNetworkController.swift */,
 				C1D4C61D25C9D25400586559 /* UrlRequestsController.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		C1B8788A25DCDD1E0000A3E9 /* NetDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				C1B8788B25DCDD420000A3E9 /* NetUserVK.swift */,
+				C1B8789825DD128B0000A3E9 /* NetSession.swift */,
+			);
+			path = NetDataModel;
+			sourceTree = "<group>";
+		};
+		C1B8789025DCE31D0000A3E9 /* NetFriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				C1B8789125DCE33B0000A3E9 /* NetFriendsListController.swift */,
+			);
+			path = NetFriendsList;
+			sourceTree = "<group>";
+		};
+		C1B8789525DCE3770000A3E9 /* NetCustomViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetCustomViews;
+			sourceTree = "<group>";
+		};
+		C1B8789C25DD49CB0000A3E9 /* NetApp */ = {
+			isa = PBXGroup;
+			children = (
+				C1A6C40225C894DE00156FEB /* Network */,
+				C1B8788A25DCDD1E0000A3E9 /* NetDataModel */,
+				C1B8789025DCE31D0000A3E9 /* NetFriendsList */,
+				C1B8789525DCE3770000A3E9 /* NetCustomViews */,
+			);
+			path = NetApp;
+			sourceTree = "<group>";
+		};
+		C1B8789D25DD49DD0000A3E9 /* LocalApp */ = {
+			isa = PBXGroup;
+			children = (
+				505C6204258F3CB000BE727B /* Controls */,
+				504E540D258CC5E20075D76A /* Customs */,
+				50EF3984258785A100E80D78 /* GroupInfo */,
+				C1D487B9258574A8001EC6E4 /* Groups */,
+				C1D487B22585745C001EC6E4 /* UserGroups */,
+				5018E0E02583A43200B82274 /* FriendPhoto */,
+				5018E0D72583A1BE00B82274 /* FriendsList */,
+				50CA14AA2595F27800C43914 /* News */,
+				50EF3980258781E900E80D78 /* LoginForm */,
+				5018E0EC2583A6F200B82274 /* Model */,
+				C1760B9E25B2294E0063F91E /* AnimationsNavigatioController */,
+			);
+			path = LocalApp;
 			sourceTree = "<group>";
 		};
 		C1D487B22585745C001EC6E4 /* UserGroups */ = {
@@ -351,8 +400,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1A6C40025C834BE00156FEB /* Session.swift in Sources */,
+				C1B8789925DD128B0000A3E9 /* NetSession.swift in Sources */,
 				50CA14AC2595F29C00C43914 /* NewsController.swift in Sources */,
 				C133710425797F0A001A2A86 /* LoginFormController.swift in Sources */,
+				C1B8789225DCE33B0000A3E9 /* NetFriendsListController.swift in Sources */,
 				50FBADF92592323A001BAA87 /* Alerts.swift in Sources */,
 				C1760BA325B231B40063F91E /* CustomPopAnimator.swift in Sources */,
 				50CA14B32595F47400C43914 /* NewsClass.swift in Sources */,
@@ -360,6 +411,7 @@
 				505C6206258F3CDA00BE727B /* LikeControl.swift in Sources */,
 				505C620A258F70CF00BE727B /* ChoosingLetter.swift in Sources */,
 				C1D487BB258574C9001EC6E4 /* GroupsController.swift in Sources */,
+				C1B8788C25DCDD420000A3E9 /* NetUserVK.swift in Sources */,
 				C178793225861F670034030F /* demo_database.swift in Sources */,
 				C1D4C61E25C9D25400586559 /* UrlRequestsController.swift in Sources */,
 				C1760BA025B229AE0063F91E /* CustomPushAnimator.swift in Sources */,
@@ -376,7 +428,7 @@
 				50EF39892587A07E00E80D78 /* GroupInfoController.swift in Sources */,
 				50EF39822587823B00E80D78 /* StartScreenController.swift in Sources */,
 				C1D487C2258574FA001EC6E4 /* GroupClass.swift in Sources */,
-				C1A6C40425C8952100156FEB /* StartNetworkControllerViewController.swift in Sources */,
+				C1A6C40425C8952100156FEB /* StartNetworkController.swift in Sources */,
 				50EF397E258770B400E80D78 /* CurrentUserView.swift in Sources */,
 				5018E0E92583A53F00B82274 /* FriendPhotoController.swift in Sources */,
 				C11CBDBA2597F074009ABFC7 /* NewsMultiPhotoCell.swift in Sources */,

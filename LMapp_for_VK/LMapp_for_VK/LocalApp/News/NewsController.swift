@@ -13,6 +13,8 @@ class NewsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        demoNews = demoNews.sorted(by: <)
 
         tableView.delegate = self
         tableView.dataSource = self
