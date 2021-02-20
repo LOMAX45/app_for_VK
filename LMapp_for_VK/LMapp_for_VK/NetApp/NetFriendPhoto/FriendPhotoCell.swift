@@ -2,7 +2,7 @@
 //  FriendPhotoCell.swift
 //  LMapp_for_VK
 //
-//  Created by Максим Лосев on 11.12.2020.
+//  Created by Максим Лосев on 19.02.2021.
 //
 
 import UIKit

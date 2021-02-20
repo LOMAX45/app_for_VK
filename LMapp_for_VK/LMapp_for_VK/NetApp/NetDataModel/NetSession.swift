@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class NetSession {
     
@@ -14,6 +15,7 @@ class NetSession {
     var currentUser:UserVK?
     var token:String = ""
     var userId:Int = 0
+    var avatar:UIImage = UIImage(named: "pn-ph2")!
     
     private init(){}
     

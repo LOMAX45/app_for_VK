@@ -1,19 +1,22 @@
 //
-//  FriendsListController.swift
+//  FriendListController.swift
 //  LMapp_for_VK
 //
-//  Created by Максим Лосев on 11.12.2020.
+//  Created by Максим Лосев on 18.02.2021.
 //
 
 import UIKit
 
 class FriendsListController: UIViewController {
     
+    let networkManager = NetworkManager()
+    var friends: [UserVK] = []
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var sections: [String : [User]] = [:]
+    var sections: [String : [UserVK]] = [:]
     var keys: [String] = []
     
     func resetData() {
@@ -21,9 +24,9 @@ class FriendsListController: UIViewController {
         keys = []
     }
     
-    func sort(array: [User]) {
+    func sort(array: [UserVK]) {
         array.forEach { user in
-            let firstletter = String(user.nickname.first!)
+            let firstletter = String(user.firstName.first!)
             if sections[firstletter] != nil {
                 sections[firstletter]?.append(user)
             } else {
@@ -36,22 +39,40 @@ class FriendsListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        networkManager.getData(method: .getFriends) { (friends) in
+            DispatchQueue.main.async {
+                self.friends = friends
+                self.sort(array: friends)
+                self.tableView.reloadData()
+            }
+            
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         
-        sort(array: listOfUsers)
+        
+        //        sort(array: listOfUsers)
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPhoto" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let photosLibrary = sections[keys[indexPath.section]]![indexPath.row].photosLibrary
-                let friendPhotoController = segue.destination as! FriendPhotoController
-                friendPhotoController.photosLibrary = photosLibrary
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "showPhoto" {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    let networkManager = NetworkManager()
+                    let id = friends[indexPath.row].id
+                    networkManager.getData(method: .getPhotos, id: id) { (photos) in
+                        let photosLibrary = photos
+                        let friendPhotoController = segue.destination as! FriendPhotoController
+                        friendPhotoController.photosLibrary = photosLibrary
+                        print(friendPhotoController.photosLibrary)
+                        DispatchQueue.main.async {
+                            friendPhotoController.collectionView.reloadData()
+                        }
+                    }
+                }
             }
         }
-    }
     
 }
 
@@ -74,10 +95,6 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         textLabel.text = keys[section]
         return headerView
     }
-    //
-    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //        return keys[section]
-    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let key = keys[section]
@@ -91,11 +108,19 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         let key = keys[indexPath.section]
         let user = sections[key]![indexPath.row]
         
-        let avatar = user.avatar
-        let nick = user.nickname
-        let info = "\(user.name) \(user.familyName), Возраст: \(user.age)"
+        let nick = user.firstName
+        let info = "\(user.firstName) \(user.lastName)"
         
-        cell.setData(nick: nick, info: info, avatar: avatar)
+        
+        networkManager.getImage(by: user.avatar) { (image) in
+            
+            DispatchQueue.main.async {
+                if let avatar = image as UIImage? {
+                    cell.setData(nick: nick, info: info, avatar: avatar)
+                }
+            }
+            
+        }
         
         return cell
     }
@@ -118,9 +143,9 @@ extension FriendsListController: UISearchBarDelegate {
             
             resetData()
             
-            var foundedUsers:[User] = []
-            listOfUsers.forEach { user in
-                if (user.nickname).lowercased().contains(searchText.lowercased()) {
+            var foundedUsers:[UserVK] = []
+            friends.forEach { user in
+                if (user.firstName).lowercased().contains(searchText.lowercased()) {
                     foundedUsers.append(user)
                 }
             }
@@ -141,9 +166,10 @@ extension FriendsListController: UISearchBarDelegate {
         searchBar.showsCancelButton = false
         searchBar.text = nil
         resetData()
-        sort(array: listOfUsers)
+        sort(array: friends)
         tableView.reloadData()
     }
     
     
 }
+

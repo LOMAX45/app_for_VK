@@ -7,6 +7,7 @@
 
 import Foundation
 import WebKit
+import UIKit
 
 //Создаем перечисление, чтобы не вводить методы вручную
 enum ApiMethods: String {
@@ -20,6 +21,7 @@ enum ApiMethods: String {
 class NetworkManager {
     
     var searchText: String = ""
+    private let imageCache = NSCache<AnyObject, AnyObject>()
     
     //Фукция WEB авторизации из методички
     func authorize(_ webView: WKWebView) {
@@ -58,20 +60,35 @@ class NetworkManager {
         return urlApi
     }
     
-    //Фукция получения данных в зависимости от метода
-    func getData(method: ApiMethods, compltionHandler: @escaping (Any) -> ()) {
+    //Функция получения данных в зависимости от метода
+    func getData(method: ApiMethods, compltionHandler: @escaping ([UserVK]) -> ()) {
         //создаем URL для указанного метода
         var url:URL? = nil
         switch method {
         case .getFriends:
             var getFriendsConstructor = createApiUrlTemplate(method: method)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "nickname, sex, bdate, city, country"), at: 0)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
             url = getFriendsConstructor.url
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        do {
+                            let response = try JSONDecoder().decode(FriendsResponse.self, from: data!).response.items
+                            compltionHandler(response)
+                        } catch {
+                            print(error)
+                        }
+                    } else {
+                        print("Data is nil")
+                    }
+                }
+                task.resume()
+            }
         case .getPhotos:
-            var getPhotosConstructor = createApiUrlTemplate(method: method)
-            getPhotosConstructor.queryItems?.insert(URLQueryItem(name: "owner_id", value: "\(NetSession.instance.userId)"), at: 0)
-            getPhotosConstructor.queryItems?.insert(URLQueryItem(name: "album_id", value: "profile"), at: 1)
-            url = getPhotosConstructor.url
+            return
         case .getGroupsList:
             var getGroupsListConstructor = createApiUrlTemplate(method: method)
             getGroupsListConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "\(NetSession.instance.userId)"), at: 0)
@@ -87,28 +104,95 @@ class NetworkManager {
             var getUserConstructor = createApiUrlTemplate(method: method)
             getUserConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 0)
             url = getUserConstructor.url
-            
-        }
-        
-        if url != nil {
-            let session = URLSession.shared
-            let task = session.dataTask(with: url!) { (data, response, error) in
-                guard let data = data else { return }
-                
-                do {
-                    let user = try JSONDecoder().decode(Response.self, from: data).users[0]
-                    compltionHandler(user)
-                } catch {
-                    print(error)
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        do {
+                            let response = try JSONDecoder().decode(UsersResponse.self, from: data!).response
+                            compltionHandler(response)
+                        } catch {
+                            print(error)
+                        }
+                    } else {
+                        print("Data is nil")
+                    }
                 }
-                
-                
+                task.resume()
             }
-            task.resume()
         }
     }
     
     
+    
+    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping ([PhotoProperties]) -> ()) {
+        
+        //создаем URL для указанного метода
+        var url:URL? = nil
+        switch method {
+        case .getFriends:
+            return
+        case .getPhotos:
+            var getPhotosConstructor = createApiUrlTemplate(method: method)
+            getPhotosConstructor.queryItems?.insert(URLQueryItem(name: "owner_id", value: String(id)), at: 0)
+            url = getPhotosConstructor.url
+            print(getPhotosConstructor)
+            
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        do {
+                            let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response.items[0].sizes
+                            compltionHandler(response)
+                        } catch {
+                            print(error)
+                        }
+                    } else {
+                        print("Data is nil")
+                    }
+                }
+                task.resume()
+            }
+            
+        case .getGroupsList:
+            return
+        case .searchGroups:
+            return
+        case .getUsers:
+            return
+        }
+        
+        func getImage(by urlStr: String, compltionHandler: @escaping (UIImage) -> Void) {
+            guard let url = URL(string: urlStr) else { return }
+            
+            if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
+                compltionHandler(imageFromCache)
+            }
+            
+            if let data = try? Data(contentsOf: url) {
+                let image = UIImage(data: data)
+                imageCache.setObject(image!, forKey: url as AnyObject)
+                compltionHandler(image!)
+            }
+            
+        }
+        
+    }
+    
+    func getImage(by urlStr: String, compltionHandler: @escaping (UIImage) -> Void) {
+        guard let url = URL(string: urlStr) else { return }
+        
+        if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
+            compltionHandler(imageFromCache)
+        }
+        
+        if let data = try? Data(contentsOf: url) {
+            let image = UIImage(data: data)
+            imageCache.setObject(image!, forKey: url as AnyObject)
+            compltionHandler(image!)
+        }
+    }
+
+
 }
-
-

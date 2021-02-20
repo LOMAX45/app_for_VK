@@ -2,7 +2,7 @@
 //  FriendsListCell.swift
 //  LMapp_for_VK
 //
-//  Created by Максим Лосев on 11.12.2020.
+//  Created by Максим Лосев on 18.02.2021.
 //
 
 import UIKit
@@ -12,15 +12,13 @@ class FriendsListCell: UITableViewCell {
     @IBOutlet weak var backGroundView: BackGroundAvatarView!
     @IBOutlet weak var avatarImage: UIImageView! {
         didSet {
-            layer.cornerRadius = 28
-            
+           
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(animAvatar(_:)))
             avatarImage.addGestureRecognizer(recognizer)
             
         }
     }
-    
-    
+        
     @IBOutlet weak var nickLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     
@@ -45,3 +43,4 @@ class FriendsListCell: UITableViewCell {
     }
     
 }
+
