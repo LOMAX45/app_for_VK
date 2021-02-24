@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-LMapp_for_VK/Pods-LMapp_for_VK-frameworks.sh
-${BUILT_PRODUCTS_DIR}/AnyCodable-FlightSchool/AnyCodable.framework
+${BUILT_PRODUCTS_DIR}/Realm/Realm.framework
+${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework

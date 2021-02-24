@@ -16,20 +16,21 @@ class StartNetworkController: UIViewController {
         }
     }
     
+    var friends:[UserVK] = []
+    let networkManager = NetworkManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let networkManager = NetworkManager()
+
         networkManager.authorize(webview)
         
     }
     
     private func getCurrentUser(toVC: String) {
-        let networkManager = NetworkManager()
         networkManager.getData(method: .getUsers) { (users) in
             NetSession.instance.currentUser = users[0]
             guard let url = NetSession.instance.currentUser?.avatar else { return }
-            networkManager.getImage(by: url) { (avatar) in
+            self.networkManager.getImage(by: url) { (avatar) in
                 NetSession.instance.avatar = avatar
             }
         }
@@ -38,6 +39,14 @@ class StartNetworkController: UIViewController {
         let controller = storyboard.instantiateViewController(identifier: toVC)
         show(controller, sender: nil)
         
+    }
+    
+    private func getFriends() {
+        networkManager.getData(method: .getFriends) { (friends) in
+            self.friends = friends
+            let friendsDb = UsersDB()
+            self.friends.forEach({ friendsDb.write($0.toUserVkDb()) })
+        }
     }
     
 }
@@ -68,6 +77,7 @@ extension StartNetworkController: WKNavigationDelegate {
         
         print("USER IS IS \(NetSession.instance.userId)")
         
+        getFriends()
         getCurrentUser(toVC: "LoggedOnController")
         
         decisionHandler(.cancel)

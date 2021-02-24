@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct PhotosResponse: Codable {
     let response:ItemsPhoto
@@ -21,4 +22,6 @@ struct Sizes: Codable {
 
 struct PhotoProperties: Codable {
     let url: String
+    let type: String
 }
+

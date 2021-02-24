@@ -9,7 +9,18 @@ import UIKit
 
 class FriendPhotoController: UIViewController {
     
-    var photosLibrary:[PhotoProperties] = []
+    var photosLibraryA:[String:String] = [:]
+    
+    private func toDict (array: [PhotoProperties]) {
+        photosLibraryA = [:]
+        array.forEach { (property) in
+            let type = property.type
+            let url = property.url
+            photosLibraryA[type] = url
+        }
+    }
+    
+    var photosLibrary:[Sizes] = []
     let networkManager = NetworkManager()
     
     var imageView:ShowPhotoImageView? = nil
@@ -53,6 +64,7 @@ class FriendPhotoController: UIViewController {
         
         imageView = ShowPhotoImageView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
         imageView!.photosLibrary = self.photosLibrary
+        imageView!.photosLibraryA = self.photosLibraryA
         imageView!.selectedPhoto = selectedPhoto
         imageView!.setImageView()
         self.view.addSubview(imageView!)
@@ -133,17 +145,10 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
-        
-//        print(photosLibrary[indexPath.row].url)
-
-        networkManager.getImage(by: photosLibrary[indexPath.row].url) { (image) in
-            DispatchQueue.main.async {
-                if let image = image as UIImage? {
-                    cell.setData(image: image)
-                }
-            }
+        toDict(array: photosLibrary[indexPath.row].sizes)
+        if let urlStr = photosLibraryA["m"] {
+            cell.setData(urlStr: urlStr)
         }
-        
         cell.addLikeControl()
         return cell
     }
@@ -152,6 +157,7 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
         
         index = indexPath.row
         controlPosition(index: index)
+        toDict(array: photosLibrary[index].sizes)
         
         showPhoto(selectedPhoto: index)
         

@@ -125,7 +125,7 @@ class NetworkManager {
     
     
     
-    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping ([PhotoProperties]) -> ()) {
+    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping ([Sizes]) -> ()) {
         
         //создаем URL для указанного метода
         var url:URL? = nil
@@ -143,7 +143,7 @@ class NetworkManager {
                 let task = session.dataTask(with: url!) { (data, response, error) in
                     if data != nil {
                         do {
-                            let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response.items[0].sizes
+                            let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response.items
                             compltionHandler(response)
                         } catch {
                             print(error)

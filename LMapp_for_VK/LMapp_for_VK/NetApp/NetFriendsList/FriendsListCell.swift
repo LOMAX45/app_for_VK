@@ -8,6 +8,8 @@
 import UIKit
 
 class FriendsListCell: UITableViewCell {
+    
+    let networkManager = NetworkManager()
 
     @IBOutlet weak var backGroundView: BackGroundAvatarView!
     @IBOutlet weak var avatarImage: UIImageView! {
@@ -22,10 +24,17 @@ class FriendsListCell: UITableViewCell {
     @IBOutlet weak var nickLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     
-    func setData (nick: String, info: String, avatar: UIImage) {
+    func setData (nick: String, info: String, avatar: String) {
         nickLabel.text = nick
         infoLabel.text = info
-        avatarImage.image = avatar
+        
+        networkManager.getImage(by: avatar) { (image) in
+            DispatchQueue.main.async {
+                if let avatar = image as UIImage? {
+                    self.avatarImage.image = avatar
+                }
+            }
+        }
     }
     
     @objc func animAvatar(_ sender: UITapGestureRecognizer) {
