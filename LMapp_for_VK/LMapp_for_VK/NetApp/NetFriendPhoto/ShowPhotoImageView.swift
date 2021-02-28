@@ -13,10 +13,10 @@ class ShowPhotoImageView: UIView {
     
     var initialCenter: CGPoint?
     
-    var photosLibrary: [Sizes] = []
+    var photosLibrary: [PhotoPropertiesDb] = []
     var photosLibraryA:[String:String] = [:]
     
-    private func toDict (array: [PhotoProperties]) {
+    private func toDict (array: [PhotoPropertiesDb]) {
         photosLibraryA = [:]
         array.forEach { (property) in
             let type = property.type
@@ -84,11 +84,11 @@ class ShowPhotoImageView: UIView {
                                     self.imageView.center.x = self.center.x
                                     if direction == .left {
                                         self.selectedPhoto += 1
-                                        let urlsArr = self.photosLibrary[self.selectedPhoto].sizes
+                                        let urlsArr = self.photosLibrary
                                         self.toDict(array: urlsArr)
                                     } else {
                                         self.selectedPhoto -= 1
-                                        let urlsArr = self.photosLibrary[self.selectedPhoto].sizes
+                                        let urlsArr = self.photosLibrary
                                         self.toDict(array: urlsArr)
                                     }
                                     if let urlStr = self.photosLibraryA["z"] {

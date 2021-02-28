@@ -10,14 +10,12 @@ import UIKit
 class FriendsListController: UIViewController {
     
     let networkManager = NetworkManager()
-    var friends = UsersDB().read() ?? []
-    
+    var friends: [UserVkDb] = UsersDB().read() ?? []
+    var sections: [String : [UserVkDb]] = [:]
+    var keys: [String] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    var sections: [String : [UserVkDb]] = [:]
-    var keys: [String] = []
     
     func resetData() {
         sections = [:]
@@ -40,6 +38,10 @@ class FriendsListController: UIViewController {
         super.viewDidLoad()
         
         sort(array: friends)
+        print(friends)
+        print(sections)
+        print(keys)
+        
         tableView.reloadData()
         
         tableView.dataSource = self
@@ -47,24 +49,36 @@ class FriendsListController: UIViewController {
         
     }
     
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "showPhoto" {
-                if let indexPath = tableView.indexPathForSelectedRow {
-//                    let networkManager = NetworkManager()
-                    let key = keys[indexPath.section]
-                    let user = sections[key]![indexPath.row]
-                    let id = user.id
-                    networkManager.getData(method: .getPhotos, id: id) { (photos) in
-                        let photosLibrary = photos
-                        let friendPhotoController = segue.destination as! FriendPhotoController
-                        friendPhotoController.photosLibrary = photosLibrary
-                        DispatchQueue.main.async {
-                            friendPhotoController.collectionView.reloadData()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPhoto" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let key = keys[indexPath.section]
+                let user = sections[key]![indexPath.row]
+                let id = user.id
+                networkManager.getData(method: .getPhotos, id: id) { (response) in
+                    print(response)
+                    
+                    let photoDb = UsersDB()
+                    let itemsPhoto = ItemsPhotoDb(id: id)
+                    let item = itemsPhoto.items
+                    let sizes = SizesDb(id: id)
+                    let size = sizes.sizes
+                    response.items.forEach({
+                        for i in 0..<$0.sizes.count {
+                            let properties = PhotoPropertiesDb(type: $0.sizes[i].type, url: $0.sizes[i].url)
+                            size.append(properties)
                         }
-                    }
+                        item.append(sizes)
+                    })
+                    photoDb.write(itemsPhoto)
                 }
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "FriendPhotoController") as? FriendPhotoController
+                controller?.id = String(user.id)
             }
         }
+    }
     
 }
 
@@ -106,8 +120,6 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setData(nick: nick, info: info, avatar: avatarUrl)
         
-        
-        
         return cell
     }
     
@@ -126,7 +138,6 @@ extension FriendsListController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchText.isEmpty == false {
-            
             resetData()
             
             var foundedUsers:[UserVkDb] = []
@@ -135,9 +146,7 @@ extension FriendsListController: UISearchBarDelegate {
                     foundedUsers.append(user)
                 }
             }
-            
             sort(array: foundedUsers)
-            
         }
         tableView.reloadData()
     }

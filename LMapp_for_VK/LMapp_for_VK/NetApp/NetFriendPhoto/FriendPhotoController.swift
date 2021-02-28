@@ -6,21 +6,16 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendPhotoController: UIViewController {
     
+    var id:String = "257225204"
     var photosLibraryA:[String:String] = [:]
+    var photosLibrary: Results<SizesDb>?
+
+//    var photosLibrary: [PhotoPropertiesDb]? = UsersDB().read() ?? []
     
-    private func toDict (array: [PhotoProperties]) {
-        photosLibraryA = [:]
-        array.forEach { (property) in
-            let type = property.type
-            let url = property.url
-            photosLibraryA[type] = url
-        }
-    }
-    
-    var photosLibrary:[Sizes] = []
     let networkManager = NetworkManager()
     
     var imageView:ShowPhotoImageView? = nil
@@ -35,8 +30,20 @@ class FriendPhotoController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    private func toDict (array: [PhotoPropertiesDb]) {
+        photosLibraryA = [:]
+        array.forEach { (property) in
+            let type = property.type
+            let url = property.url
+            photosLibraryA[type] = url
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        photosLibrary = UsersDB().read(id)
+        collectionView.reloadData()
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -63,7 +70,7 @@ class FriendPhotoController: UIViewController {
         self.view.addSubview(backgroundView!)
         
         imageView = ShowPhotoImageView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
-        imageView!.photosLibrary = self.photosLibrary
+//        imageView!.photosLibrary = self.photosLibrary!
         imageView!.photosLibraryA = self.photosLibraryA
         imageView!.selectedPhoto = selectedPhoto
         imageView!.setImageView()
@@ -140,15 +147,25 @@ class FriendPhotoController: UIViewController {
 extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photosLibrary.count
+        if let count = photosLibrary?.count {
+            return count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
-        toDict(array: photosLibrary[indexPath.row].sizes)
-        if let urlStr = photosLibraryA["m"] {
-            cell.setData(urlStr: urlStr)
-        }
+        
+        let urlsStr = photosLibrary?[indexPath.row].sizes
+        let urlProp = urlsStr?.dropLast()
+        let urlStr = urlProp![0].url
+        
+        cell.setData(urlStr: urlStr)
+            
+//        toDict(array: photosLibrary[indexPath.row].sizes)
+//        if let urlStr = photosLibraryA["m"] {
+//            cell.setData(urlStr: urlStr)
+//        }
         cell.addLikeControl()
         return cell
     }
@@ -157,7 +174,7 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
         
         index = indexPath.row
         controlPosition(index: index)
-        toDict(array: photosLibrary[index].sizes)
+//        toDict(array: photosLibrary!)
         
         showPhoto(selectedPhoto: index)
         

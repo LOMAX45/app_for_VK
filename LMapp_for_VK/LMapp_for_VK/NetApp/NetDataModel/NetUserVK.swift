@@ -41,6 +41,8 @@ class UserVkDb: Object {
     @objc dynamic var lastName: String = ""
     @objc dynamic var avatar: String = ""
     
+//    let photoItems = List<PhotoPropertiesDb>()
+    
     override init() {}
     
     convenience required init(id: Int, firstName: String, lastName: String, avatar: String) {
@@ -64,8 +66,3 @@ class UserVkDb: Object {
     }
     
 }
-
-
-
-
-
