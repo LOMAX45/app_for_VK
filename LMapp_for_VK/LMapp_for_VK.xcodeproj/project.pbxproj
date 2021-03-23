@@ -35,6 +35,8 @@
 		C13370F725797EA5001A2A86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C13370F625797EA5001A2A86 /* Assets.xcassets */; };
 		C13370FA25797EA5001A2A86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C13370F825797EA5001A2A86 /* LaunchScreen.storyboard */; };
 		C133710425797F0A001A2A86 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133710325797F0A001A2A86 /* LoginFormController.swift */; };
+		C13CCC662609B5530033D8C3 /* UserGroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CCC652609B5530033D8C3 /* UserGroupController.swift */; };
+		C13CCC6A2609B6F80033D8C3 /* UserGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CCC692609B6F80033D8C3 /* UserGroupCell.swift */; };
 		C14ED60B25DFD37A00509292 /* FriendPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED60A25DFD37A00509292 /* FriendPhotoController.swift */; };
 		C14ED60E25DFD41000509292 /* FriendPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED60D25DFD41000509292 /* FriendPhotoCell.swift */; };
 		C14ED61225DFD44600509292 /* ShowPhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED61125DFD44600509292 /* ShowPhotoImageView.swift */; };
@@ -56,8 +58,8 @@
 		C1B8789925DD128B0000A3E9 /* NetSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B8789825DD128B0000A3E9 /* NetSession.swift */; };
 		C1CE0367259640F6003B1456 /* NewsSinglePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1CE0366259640F6003B1456 /* NewsSinglePhotoCell.xib */; };
 		C1CE036A25964E36003B1456 /* NewsLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE036925964E36003B1456 /* NewsLikeControl.swift */; };
-		C1D487B42585747A001EC6E4 /* UserGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487B32585747A001EC6E4 /* UserGroupsController.swift */; };
-		C1D487B7258574A2001EC6E4 /* UserGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487B6258574A2001EC6E4 /* UserGroupsCell.swift */; };
+		C1D487B42585747A001EC6E4 /* LocalUserGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487B32585747A001EC6E4 /* LocalUserGroupsController.swift */; };
+		C1D487B7258574A2001EC6E4 /* LocalUserGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487B6258574A2001EC6E4 /* LocalUserGroupsCell.swift */; };
 		C1D487BB258574C9001EC6E4 /* GroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487BA258574C9001EC6E4 /* GroupsController.swift */; };
 		C1D487BF258574DE001EC6E4 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487BE258574DE001EC6E4 /* GroupsCell.swift */; };
 		C1D487C2258574FA001EC6E4 /* GroupClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487C1258574FA001EC6E4 /* GroupClass.swift */; };
@@ -97,6 +99,8 @@
 		C13370F925797EA5001A2A86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C13370FB25797EA5001A2A86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C133710325797F0A001A2A86 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
+		C13CCC652609B5530033D8C3 /* UserGroupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupController.swift; sourceTree = "<group>"; };
+		C13CCC692609B6F80033D8C3 /* UserGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupCell.swift; sourceTree = "<group>"; };
 		C14ED60A25DFD37A00509292 /* FriendPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoController.swift; sourceTree = "<group>"; };
 		C14ED60D25DFD41000509292 /* FriendPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCell.swift; sourceTree = "<group>"; };
 		C14ED61125DFD44600509292 /* ShowPhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPhotoImageView.swift; sourceTree = "<group>"; };
@@ -118,8 +122,8 @@
 		C1B8789825DD128B0000A3E9 /* NetSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSession.swift; sourceTree = "<group>"; };
 		C1CE0366259640F6003B1456 /* NewsSinglePhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsSinglePhotoCell.xib; sourceTree = "<group>"; };
 		C1CE036925964E36003B1456 /* NewsLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLikeControl.swift; sourceTree = "<group>"; };
-		C1D487B32585747A001EC6E4 /* UserGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsController.swift; sourceTree = "<group>"; };
-		C1D487B6258574A2001EC6E4 /* UserGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsCell.swift; sourceTree = "<group>"; };
+		C1D487B32585747A001EC6E4 /* LocalUserGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUserGroupsController.swift; sourceTree = "<group>"; };
+		C1D487B6258574A2001EC6E4 /* LocalUserGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUserGroupsCell.swift; sourceTree = "<group>"; };
 		C1D487BA258574C9001EC6E4 /* GroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsController.swift; sourceTree = "<group>"; };
 		C1D487BE258574DE001EC6E4 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		C1D487C1258574FA001EC6E4 /* GroupClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClass.swift; sourceTree = "<group>"; };
@@ -260,12 +264,37 @@
 		C13370EC25797EA2001A2A86 /* LMapp_for_VK */ = {
 			isa = PBXGroup;
 			children = (
+				C13CCC6D2609D85C0033D8C3 /* CurrentlyUnused */,
 				C1AAF79D25DE402000339950 /* CommonStaff */,
 				C1B8789C25DD49CB0000A3E9 /* NetApp */,
 				C1B8789D25DD49DD0000A3E9 /* LocalApp */,
 				C13370FB25797EA5001A2A86 /* Info.plist */,
 			);
 			path = LMapp_for_VK;
+			sourceTree = "<group>";
+		};
+		C13CCC5F2608A8C80033D8C3 /* NetNews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetNews;
+			sourceTree = "<group>";
+		};
+		C13CCC602608A8F40033D8C3 /* NetUserGroups */ = {
+			isa = PBXGroup;
+			children = (
+				C13CCC652609B5530033D8C3 /* UserGroupController.swift */,
+				C13CCC692609B6F80033D8C3 /* UserGroupCell.swift */,
+			);
+			path = NetUserGroups;
+			sourceTree = "<group>";
+		};
+		C13CCC6D2609D85C0033D8C3 /* CurrentlyUnused */ = {
+			isa = PBXGroup;
+			children = (
+				C1D4C61D25C9D25400586559 /* UrlRequestsController.swift */,
+			);
+			path = CurrentlyUnused;
 			sourceTree = "<group>";
 		};
 		C14ED60625DFD2BE00509292 /* NetFriendPhoto */ = {
@@ -302,7 +331,6 @@
 			children = (
 				C1A6C40725C898C100156FEB /* NetworkManager.swift */,
 				C1A6C40325C8952100156FEB /* StartNetworkController.swift */,
-				C1D4C61D25C9D25400586559 /* UrlRequestsController.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -345,6 +373,8 @@
 		C1B8789C25DD49CB0000A3E9 /* NetApp */ = {
 			isa = PBXGroup;
 			children = (
+				C13CCC602608A8F40033D8C3 /* NetUserGroups */,
+				C13CCC5F2608A8C80033D8C3 /* NetNews */,
 				C14ED60625DFD2BE00509292 /* NetFriendPhoto */,
 				C1A6C40225C894DE00156FEB /* Network */,
 				C1B8788A25DCDD1E0000A3E9 /* NetDataModel */,
@@ -373,8 +403,8 @@
 		C1D487B22585745C001EC6E4 /* UserGroups */ = {
 			isa = PBXGroup;
 			children = (
-				C1D487B32585747A001EC6E4 /* UserGroupsController.swift */,
-				C1D487B6258574A2001EC6E4 /* UserGroupsCell.swift */,
+				C1D487B32585747A001EC6E4 /* LocalUserGroupsController.swift */,
+				C1D487B6258574A2001EC6E4 /* LocalUserGroupsCell.swift */,
 			);
 			path = UserGroups;
 			sourceTree = "<group>";
@@ -531,15 +561,17 @@
 				50FBADF12591FE4D001BAA87 /* TemplateGroupCell.swift in Sources */,
 				C1AAF7BB25DE9AFF00339950 /* NetFriendsVK.swift in Sources */,
 				C1AAF7B825DE910100339950 /* FriendsListCell.swift in Sources */,
-				C1D487B7258574A2001EC6E4 /* UserGroupsCell.swift in Sources */,
+				C1D487B7258574A2001EC6E4 /* LocalUserGroupsCell.swift in Sources */,
 				C14ED60B25DFD37A00509292 /* FriendPhotoController.swift in Sources */,
 				C13370EE25797EA2001A2A86 /* AppDelegate.swift in Sources */,
 				C1CE036A25964E36003B1456 /* NewsLikeControl.swift in Sources */,
 				C11CBDD225AECCA0009ABFC7 /* LocalShowPhotoImageView.swift in Sources */,
 				C1A6C40825C898C100156FEB /* NetworkManager.swift in Sources */,
+				C13CCC662609B5530033D8C3 /* UserGroupController.swift in Sources */,
 				503CF0E6258B5E47008AC9D7 /* AvatarView.swift in Sources */,
 				C1AAF7B425DE908A00339950 /* FriendListController.swift in Sources */,
 				C1AAF7A425DE4B5000339950 /* NetGroupVK.swift in Sources */,
+				C13CCC6A2609B6F80033D8C3 /* UserGroupCell.swift in Sources */,
 				C13370F025797EA2001A2A86 /* SceneDelegate.swift in Sources */,
 				50EF39892587A07E00E80D78 /* GroupInfoController.swift in Sources */,
 				50EF39822587823B00E80D78 /* StartScreenController.swift in Sources */,
@@ -553,7 +585,7 @@
 				5018E0D92583A1E600B82274 /* LocalFriendsListController.swift in Sources */,
 				5018E0EE2583A73200B82274 /* UserClass.swift in Sources */,
 				5018E0DD2583A1FE00B82274 /* LocalFriendsListCell.swift in Sources */,
-				C1D487B42585747A001EC6E4 /* UserGroupsController.swift in Sources */,
+				C1D487B42585747A001EC6E4 /* LocalUserGroupsController.swift in Sources */,
 				C1760BA625B2357F0063F91E /* CustomNavigationController.swift in Sources */,
 				50CA14B02595F38B00C43914 /* NewsSinglePhotoCell.swift in Sources */,
 			);

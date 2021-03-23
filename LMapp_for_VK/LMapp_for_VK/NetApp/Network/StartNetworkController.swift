@@ -49,6 +49,51 @@ class StartNetworkController: UIViewController {
         }
     }
     
+    private func getFriendsPhoto() {
+        
+        let friendsDb = UsersDB()
+        let friends: [UserVkDb] = friendsDb.read() ?? []
+        
+        for friend in friends {
+            
+            if friend.id != 0 {
+                
+                let itemsPhoto = ItemsPhotoDb(ownerId: friend.id)
+                let item = itemsPhoto.items
+                let sizes = SizesDb(ownerId: friend.id)
+                let size = sizes.sizes
+                
+                networkManager.getData(method: .getPhotos, id: friend.id) { (response) in
+                    response.items.forEach({
+                        for i in 0..<$0.sizes.count {
+                            let properties = PhotoPropertiesDb(type: $0.sizes[i].type, url: $0.sizes[i].url, photoId: $0.id)
+                            size.append(properties)
+                        }
+                        item.append(sizes)
+                    })
+                    DispatchQueue.main.async {
+                        friendsDb.write(itemsPhoto)
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    private func getGroups() {
+        networkManager.getGroups(method: .getGroupsList) { (groups) in
+            groups.items.forEach({
+                let groupProperty = GroupPropertiesDb(id: $0.id, name: $0.name, screenName: $0.screenName, photo50: $0.photo50)
+                DispatchQueue.main.async {
+                    UsersDB().write(groupProperty)
+                }
+            })
+        }
+    }
+    
 }
 
 extension StartNetworkController: WKNavigationDelegate {
@@ -76,9 +121,12 @@ extension StartNetworkController: WKNavigationDelegate {
         NetSession.instance.userId = Int(userId) ?? 0
         
         print("USER IS IS \(NetSession.instance.userId)")
+        print("TOKEN=\(NetSession.instance.token)")
         
         getFriends()
         getCurrentUser(toVC: "LoggedOnController")
+        getFriendsPhoto()
+        getGroups()
         
         decisionHandler(.cancel)
         
