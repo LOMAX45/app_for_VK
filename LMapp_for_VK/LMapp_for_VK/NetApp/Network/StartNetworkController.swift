@@ -94,14 +94,14 @@ class StartNetworkController: UIViewController {
         }
     }
     
-    private func getNews() {
-        print("START FUNCTION")
-        self.networkManager.getNews(method: .getNews) { (news) in
-            NewsDatabase.shared.items = news.items
-            NewsDatabase.shared.profiles = news.profiles
-            NewsDatabase.shared.groups = news.groups
-        }
-    }
+//    private func getNews() {
+//        print("START FUNCTION")
+//        self.networkManager.getNews(method: .getNews) { (news) in
+//            NewsDatabase.shared.items = news.items
+//            NewsDatabase.shared.profiles = news.profiles
+//            NewsDatabase.shared.groups = news.groups
+//        }
+//    }
     
 
     
@@ -134,7 +134,7 @@ extension StartNetworkController: WKNavigationDelegate {
         print("USER IS IS \(NetSession.instance.userId)")
         print("TOKEN=\(NetSession.instance.token)")
         
-        getNews()
+//        getNews()
         getFriends()
         getFriendsPhoto()
         getGroups()

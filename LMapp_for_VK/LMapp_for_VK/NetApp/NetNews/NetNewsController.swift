@@ -9,48 +9,48 @@ import UIKit
 
 class NetNewsController: UIViewController {
     
-    let networkManager = NetworkManager()
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    var items = NewsDatabase.shared.items
-    var profiles = NewsDatabase.shared.profiles
-    var groups = NewsDatabase.shared.groups
-    
+     @IBOutlet weak var tableView: UITableView!
 
+    let networkManager = NetworkManager()
+    var items:[NewsItem] = []
+    var profiles:[UserVK] = []
+    var groups:[GroupProperties] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.register(UINib(nibName: "NetNewsPostCell", bundle: nil), forCellReuseIdentifier: "NetNewsPostCell")
-        
-        print("====================================")
-        print("NEWS")
-        print(NewsDatabase.shared.items)
-        
-        print("====================================")
-        print("PROFILES")
-        print(NewsDatabase.shared.profiles)
-
-
-        
-        print("====================================")
-        print("GROUPS")
-        print(NewsDatabase.shared.groups)
-        print("====================================")
-        
-        items = NewsDatabase.shared.items
-        profiles = NewsDatabase.shared.profiles
-        groups = NewsDatabase.shared.groups
-        
-        tableView.reloadData()
+        getNews()
         
     }
     
-
-
+    private func loadingView () {
+        let loadingView = ThreeDotLoadingIndicator(frame: CGRect(x: self.view.layer.bounds.width / 2 - 20, y: self.view.layer.bounds.height / 2 - 5, width: 40, height: 10))
+        loadingView.startAnimation()
+        self.view.addSubview(loadingView)
+    }
+    
+    private func getNews() {
+        let dispatchGroup = DispatchGroup()
+        DispatchQueue.global().async(group: dispatchGroup) {
+            self.networkManager.getNews(method: .getNews, type: .post) { (news) in
+                NewsDatabase.shared.items = news.items
+                NewsDatabase.shared.profiles = news.profiles
+                NewsDatabase.shared.groups = news.groups
+            }
+        }
+        sleep(5)
+        dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
+            self.items = NewsDatabase.shared.items
+            self.profiles = NewsDatabase.shared.profiles
+            self.groups = NewsDatabase.shared.groups
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension NetNewsController: UITableViewDelegate, UITableViewDataSource {
@@ -98,3 +98,4 @@ extension NetNewsController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+

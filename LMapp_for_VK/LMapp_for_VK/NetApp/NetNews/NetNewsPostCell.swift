@@ -15,7 +15,7 @@ class NetNewsPostCell: UITableViewCell {
     @IBOutlet weak var ownerNickname: UILabel!
     @IBOutlet weak var creationDate: UILabel!
     @IBOutlet weak var bodyText: UITextView!
-
+    
     @IBOutlet weak var actionsStack: UIStackView!
     
     @IBOutlet weak var likeButton: UIButton!
@@ -29,7 +29,7 @@ class NetNewsPostCell: UITableViewCell {
     
     @IBOutlet weak var viewsButton: UIButton!
     @IBOutlet weak var numbersOfViews: UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -62,10 +62,10 @@ class NetNewsPostCell: UITableViewCell {
     }
     
     
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
 }

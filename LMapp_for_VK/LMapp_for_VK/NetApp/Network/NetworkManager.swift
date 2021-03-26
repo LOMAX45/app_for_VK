@@ -19,6 +19,11 @@ enum ApiMethods: String {
     case getNews = "/method/newsfeed.get"
 }
 
+enum TypeOfNews: String {
+    case post = "post"
+    case photo = "photo"
+}
+
 class NetworkManager {
     
     var searchText: String = ""
@@ -164,13 +169,13 @@ class NetworkManager {
         }
     }
     
-    func getNews(method: ApiMethods, complitionHandler: @escaping (NewsResponse) -> ()) {
+    func getNews(method: ApiMethods, type: TypeOfNews, complitionHandler: @escaping (NewsResponse) -> ()) {
         
         switch method {
         case .getNews:
             var getNewsConstructor = createApiUrlTemplate(method: method)
-            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: "post"), at: 0)
-            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "20"), at: 1)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: type.rawValue), at: 0)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
             let url = getNewsConstructor.url
             
             if url != nil {
