@@ -950,9 +950,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="YO1-W0-EYf" kind="relationship" relationship="viewControllers" id="sON-Wi-swv"/>
-                        <segue destination="2Ej-zR-xWN" kind="relationship" relationship="viewControllers" id="0Nu-qQ-cj4"/>
-                        <segue destination="63U-mv-o0j" kind="relationship" relationship="viewControllers" id="bZc-6E-pI5"/>
+                        <segue destination="ZS9-Cv-IQu" kind="relationship" relationship="viewControllers" id="yqE-Ky-1sK"/>
+                        <segue destination="YO1-W0-EYf" kind="relationship" relationship="viewControllers" id="6nH-hn-HGs"/>
+                        <segue destination="2Ej-zR-xWN" kind="relationship" relationship="viewControllers" id="ENp-qu-Pwv"/>
+                        <segue destination="63U-mv-o0j" kind="relationship" relationship="viewControllers" id="8hR-MT-V7O"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cr6-vj-iSA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -962,7 +963,7 @@
         <!--Новости-->
         <scene sceneID="4sr-pE-wvy">
             <objects>
-                <viewController storyboardIdentifier="newsController" id="YO1-W0-EYf" customClass="NewsController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newsController" id="YO1-W0-EYf" customClass="NetNewsController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hyn-9w-5iS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -970,6 +971,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eRA-Xc-NYD">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hKa-oy-Mtm">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hKa-oy-Mtm" id="CW1-lJ-oQ6" customClass="NetNewsPostCell" customModule="LMapp_for_VK" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gqf-DU-dAK"/>
@@ -983,12 +994,28 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Новости" image="newspaper" catalog="system" id="xXY-h7-XM3"/>
                     <connections>
-                        <outlet property="tableView" destination="eRA-Xc-NYD" id="Acm-VJ-iWt"/>
+                        <outlet property="tableView" destination="eRA-Xc-NYD" id="Tqz-hi-NdA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koB-tA-D2f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4389.6000000000004" y="-622.03898050974522"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="iAz-j6-waK">
+            <objects>
+                <viewController id="ZS9-Cv-IQu" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PCh-Fs-Yg9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mzu-7O-wLn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="7Iv-7H-YGd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Djk-xe-jZq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3445" y="-210"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="tWR-rf-GFD">

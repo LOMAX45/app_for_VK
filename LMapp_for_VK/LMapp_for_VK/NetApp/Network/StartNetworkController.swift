@@ -94,6 +94,17 @@ class StartNetworkController: UIViewController {
         }
     }
     
+    private func getNews() {
+        print("START FUNCTION")
+        self.networkManager.getNews(method: .getNews) { (news) in
+            NewsDatabase.shared.items = news.items
+            NewsDatabase.shared.profiles = news.profiles
+            NewsDatabase.shared.groups = news.groups
+        }
+    }
+    
+
+    
 }
 
 extension StartNetworkController: WKNavigationDelegate {
@@ -123,10 +134,11 @@ extension StartNetworkController: WKNavigationDelegate {
         print("USER IS IS \(NetSession.instance.userId)")
         print("TOKEN=\(NetSession.instance.token)")
         
+        getNews()
         getFriends()
-        getCurrentUser(toVC: "LoggedOnController")
         getFriendsPhoto()
         getGroups()
+        getCurrentUser(toVC: "LoggedOnController")
         
         decisionHandler(.cancel)
         

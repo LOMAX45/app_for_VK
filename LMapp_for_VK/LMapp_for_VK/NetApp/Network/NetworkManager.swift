@@ -16,6 +16,7 @@ enum ApiMethods: String {
     case getGroupsList = "/method/groups.get"
     case searchGroups = "/method/groups.search"
     case getUsers = "/method/users.get"
+    case getNews = "/method/newsfeed.get"
 }
 
 class NetworkManager {
@@ -33,9 +34,9 @@ class NetworkManager {
             URLQueryItem(name: "client_id", value: "7748029"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "display", value: "mobile"),
-            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "scope", value: "270342"),
             URLQueryItem(name: "response_type", value: "token"),
-            URLQueryItem(name: "v", value: "5.126")
+            URLQueryItem(name: "v", value: "5.130")
         ]
         guard let url = urlAuthorize.url else { return }
         let request = URLRequest(url: url)
@@ -109,7 +110,6 @@ class NetworkManager {
     func getData(method: ApiMethods, id: Int, compltionHandler: @escaping (ItemsPhoto) -> ()) {
         
         //создаем URL для указанного метода
-//        var url:URL? = nil
         switch method {
         case .getPhotos:
             var getPhotosConstructor = createApiUrlTemplate(method: method)
@@ -119,11 +119,9 @@ class NetworkManager {
             if url != nil {
                 let session = URLSession.shared
                 let task = session.dataTask(with: url!) { (data, response, error) in
-//                    print(data)
                     if data != nil {
                         do {
                             let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response
-//                            print("NETWORK_MANAGER_RESPONCE=\(response)")
                             compltionHandler(response)
                         } catch {
                             print(error)
@@ -152,13 +150,39 @@ class NetworkManager {
                     if data != nil {
                         do {
                             let response = try JSONDecoder().decode(GroupResponse.self, from: data!).response
-                            print("NETWORK_MANAGER_RESPONCE=\(response)")
                             comlitionHandler(response)
                         } catch {
                             print(error)
                         }
                     } else {
                         print("Data is nil")
+                    }
+                }
+                task.resume()
+            }
+        default: return
+        }
+    }
+    
+    func getNews(method: ApiMethods, complitionHandler: @escaping (NewsResponse) -> ()) {
+        
+        switch method {
+        case .getNews:
+            var getNewsConstructor = createApiUrlTemplate(method: method)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: "post"), at: 0)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "20"), at: 1)
+            let url = getNewsConstructor.url
+            
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        do {
+                            let response = try JSONDecoder().decode(NewsJson.self, from: data!).response
+                            complitionHandler(response)
+                        } catch {
+                            print(error)
+                        }
                     }
                 }
                 task.resume()
