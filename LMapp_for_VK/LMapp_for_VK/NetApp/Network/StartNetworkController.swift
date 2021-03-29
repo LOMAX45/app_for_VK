@@ -136,7 +136,7 @@ extension StartNetworkController: WKNavigationDelegate {
         
 //        getNews()
         getFriends()
-        getFriendsPhoto()
+//        getFriendsPhoto()
         getGroups()
         getCurrentUser(toVC: "LoggedOnController")
         

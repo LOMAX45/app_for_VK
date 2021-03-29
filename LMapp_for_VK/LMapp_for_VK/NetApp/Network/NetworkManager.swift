@@ -196,6 +196,29 @@ class NetworkManager {
         }
     }
     
+    func getJsonNews(method: ApiMethods, type:TypeOfNews, complitionHandler: @escaping (Data) -> ()) {
+        switch method {
+        case .getNews:
+            var getNewsConstructor = createApiUrlTemplate(method: method)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: type.rawValue), at: 0)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
+            let url = getNewsConstructor.url
+            
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        complitionHandler(data!)
+                    }
+                }
+                task.resume()
+            }
+        default: return
+        }
+    }
+    
+    
+    
     func getImage(by urlStr: String, compltionHandler: @escaping (UIImage) -> Void) {
         guard let url = URL(string: urlStr) else { return }
         

@@ -11,7 +11,12 @@ class NetNewsPostCell: UITableViewCell {
     
     let networkManager = NetworkManager()
     
-    @IBOutlet weak var ownerAvatar: UIImageView!
+    @IBOutlet weak var ownerAvatar: UIImageView! {
+        didSet {
+            ownerAvatar.layer.cornerRadius = 32
+            ownerAvatar.layer.masksToBounds = true
+        }
+    }
     @IBOutlet weak var ownerNickname: UILabel!
     @IBOutlet weak var creationDate: UILabel!
     @IBOutlet weak var bodyText: UITextView!
