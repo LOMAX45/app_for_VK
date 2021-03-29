@@ -33,37 +33,17 @@ class UsersDB {
         }
     }
     
-    func write(_ object:PhotoPropertiesDb) {
-        do {
-            db?.beginWrite()
-            db?.add(object, update: .all)
-            try db?.commitWrite()
-        } catch {
-            print(error)
-        }
-    }
-    
-    func write(_ object:SizesDb) {
-        do {
-            db?.beginWrite()
-            db?.add(object, update: .all)
-            try db?.commitWrite()
-        } catch {
-            print(error)
-        }
-    }
-
-    func write(_ object:ItemsPhotoDb) {
-        do {
-            db?.beginWrite()
-            db?.add(object, update: .all)
-            try db?.commitWrite()
-        } catch {
-            print(error)
-        }
-    }
-    
     func write(_ object: GroupPropertiesDb) {
+        do {
+            db?.beginWrite()
+            db?.add(object, update: .all)
+            try db?.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func write(_ object: ItemRealm) {
         do {
             db?.beginWrite()
             db?.add(object, update: .all)
@@ -80,23 +60,9 @@ class UsersDB {
         }
         return nil
     }
-     
-    func read() -> [SizesDb]? {
-        if let object = db?.objects(SizesDb.self) {
-            return Array(object)
-        }
-        return nil
-    }
     
-    func read(_ byId: Int) -> [SizesDb]? {
-        if let object = db?.objects(SizesDb.self).filter("ownerId = \(byId)") {
-            return Array(object)
-        }
-        return nil
-    }
-    
-    func read() -> [PhotoPropertiesDb]? {
-        if let object = db?.objects(PhotoPropertiesDb.self) {
+    func read(_ byId: Int) -> [ItemRealm]? {
+        if let object = db?.objects(ItemRealm.self).filter("ownerId = \(byId)") {
             return Array(object)
         }
         return nil

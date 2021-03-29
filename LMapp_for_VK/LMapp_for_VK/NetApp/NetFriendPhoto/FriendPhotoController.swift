@@ -11,8 +11,7 @@ import RealmSwift
 class FriendPhotoController: UIViewController {
     
     var id:Int = 0
-//    var photosLibraryA:[String:String] = [:]
-    var photosLibrary: [SizesDb]?
+    var photosLibrary: [ItemRealm]?
     let database = UsersDB()
     let networkManager = NetworkManager()
     
@@ -27,25 +26,14 @@ class FriendPhotoController: UIViewController {
     let itemSize = UIScreen.main.bounds.width / 3 - 2
     
     @IBOutlet weak var collectionView: UICollectionView!
-//
-//    private func toDict (array: [PhotoPropertiesDb]) {
-//        photosLibraryA = [:]
-//        array.forEach { (property) in
-//            let type = property.type
-//            let url = property.url
-//            photosLibraryA[type] = url
-//        }
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        photosLibrary = database.read(self.id)
-//
-//        collectionView.reloadData()
-        
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        getFriendPhoto(id: self.id)
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
@@ -58,11 +46,44 @@ class FriendPhotoController: UIViewController {
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeShowPhotoViewBySwipe(_:)))
         swipeDown.direction = .down
         self.view.addGestureRecognizer(swipeDown)
-    
-                
+        
+        
     }
     
-
+    private func getFriendPhoto(id:Int) {
+        
+        let realmDB = UsersDB()
+        
+        networkManager.getData(method: .getPhotos, id: id) { [weak self] (response) in
+            guard let self = self else { return }
+            let dispatchGroup = DispatchGroup()
+            DispatchQueue.global().async {
+                response.items.forEach { (item) in
+                    let itemRealm = ItemRealm(albumId: item.albumId,
+                                              date: item.date,
+                                              id: item.id,
+                                              ownerId: item.ownerId,
+                                              hasTags: item.hasTags,
+                                              text: item.text)
+                    let sizes = itemRealm.sizes
+                    for i in 0..<item.sizes.count {
+                        let sizeRealm = SizeRealm(height: item.sizes[i].height,
+                                                  url: item.sizes[i].url,
+                                                  type: item.sizes[i].type,
+                                                  width: item.sizes[i].width)
+                        sizes.append(sizeRealm)
+                    }
+                    DispatchQueue.main.async {
+                        realmDB.write(itemRealm)
+                    }
+                }
+                dispatchGroup.notify(queue: DispatchQueue.main) {
+                    self.photosLibrary = realmDB.read(id)
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
     
     func showPhoto(selectedPhoto: Int) {
         backgroundView = UIView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
@@ -72,7 +93,7 @@ class FriendPhotoController: UIViewController {
         
         imageView = ShowPhotoImageView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
         imageView!.photosLibrary = self.photosLibrary
-//        imageView!.photosLibraryA = self.photosLibraryA
+        //        imageView!.photosLibraryA = self.photosLibraryA
         imageView!.selectedPhoto = selectedPhoto
         imageView!.setImageView()
         self.view.addSubview(imageView!)
@@ -148,7 +169,7 @@ class FriendPhotoController: UIViewController {
 extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count = photosLibrary?.first?.sizes.filter("type = 'm'").count {
+        if let count = photosLibrary?.count {
             return count
         }
         return 0
@@ -157,21 +178,23 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
         
+        var urlStr = ""
         
-        if let sizes = photosLibrary?[0].sizes.filter("type = 'm'") {
-            let urlsStr = sizes[indexPath.row]
-            //        let urlProp = urlsStr?.dropLast()
-            let urlStr = urlsStr.url
+        if let sizes = photosLibrary?[indexPath.row].sizes{
+            if let size = sizes.first(where: { (size) -> Bool in
+                size.type == "m"
+            }) {
+                urlStr = size.url
+            } else if let size = sizes.first(where: { (size) -> Bool in
+                size.type == "s"
+            }) {
+                urlStr = size.url
+            } else {
+                let size = sizes[0]
+                urlStr = size.url
+            }
             cell.setData(urlStr: urlStr)
         }
-
-        
-        
-            
-//        toDict(array: photosLibrary[indexPath.row].sizes)
-//        if let urlStr = photosLibraryA["m"] {
-//            cell.setData(urlStr: urlStr)
-//        }
         cell.addLikeControl()
         return cell
     }
@@ -180,9 +203,7 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
         
         index = indexPath.row
         controlPosition(index: index)
-//        toDict(array: photosLibrary!)
-        
-        showPhoto(selectedPhoto: index)
+        //        showPhoto(selectedPhoto: index)
         
     }
     

@@ -112,7 +112,7 @@ class NetworkManager {
         }
     }
     
-    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping (ItemsPhoto) -> ()) {
+    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping (Response) -> ()) {
         
         //создаем URL для указанного метода
         switch method {
@@ -120,13 +120,12 @@ class NetworkManager {
             var getPhotosConstructor = createApiUrlTemplate(method: method)
             getPhotosConstructor.queryItems?.insert(URLQueryItem(name: "owner_id", value: String(id)), at: 0)
             let url = getPhotosConstructor.url
-            
             if url != nil {
                 let session = URLSession.shared
                 let task = session.dataTask(with: url!) { (data, response, error) in
                     if data != nil {
                         do {
-                            let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response
+                            let response = try JSONDecoder().decode(PhotosJson.self, from: data!).response
                             compltionHandler(response)
                         } catch {
                             print(error)
