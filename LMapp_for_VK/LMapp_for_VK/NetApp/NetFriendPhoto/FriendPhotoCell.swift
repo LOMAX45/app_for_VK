@@ -13,6 +13,10 @@ class FriendPhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var friendPhoto: UIImageView!
     
+    func setData(image: UIImage) {
+        self.friendPhoto.image = image
+    }
+    
     func setData (urlStr: String) {
         networkManager.getImage(by: urlStr) { (image) in
             DispatchQueue.main.async {

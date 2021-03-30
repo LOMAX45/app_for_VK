@@ -11,6 +11,9 @@ import RealmSwift
 class FriendPhotoController: UIViewController {
     
     var id:Int = 0
+    var urlsDict = [String]()
+    var photoImages: [UIImage] = []
+    var photoCache: [UIImage] = []
     var photosLibrary: [ItemRealm]?
     let database = UsersDB()
     let networkManager = NetworkManager()
@@ -57,7 +60,7 @@ class FriendPhotoController: UIViewController {
         networkManager.getData(method: .getPhotos, id: id) { [weak self] (response) in
             guard let self = self else { return }
             let dispatchGroup = DispatchGroup()
-            DispatchQueue.global().async {
+            DispatchQueue.global().async(group: dispatchGroup) {
                 response.items.forEach { (item) in
                     let itemRealm = ItemRealm(albumId: item.albumId,
                                               date: item.date,
@@ -77,11 +80,39 @@ class FriendPhotoController: UIViewController {
                         realmDB.write(itemRealm)
                     }
                 }
-                dispatchGroup.notify(queue: DispatchQueue.main) {
-                    self.photosLibrary = realmDB.read(id)
-                    self.collectionView.reloadData()
+            }
+            dispatchGroup.notify(queue: DispatchQueue.main) { [self] in
+                self.photosLibrary = realmDB.read(id)
+                if let photosCount = self.photosLibrary?.count {
+                    for _ in 0..<photosCount {
+                        self.photoImages.append(UIImage(named: "robot")!)
+                    }
+                }
+                self.collectionView.reloadData()
+                self.urlsDict = []
+                self.photosLibrary?.forEach({ [self] (item) in
+                    self.urlsDict.append(self.getUrl(item: item))
+                })
+                self.loadingPhotos(urls: self.urlsDict)
+            }
+        }
+    }
+    
+    private func loadingPhotos(urls: [String]) {
+        self.photoCache = []
+        let dispatchGroup = DispatchGroup()
+        DispatchQueue.global().async(group: dispatchGroup) {
+            urls.forEach { (url) in
+                self.networkManager.getImage(by: url) { (image) in
+                    if let image = image as UIImage? {
+                        self.photoCache.append(image)
+                    }
                 }
             }
+        }
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            self.photoImages = self.photoCache
+            self.collectionView.reloadData()
         }
     }
     
@@ -164,6 +195,24 @@ class FriendPhotoController: UIViewController {
         self.index = index
     }
     
+    private func getUrl(item: ItemRealm) -> String{
+        var urlStr = ""
+        let sizes = item.sizes
+        if let size = sizes.first(where: { (size) -> Bool in
+            size.type == "m"
+        }) {
+            urlStr = size.url
+        } else if let size = sizes.first(where: { (size) -> Bool in
+            size.type == "s"
+        }) {
+            urlStr = size.url
+        } else {
+            let size = sizes[0]
+            urlStr = size.url
+        }
+        return urlStr
+    }
+    
 }
 
 extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -177,24 +226,7 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
-        
-        var urlStr = ""
-        
-        if let sizes = photosLibrary?[indexPath.row].sizes{
-            if let size = sizes.first(where: { (size) -> Bool in
-                size.type == "m"
-            }) {
-                urlStr = size.url
-            } else if let size = sizes.first(where: { (size) -> Bool in
-                size.type == "s"
-            }) {
-                urlStr = size.url
-            } else {
-                let size = sizes[0]
-                urlStr = size.url
-            }
-            cell.setData(urlStr: urlStr)
-        }
+        cell.setData(image: photoImages[indexPath.row])
         cell.addLikeControl()
         return cell
     }
