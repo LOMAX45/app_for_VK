@@ -9,17 +9,19 @@ import UIKit
 
 class FriendsListCell: UITableViewCell {
 
-    @IBOutlet weak var avatarPicture: UIImageView! {
-        didSet {
-            avatarPicture.layer.cornerRadius = 29
-            avatarPicture.layer.masksToBounds = true
-        }
-    }
     @IBOutlet weak var nickLabel: UILabel!
     
-    func setData (nick: String, avatar: UIImage) {
-        avatarPicture.image = avatar
+    func addAvatarView(avatar: UIImage) {
+        let avatarView = AvatarView(frame: CGRect(x: 8, y: 4, width: 56, height: 56))
+        avatarView.setImage(avatar)
+        avatarView.tag = 1
+        self.addSubview(avatarView)
+    }
+    
+    func setLabel (nick: String) {
         nickLabel.text = nick
     }
+    
+    
 
 }
