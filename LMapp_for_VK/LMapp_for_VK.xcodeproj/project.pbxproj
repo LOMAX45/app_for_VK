@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,7 @@
 		C14ED60B25DFD37A00509292 /* FriendPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED60A25DFD37A00509292 /* FriendPhotoController.swift */; };
 		C14ED60E25DFD41000509292 /* FriendPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED60D25DFD41000509292 /* FriendPhotoCell.swift */; };
 		C14ED61225DFD44600509292 /* ShowPhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED61125DFD44600509292 /* ShowPhotoImageView.swift */; };
+		C16983FC25E6704C000FD74F /* UsersDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16983FB25E6704C000FD74F /* UsersDB.swift */; };
 		C1760BA025B229AE0063F91E /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1760B9F25B229AE0063F91E /* CustomPushAnimator.swift */; };
 		C1760BA325B231B40063F91E /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1760BA225B231B40063F91E /* CustomPopAnimator.swift */; };
 		C1760BA625B2357F0063F91E /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1760BA525B2357F0063F91E /* CustomNavigationController.swift */; };
@@ -99,6 +100,7 @@
 		C14ED60A25DFD37A00509292 /* FriendPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoController.swift; sourceTree = "<group>"; };
 		C14ED60D25DFD41000509292 /* FriendPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCell.swift; sourceTree = "<group>"; };
 		C14ED61125DFD44600509292 /* ShowPhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPhotoImageView.swift; sourceTree = "<group>"; };
+		C16983FB25E6704C000FD74F /* UsersDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDB.swift; sourceTree = "<group>"; };
 		C1760B9F25B229AE0063F91E /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		C1760BA225B231B40063F91E /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		C1760BA525B2357F0063F91E /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
@@ -276,6 +278,14 @@
 			path = NetFriendPhoto;
 			sourceTree = "<group>";
 		};
+		C16983FA25E6702D000FD74F /* Databases */ = {
+			isa = PBXGroup;
+			children = (
+				C16983FB25E6704C000FD74F /* UsersDB.swift */,
+			);
+			path = Databases;
+			sourceTree = "<group>";
+		};
 		C1760B9E25B2294E0063F91E /* AnimationsNavigatioController */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +310,7 @@
 		C1AAF79D25DE402000339950 /* CommonStaff */ = {
 			isa = PBXGroup;
 			children = (
+				C16983FA25E6702D000FD74F /* Databases */,
 				504E540D258CC5E20075D76A /* Customs */,
 				C13370EF25797EA2001A2A86 /* SceneDelegate.swift */,
 				C13370ED25797EA2001A2A86 /* AppDelegate.swift */,
@@ -390,6 +401,7 @@
 				C13370E625797EA2001A2A86 /* Sources */,
 				C13370E725797EA2001A2A86 /* Frameworks */,
 				C13370E825797EA2001A2A86 /* Resources */,
+				4B84433327D0200E40203957 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -471,6 +483,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4B84433327D0200E40203957 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LMapp_for_VK/Pods-LMapp_for_VK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LMapp_for_VK/Pods-LMapp_for_VK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LMapp_for_VK/Pods-LMapp_for_VK-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -478,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16983FC25E6704C000FD74F /* UsersDB.swift in Sources */,
 				C1A6C40025C834BE00156FEB /* Session.swift in Sources */,
 				C1AAF7A725DE4B6600339950 /* NetPhotosVK.swift in Sources */,
 				C1B8789925DD128B0000A3E9 /* NetSession.swift in Sources */,

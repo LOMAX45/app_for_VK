@@ -13,22 +13,37 @@ class ShowPhotoImageView: UIView {
     
     var initialCenter: CGPoint?
     
-    var photosLibrary: [PhotoProperties]!
+    var photosLibrary: [PhotoPropertiesDb] = []
+    var photosLibraryA:[String:String] = [:]
+    
+    private func toDict (array: [PhotoPropertiesDb]) {
+        photosLibraryA = [:]
+        array.forEach { (property) in
+            let type = property.type
+            let url = property.url
+            photosLibraryA[type] = url
+        }
+    }
+    
     var selectedPhoto: Int!
     
     let networkManager = NetworkManager()
     
     func setImageView() {
-        networkManager.getImage(by: photosLibrary[selectedPhoto].url) { (image) in
-            DispatchQueue.main.async {
-                if let image = image as UIImage? {
-                    self.imageView.image = image
+        if let urlStr = photosLibraryA["z"] {
+            networkManager.getImage(by: urlStr) { (image) in
+                DispatchQueue.main.async {
+                    if let image = image as UIImage? {
+                        self.imageView.image = image
+                    }
                 }
             }
         }
+
         
         imageView = UIImageView(frame: self.bounds)
         imageView.backgroundColor = UIColor.systemGray2
+        imageView.contentMode = .scaleAspectFill
         
         self.addSubview(imageView)
         
@@ -69,16 +84,23 @@ class ShowPhotoImageView: UIView {
                                     self.imageView.center.x = self.center.x
                                     if direction == .left {
                                         self.selectedPhoto += 1
+                                        let urlsArr = self.photosLibrary
+                                        self.toDict(array: urlsArr)
                                     } else {
                                         self.selectedPhoto -= 1
+                                        let urlsArr = self.photosLibrary
+                                        self.toDict(array: urlsArr)
                                     }
-                                    self.networkManager.getImage(by: self.photosLibrary[self.selectedPhoto].url) { (image) in
-                                        DispatchQueue.main.async {
-                                            if let image = image as UIImage? {
-                                                self.imageView.image = image
+                                    if let urlStr = self.photosLibraryA["z"] {
+                                        self.networkManager.getImage(by: urlStr) { (image) in
+                                            DispatchQueue.main.async {
+                                                if let image = image as UIImage? {
+                                                    self.imageView.image = image
+                                                }
                                             }
                                         }
                                     }
+                                    
                                     UIView.animateKeyframes(withDuration: 0.15,
                                                             delay: 0.0,
                                                             options: [],

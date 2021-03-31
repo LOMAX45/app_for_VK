@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct FriendsResponse: Codable {
     let response:Items

@@ -37,13 +37,9 @@ class NetworkManager {
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.126")
         ]
-        
         guard let url = urlAuthorize.url else { return }
-        
         let request = URLRequest(url: url)
-        
         webView.load(request)
-        
     }
     
     //Фукция создания шаблона URL
@@ -56,7 +52,6 @@ class NetworkManager {
             URLQueryItem(name: "access_token", value: NetSession.instance.token),
             URLQueryItem(name: "v", value: "5.126")
         ]
-        
         return urlApi
     }
     
@@ -123,9 +118,7 @@ class NetworkManager {
         }
     }
     
-    
-    
-    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping ([PhotoProperties]) -> ()) {
+    func getData(method: ApiMethods, id: Int, compltionHandler: @escaping (ItemsPhoto) -> ()) {
         
         //создаем URL для указанного метода
         var url:URL? = nil
@@ -143,7 +136,7 @@ class NetworkManager {
                 let task = session.dataTask(with: url!) { (data, response, error) in
                     if data != nil {
                         do {
-                            let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response.items[0].sizes
+                            let response = try JSONDecoder().decode(PhotosResponse.self, from: data!).response
                             compltionHandler(response)
                         } catch {
                             print(error)
@@ -154,7 +147,6 @@ class NetworkManager {
                 }
                 task.resume()
             }
-            
         case .getGroupsList:
             return
         case .searchGroups:
@@ -162,22 +154,6 @@ class NetworkManager {
         case .getUsers:
             return
         }
-        
-        func getImage(by urlStr: String, compltionHandler: @escaping (UIImage) -> Void) {
-            guard let url = URL(string: urlStr) else { return }
-            
-            if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
-                compltionHandler(imageFromCache)
-            }
-            
-            if let data = try? Data(contentsOf: url) {
-                let image = UIImage(data: data)
-                imageCache.setObject(image!, forKey: url as AnyObject)
-                compltionHandler(image!)
-            }
-            
-        }
-        
     }
     
     func getImage(by urlStr: String, compltionHandler: @escaping (UIImage) -> Void) {
@@ -193,6 +169,5 @@ class NetworkManager {
             compltionHandler(image!)
         }
     }
-
-
+    
 }

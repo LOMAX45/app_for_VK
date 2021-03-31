@@ -9,10 +9,18 @@ import UIKit
 
 class FriendPhotoCell: UICollectionViewCell {
     
+    let networkManager = NetworkManager()
+    
     @IBOutlet weak var friendPhoto: UIImageView!
     
-    func setData (image: UIImage) {
-        friendPhoto.image = image
+    func setData (urlStr: String) {
+        networkManager.getImage(by: urlStr) { (image) in
+            DispatchQueue.main.async {
+                if let image = image as UIImage? {
+                    self.friendPhoto.image = image
+                }
+            }
+        }
     }
     
     func addLikeControl() {
