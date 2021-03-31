@@ -24,14 +24,14 @@ class StartScreenController: UIViewController {
     
     @IBAction func signOut(segue: UIStoryboardSegue) {
         if segue.identifier == "signOut" && currentUser.nickname != "admin" {
-            listOfUsersDemo.append(currentUser)
+            listOfUsers.append(currentUser)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            listOfUsersDemo.append(demoUser)
+            listOfUsers.append(demoUser)
         
     }
 }

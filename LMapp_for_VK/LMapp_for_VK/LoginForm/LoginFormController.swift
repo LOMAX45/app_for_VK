@@ -67,7 +67,7 @@ class LoginFormController: UIViewController {
     
     private func checkAvailabilityOfNick (nick: UITextField) -> Int {
         var i = 0
-        while i < listOfUsersDemo.count && nick.text != listOfUsersDemo[i].nickname {
+        while i < listOfUsers.count && nick.text != listOfUsers[i].nickname {
             i += 1
         }
         return i
@@ -80,7 +80,7 @@ class LoginFormController: UIViewController {
             if !checkInputsFilling() {
                 alerting(title: "ОШИБКА", message: "Все поля должны быть заполнены")
                 return false
-            } else if checkAvailabilityOfNick(nick: nickNameRegInput) < listOfUsersDemo.count || nickNameRegInput.text == "admin" {
+            } else if checkAvailabilityOfNick(nick: nickNameRegInput) < listOfUsers.count || nickNameRegInput.text == "admin" {
                 alerting(title: "ОШИБКА", message: "Пользователь с таким ником уже существует.")
                 return false
             } else {
@@ -93,10 +93,10 @@ class LoginFormController: UIViewController {
                 return true
             }
             let index = checkAvailabilityOfNick(nick: nickNameEntInput)
-                if  index < listOfUsersDemo.count {
-                    if listOfUsersDemo[index].check(inputedLogin: nickNameEntInput.text!, inputedPassword: passwordEntInput.text!) {
-                        currentUser = listOfUsersDemo[index]
-                        listOfUsersDemo.remove(at: index)
+                if  index < listOfUsers.count {
+                    if listOfUsers[index].check(inputedLogin: nickNameEntInput.text!, inputedPassword: passwordEntInput.text!) {
+                        currentUser = listOfUsers[index]
+                        listOfUsers.remove(at: index)
                         return true
                     } else {
                         alerting(title: "ОШИБКА", message: "Вы ввели неверный пароль")

@@ -9,7 +9,7 @@ import UIKit
 
 class FriendPhotoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var avatar:[UIImage] = []
+    var photosLibrary:[UIImage] = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -32,12 +32,13 @@ class FriendPhotoController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return avatar.count
+        return photosLibrary.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
-        cell.setData(image: avatar[indexPath.row])
+        cell.setData(image: photosLibrary[indexPath.row])
+        cell.addLikeControl()
         return cell
     }
 }
