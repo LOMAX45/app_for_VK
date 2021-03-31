@@ -58,10 +58,10 @@ class GroupsController: UIViewController, UITableViewDataSource, UITableViewDele
         if typeOfCell == "templateGroupCell" {
             let index = indexPath.row
             let group = groupsDemo[index]
-            if  currentUser.memberOf.contains(group) {
+            if  Session.instance.currentUser.memberOf.contains(group) {
                 alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
             } else {
-                currentUser.memberOf.append(group)
+                Session.instance.currentUser.memberOf.append(group)
                 performSegue(withIdentifier: "addGroup", sender: nil)
             }
             

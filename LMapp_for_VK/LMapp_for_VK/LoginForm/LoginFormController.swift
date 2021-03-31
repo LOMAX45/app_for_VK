@@ -74,18 +74,18 @@ class LoginFormController: UIViewController {
                 alerting(viewController: self, title: "ОШИБКА", message: "Пользователь с таким ником уже существует.")
                 return false
             } else {
-                currentUser = User(nickname: nickNameRegInput.text!, password: passwordRegInput.text!, name: nameRegInput.text!, familyName: familyNameRegInput.text!)
+                Session.instance.currentUser = User(nickname: nickNameRegInput.text!, password: passwordRegInput.text!, name: nameRegInput.text!, familyName: familyNameRegInput.text!)
                 return true
             }
         case "LogOn":
             if nickNameEntInput.text! == "admin" && passwordEntInput.text! == "admin" {
-                currentUser = admin
+                Session.instance.currentUser = admin
                 return true
             }
             let index = checkAvailabilityOfNick(nick: nickNameEntInput)
                 if  index < listOfUsers.count {
                     if listOfUsers[index].check(inputedLogin: nickNameEntInput.text!, inputedPassword: passwordEntInput.text!) {
-                        currentUser = listOfUsers[index]
+                        Session.instance.currentUser = listOfUsers[index]
                         listOfUsers.remove(at: index)
                         return true
                     } else {

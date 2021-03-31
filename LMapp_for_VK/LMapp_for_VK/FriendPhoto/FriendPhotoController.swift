@@ -91,11 +91,11 @@ class FriendPhotoController: UIViewController {
         
         UIView.animate(withDuration: 0.3,
                        animations: {
-                        self.backgroundView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) , y: self.view.safeAreaInsets.bottom + self.itemSize * CGFloat(self.row)), size: CGSize(width: self.itemSize, height: self.itemSize))
+                        self.backgroundView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) + 3, y: self.view.safeAreaInsets.top + self.itemSize * CGFloat(self.row) + 3), size: CGSize(width: self.itemSize, height: self.itemSize))
                         self.backgroundView?.alpha = 0
                         
                         self.imageView?.alpha = 0.5
-                        self.imageView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) , y: self.view.safeAreaInsets.bottom + self.itemSize * CGFloat(self.row)), size: CGSize(width: self.itemSize, height: self.itemSize))
+                        self.imageView?.frame = CGRect(origin: CGPoint(x: self.itemSize * CGFloat(self.column) + 3, y: self.view.safeAreaInsets.top + self.itemSize * CGFloat(self.row) + 3), size: CGSize(width: self.itemSize, height: self.itemSize))
                         self.imageView?.imageView.frame = self.imageView!.bounds
                        },
                        completion: {_ in

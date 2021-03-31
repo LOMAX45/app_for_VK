@@ -61,7 +61,7 @@ var demoUserMemberOf: [Group] = [groupsDemo[6], groupsDemo[8], groupsDemo[9]]
 
 var demoUser = User(nickname: "lomax45", password: "password", name: "Максим", familyName: "Лосев", emailAddress: "maxim.losev@geekbrains.ru", dayOfBorn: 02, monthOfBorn: 06, yearOfBorn: 1988, avatar: (UIImage(named: "avatar"))!, memberOf: demoUserMemberOf)
 
-var currentUser:User = demoUser
+//var currentUser:User = demoUser
 
 var demoNews: [News] = [
     News(owner: randomUser(),

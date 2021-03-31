@@ -9,7 +9,7 @@ import UIKit
 
 class UserGroupsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var userGroupsDemo = currentUser.memberOf
+    var userGroupsDemo = Session.instance.currentUser.memberOf
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,11 +29,11 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
                         }
                     }
                 } else {
-                    userGroupsDemo = currentUser.memberOf
+                    userGroupsDemo = Session.instance.currentUser.memberOf
                     tableView.reloadData()
                 }
             } else if let groupInfoController = segue.source as? GroupInfoController {
-                userGroupsDemo = currentUser.memberOf
+                userGroupsDemo = Session.instance.currentUser.memberOf
                 tableView.reloadData()
             } else {
                 return
