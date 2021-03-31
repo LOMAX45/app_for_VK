@@ -89,12 +89,9 @@ private func randomUser() -> User {
 }
 
 private func randomDate() -> String {
-    let hour = Int.random(in: 0..<24)
-    let minute = Int.random(in: 0..<60)
-    let day = Int.random(in: 0..<30)
-    let month = Int.random(in: 1...12)
-    let year = Int.random(in: 2013...2021)
-    
-    let date = "\(hour):\(minute) \(day)-\(month)-\(year)"
+    let randomDate = NSDate(timeInterval: TimeInterval(Int.random(in: -3600*24..<0)), since: .init())
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd.MM.yyyy 'в' HH:mm"
+    let date = formatter.string(from: randomDate as Date)
     return date
 }

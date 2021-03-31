@@ -39,7 +39,16 @@ class News {
         self.likedBy = likedBy
     }
     
+}
+
+extension News: Comparable {
     
+    static func < (lhs: News, rhs: News) -> Bool {
+        lhs.creationDate < rhs.creationDate
+    }
     
+    static func == (lhs: News, rhs: News) -> Bool {
+        lhs.creationDate == rhs.creationDate
+    }
     
 }

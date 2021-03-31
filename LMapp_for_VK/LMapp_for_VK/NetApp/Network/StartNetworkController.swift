@@ -21,7 +21,7 @@ class StartNetworkController: UIViewController {
         
         let networkManager = NetworkManager()
         networkManager.authorize(webview)
-        
+
     }
     
 }
@@ -47,11 +47,11 @@ extension StartNetworkController: WKNavigationDelegate {
 
         guard let token = params["access_token"] else { return }
         guard let userId = params["user_id"] else { return }
-        Session.instance.token = token
-        Session.instance.userId = Int(userId) ?? 0
-
+        NetSession.instance.token = token
+        NetSession.instance.userId = Int(userId) ?? 0
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(identifier: "UrlRequestsController")
+        let controller = storyboard.instantiateViewController(identifier: "NetFriendsListController")
         show(controller, sender: nil)
         
         decisionHandler(.cancel)

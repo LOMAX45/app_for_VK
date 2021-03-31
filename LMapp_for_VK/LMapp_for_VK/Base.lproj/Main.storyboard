@@ -258,7 +258,67 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHy-Uk-hZh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1591" y="1527"/>
+            <point key="canvasLocation" x="722" y="2221"/>
+        </scene>
+        <!--Net Friends List Controller-->
+        <scene sceneID="5gD-rp-W5u">
+            <objects>
+                <viewController storyboardIdentifier="NetFriendsListController" modalPresentationStyle="fullScreen" id="jGp-WG-day" customClass="NetFriendsListController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cO0-TR-BmJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DO5-cv-6F0">
+                                <rect key="frame" x="16" y="20" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3bx-CG-NqY"/>
+                                    <constraint firstAttribute="width" constant="50" id="gQq-bx-Khu"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa8-Lc-4JR">
+                                <rect key="frame" x="74" y="35" width="285" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="9Mw-m1-rwR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldJ-wE-Hxv">
+                                <rect key="frame" x="32" y="548" width="311" height="35"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="HOb-5R-B9L"/>
+                                </constraints>
+                                <state key="normal" title="На контроллер с запросами">
+                                    <color key="titleColor" systemColor="systemGray2Color"/>
+                                </state>
+                                <connections>
+                                    <action selector="switchToUrlController:" destination="jGp-WG-day" eventType="touchUpInside" id="q1h-V7-Nwh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="czN-P1-k3k"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="aa8-Lc-4JR" firstAttribute="leading" secondItem="DO5-cv-6F0" secondAttribute="trailing" constant="8" id="5Fo-3Z-W3J"/>
+                            <constraint firstItem="ldJ-wE-Hxv" firstAttribute="leading" secondItem="czN-P1-k3k" secondAttribute="leading" constant="32" id="7te-Le-MMY"/>
+                            <constraint firstItem="aa8-Lc-4JR" firstAttribute="top" secondItem="czN-P1-k3k" secondAttribute="top" constant="35" id="9Ka-BN-YP5"/>
+                            <constraint firstItem="czN-P1-k3k" firstAttribute="trailing" secondItem="ldJ-wE-Hxv" secondAttribute="trailing" constant="32" id="Nqt-FK-NOu"/>
+                            <constraint firstItem="czN-P1-k3k" firstAttribute="bottom" secondItem="ldJ-wE-Hxv" secondAttribute="bottom" constant="84" id="iFW-JT-eWO"/>
+                            <constraint firstItem="DO5-cv-6F0" firstAttribute="top" secondItem="czN-P1-k3k" secondAttribute="top" constant="20" id="oYa-PF-aHE"/>
+                            <constraint firstItem="DO5-cv-6F0" firstAttribute="leading" secondItem="czN-P1-k3k" secondAttribute="leading" constant="16" id="rgz-at-qYv"/>
+                            <constraint firstItem="czN-P1-k3k" firstAttribute="trailing" secondItem="aa8-Lc-4JR" secondAttribute="trailing" constant="16" id="zFx-TD-nbi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="currentUserAvatar" destination="DO5-cv-6F0" id="00s-ez-DLY"/>
+                        <outlet property="currentUserName" destination="aa8-Lc-4JR" id="ast-CJ-QPr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ej-bq-OAX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2354" y="1527"/>
         </scene>
         <!--Login Form Controller-->
         <scene sceneID="CYL-j4-lqC">
@@ -1192,6 +1252,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
