@@ -82,7 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="723" y="479"/>
+            <point key="canvasLocation" x="721" y="395"/>
         </scene>
         <!--Start Network Controller-->
         <scene sceneID="5yQ-4l-BRB">
@@ -608,10 +608,10 @@
             </objects>
             <point key="canvasLocation" x="5328.8000000000002" y="156.97151424287858"/>
         </scene>
-        <!--User Groups Controller-->
+        <!--User Group Controller-->
         <scene sceneID="Z6w-ss-4yY">
             <objects>
-                <viewController storyboardIdentifier="UserGroupsController" modalPresentationStyle="fullScreen" id="yrc-uR-nWz" customClass="UserGroupsController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserGroupController" modalPresentationStyle="fullScreen" id="yrc-uR-nWz" customClass="UserGroupController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ASz-1W-w0s">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -620,7 +620,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="510"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userGroupsCell" id="e1d-HN-3Ei" customClass="UserGroupsCell" customModule="LMapp_for_VK" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userGroupCell" id="e1d-HN-3Ei" customClass="UserGroupCell" customModule="LMapp_for_VK" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e1d-HN-3Ei" id="vpn-kt-giz">
@@ -641,8 +641,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="groupName" destination="B0q-PX-VEr" id="zXv-2P-rOG"/>
-                                            <segue destination="fCp-X4-0oE" kind="show" identifier="showGroupInfo" id="vo9-cV-KkN"/>
+                                            <outlet property="nameLabel" destination="B0q-PX-VEr" id="KpP-Sp-s2L"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -717,7 +716,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="gtb-eU-nHC" id="UX6-e1-33i"/>
+                        <outlet property="tableView" destination="gtb-eU-nHC" id="xBN-8X-k8e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kL0-Od-lWV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -808,18 +807,18 @@
             <objects>
                 <viewController storyboardIdentifier="groupInfo" id="fCp-X4-0oE" customClass="GroupInfoController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l41-ii-QRd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ht-11-Zxl">
-                                <rect key="frame" x="0.0" y="56" width="375" height="187.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="187.5"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7ht-11-Zxl" secondAttribute="height" multiplier="2:1" id="z0x-yx-hu7"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="GdN-IP-CM4">
-                                <rect key="frame" x="8" y="251.5" width="359" height="32"/>
+                                <rect key="frame" x="8" y="195.5" width="359" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="b2w-7L-5ec"/>
                                 </constraints>
@@ -828,7 +827,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="Bee-au-MUt">
-                                <rect key="frame" x="4" y="291.5" width="367" height="262.5"/>
+                                <rect key="frame" x="4" y="235.5" width="367" height="387.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -836,7 +835,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wfH-bq-sPR">
-                                <rect key="frame" x="32" y="558" width="311" height="32"/>
+                                <rect key="frame" x="32" y="627" width="311" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="dUA-NW-Qwe"/>
                                 </constraints>
@@ -951,9 +950,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="YO1-W0-EYf" kind="relationship" relationship="viewControllers" id="sON-Wi-swv"/>
-                        <segue destination="2Ej-zR-xWN" kind="relationship" relationship="viewControllers" id="0Nu-qQ-cj4"/>
-                        <segue destination="63U-mv-o0j" kind="relationship" relationship="viewControllers" id="bZc-6E-pI5"/>
+                        <segue destination="YO1-W0-EYf" kind="relationship" relationship="viewControllers" id="6nH-hn-HGs"/>
+                        <segue destination="2Ej-zR-xWN" kind="relationship" relationship="viewControllers" id="ENp-qu-Pwv"/>
+                        <segue destination="63U-mv-o0j" kind="relationship" relationship="viewControllers" id="8hR-MT-V7O"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cr6-vj-iSA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -963,7 +962,7 @@
         <!--Новости-->
         <scene sceneID="4sr-pE-wvy">
             <objects>
-                <viewController storyboardIdentifier="newsController" id="YO1-W0-EYf" customClass="NewsController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newsController" id="YO1-W0-EYf" customClass="NetNewsController" customModule="LMapp_for_VK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hyn-9w-5iS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -971,6 +970,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eRA-Xc-NYD">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hKa-oy-Mtm">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hKa-oy-Mtm" id="CW1-lJ-oQ6" customClass="NetNewsPostCell" customModule="LMapp_for_VK" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gqf-DU-dAK"/>
@@ -984,7 +993,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Новости" image="newspaper" catalog="system" id="xXY-h7-XM3"/>
                     <connections>
-                        <outlet property="tableView" destination="eRA-Xc-NYD" id="Acm-VJ-iWt"/>
+                        <outlet property="tableView" destination="eRA-Xc-NYD" id="Tqz-hi-NdA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="koB-tA-D2f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1022,7 +1031,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="yrc-uR-nWz" kind="relationship" relationship="rootViewController" id="CUk-x3-lI6"/>
+                        <segue destination="yrc-uR-nWz" kind="relationship" relationship="rootViewController" id="5xg-IU-XYR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bOf-Zi-Vb5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

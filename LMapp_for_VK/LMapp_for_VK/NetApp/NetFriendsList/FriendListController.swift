@@ -10,7 +10,8 @@ import UIKit
 class FriendsListController: UIViewController {
     
     let networkManager = NetworkManager()
-    var friends: [UserVkDb] = UsersDB().read() ?? []
+//    var friends: [UserVkDb] = UsersDB().read() ?? []
+    var friends: [UserVkDb] = []
     var sections: [String : [UserVkDb]] = [:]
     var keys: [String] = []
     
@@ -37,13 +38,13 @@ class FriendsListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sort(array: friends)
-        print(friends)
-        print(sections)
-        print(keys)
+        friends = UsersDB().read() ?? []
         
-        tableView.reloadData()
-        
+        if friends.count != 0 {
+            sort(array: friends)
+            tableView.reloadData()
+        }
+
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -51,31 +52,12 @@ class FriendsListController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto" {
+            guard let destination = segue.destination as? FriendPhotoController else { return }
             if let indexPath = tableView.indexPathForSelectedRow {
                 let key = keys[indexPath.section]
                 let user = sections[key]![indexPath.row]
                 let id = user.id
-                networkManager.getData(method: .getPhotos, id: id) { (response) in
-                    print(response)
-                    
-                    let photoDb = UsersDB()
-                    let itemsPhoto = ItemsPhotoDb(id: id)
-                    let item = itemsPhoto.items
-                    let sizes = SizesDb(id: id)
-                    let size = sizes.sizes
-                    response.items.forEach({
-                        for i in 0..<$0.sizes.count {
-                            let properties = PhotoPropertiesDb(type: $0.sizes[i].type, url: $0.sizes[i].url)
-                            size.append(properties)
-                        }
-                        item.append(sizes)
-                    })
-                    photoDb.write(itemsPhoto)
-                }
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "FriendPhotoController") as? FriendPhotoController
-                controller?.id = String(user.id)
+                destination.id = id
             }
         }
     }

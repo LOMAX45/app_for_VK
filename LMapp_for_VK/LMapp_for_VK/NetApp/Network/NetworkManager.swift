@@ -16,6 +16,12 @@ enum ApiMethods: String {
     case getGroupsList = "/method/groups.get"
     case searchGroups = "/method/groups.search"
     case getUsers = "/method/users.get"
+    case getNews = "/method/newsfeed.get"
+}
+
+enum TypeOfNews: String {
+    case post = "post"
+    case photo = "photo"
 }
 
 class NetworkManager {
@@ -33,9 +39,9 @@ class NetworkManager {
             URLQueryItem(name: "client_id", value: "7748029"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "display", value: "mobile"),
-            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "scope", value: "270342"),
             URLQueryItem(name: "response_type", value: "token"),
-            URLQueryItem(name: "v", value: "5.126")
+            URLQueryItem(name: "v", value: "5.130")
         ]
         guard let url = urlAuthorize.url else { return }
         let request = URLRequest(url: url)
@@ -55,14 +61,14 @@ class NetworkManager {
         return urlApi
     }
     
-    //Функция получения данных в зависимости от метода
+    //Функции получения данных в зависимости от метода
     func getData(method: ApiMethods, compltionHandler: @escaping ([UserVK]) -> ()) {
         //создаем URL для указанного метода
         var url:URL? = nil
         switch method {
         case .getFriends:
             var getFriendsConstructor = createApiUrlTemplate(method: method)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
+//            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
             url = getFriendsConstructor.url
@@ -82,19 +88,6 @@ class NetworkManager {
                 }
                 task.resume()
             }
-        case .getPhotos:
-            return
-        case .getGroupsList:
-            var getGroupsListConstructor = createApiUrlTemplate(method: method)
-            getGroupsListConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "\(NetSession.instance.userId)"), at: 0)
-            getGroupsListConstructor.queryItems?.insert(URLQueryItem(name: "extended", value: "1"), at: 1)
-            url = getGroupsListConstructor.url
-        case .searchGroups:
-            var searchGroupsConstructor = createApiUrlTemplate(method: method)
-            searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "q", value: searchText), at: 0)
-            searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "type", value: "group"), at: 1)
-            searchGroupsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "5"), at: 2)
-            url = searchGroupsConstructor.url
         case .getUsers:
             var getUserConstructor = createApiUrlTemplate(method: method)
             getUserConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 0)
@@ -115,21 +108,18 @@ class NetworkManager {
                 }
                 task.resume()
             }
+        default: return
         }
     }
     
     func getData(method: ApiMethods, id: Int, compltionHandler: @escaping (ItemsPhoto) -> ()) {
         
         //создаем URL для указанного метода
-        var url:URL? = nil
         switch method {
-        case .getFriends:
-            return
         case .getPhotos:
             var getPhotosConstructor = createApiUrlTemplate(method: method)
             getPhotosConstructor.queryItems?.insert(URLQueryItem(name: "owner_id", value: String(id)), at: 0)
-            url = getPhotosConstructor.url
-            print(getPhotosConstructor)
+            let url = getPhotosConstructor.url
             
             if url != nil {
                 let session = URLSession.shared
@@ -147,12 +137,62 @@ class NetworkManager {
                 }
                 task.resume()
             }
+        default: return
+        }
+    }
+    
+    func getGroups(method: ApiMethods, comlitionHandler: @escaping (ItemsGroup) -> ()) {
+        switch method {
         case .getGroupsList:
-            return
-        case .searchGroups:
-            return
-        case .getUsers:
-            return
+            var getGroupsConstructor = createApiUrlTemplate(method: method)
+            getGroupsConstructor.queryItems?.insert(URLQueryItem(name: "extended", value: "1"), at: 0)
+            let url = getGroupsConstructor.url
+            
+            if url != nil {
+                
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        do {
+                            let response = try JSONDecoder().decode(GroupResponse.self, from: data!).response
+                            comlitionHandler(response)
+                        } catch {
+                            print(error)
+                        }
+                    } else {
+                        print("Data is nil")
+                    }
+                }
+                task.resume()
+            }
+        default: return
+        }
+    }
+    
+    func getNews(method: ApiMethods, type: TypeOfNews, complitionHandler: @escaping (NewsResponse) -> ()) {
+        
+        switch method {
+        case .getNews:
+            var getNewsConstructor = createApiUrlTemplate(method: method)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: type.rawValue), at: 0)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
+            let url = getNewsConstructor.url
+            
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        do {
+                            let response = try JSONDecoder().decode(NewsJson.self, from: data!).response
+                            complitionHandler(response)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                task.resume()
+            }
+        default: return
         }
     }
     
