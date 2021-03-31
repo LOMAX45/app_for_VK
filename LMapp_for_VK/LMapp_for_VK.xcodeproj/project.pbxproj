@@ -41,6 +41,8 @@
 		C178793225861F670034030F /* demo_database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C178793125861F670034030F /* demo_database.swift */; };
 		C190323725B97EC100AC8334 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C190323625B97EC100AC8334 /* CustomInteractiveTransition.swift */; };
 		C1A6C40025C834BE00156FEB /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C3FF25C834BE00156FEB /* Session.swift */; };
+		C1A6C40425C8952100156FEB /* StartNetworkControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40325C8952100156FEB /* StartNetworkControllerViewController.swift */; };
+		C1A6C40825C898C100156FEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40725C898C100156FEB /* NetworkManager.swift */; };
 		C1CE0367259640F6003B1456 /* NewsSinglePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1CE0366259640F6003B1456 /* NewsSinglePhotoCell.xib */; };
 		C1CE036A25964E36003B1456 /* NewsLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CE036925964E36003B1456 /* NewsLikeControl.swift */; };
 		C1D487B42585747A001EC6E4 /* UserGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487B32585747A001EC6E4 /* UserGroupsController.swift */; };
@@ -48,6 +50,7 @@
 		C1D487BB258574C9001EC6E4 /* GroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487BA258574C9001EC6E4 /* GroupsController.swift */; };
 		C1D487BF258574DE001EC6E4 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487BE258574DE001EC6E4 /* GroupsCell.swift */; };
 		C1D487C2258574FA001EC6E4 /* GroupClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D487C1258574FA001EC6E4 /* GroupClass.swift */; };
+		C1D4C61E25C9D25400586559 /* UrlRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D4C61D25C9D25400586559 /* UrlRequestsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +90,8 @@
 		C178793125861F670034030F /* demo_database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demo_database.swift; sourceTree = "<group>"; };
 		C190323625B97EC100AC8334 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		C1A6C3FF25C834BE00156FEB /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		C1A6C40325C8952100156FEB /* StartNetworkControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNetworkControllerViewController.swift; sourceTree = "<group>"; };
+		C1A6C40725C898C100156FEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C1CE0366259640F6003B1456 /* NewsSinglePhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsSinglePhotoCell.xib; sourceTree = "<group>"; };
 		C1CE036925964E36003B1456 /* NewsLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLikeControl.swift; sourceTree = "<group>"; };
 		C1D487B32585747A001EC6E4 /* UserGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsController.swift; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 		C1D487BA258574C9001EC6E4 /* GroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsController.swift; sourceTree = "<group>"; };
 		C1D487BE258574DE001EC6E4 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		C1D487C1258574FA001EC6E4 /* GroupClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClass.swift; sourceTree = "<group>"; };
+		C1D4C61D25C9D25400586559 /* UrlRequestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequestsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +214,7 @@
 		C13370EC25797EA2001A2A86 /* LMapp_for_VK */ = {
 			isa = PBXGroup;
 			children = (
+				C1A6C40225C894DE00156FEB /* Network */,
 				C1760B9E25B2294E0063F91E /* AnimationsNavigatioController */,
 				5018E0EC2583A6F200B82274 /* Model */,
 				50EF3980258781E900E80D78 /* LoginForm */,
@@ -238,6 +245,16 @@
 				C190323625B97EC100AC8334 /* CustomInteractiveTransition.swift */,
 			);
 			path = AnimationsNavigatioController;
+			sourceTree = "<group>";
+		};
+		C1A6C40225C894DE00156FEB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C1A6C40725C898C100156FEB /* NetworkManager.swift */,
+				C1A6C40325C8952100156FEB /* StartNetworkControllerViewController.swift */,
+				C1D4C61D25C9D25400586559 /* UrlRequestsController.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		C1D487B22585745C001EC6E4 /* UserGroups */ = {
@@ -344,6 +361,7 @@
 				505C620A258F70CF00BE727B /* ChoosingLetter.swift in Sources */,
 				C1D487BB258574C9001EC6E4 /* GroupsController.swift in Sources */,
 				C178793225861F670034030F /* demo_database.swift in Sources */,
+				C1D4C61E25C9D25400586559 /* UrlRequestsController.swift in Sources */,
 				C1760BA025B229AE0063F91E /* CustomPushAnimator.swift in Sources */,
 				C1D487BF258574DE001EC6E4 /* GroupsCell.swift in Sources */,
 				C190323725B97EC100AC8334 /* CustomInteractiveTransition.swift in Sources */,
@@ -352,11 +370,13 @@
 				C13370EE25797EA2001A2A86 /* AppDelegate.swift in Sources */,
 				C1CE036A25964E36003B1456 /* NewsLikeControl.swift in Sources */,
 				C11CBDD225AECCA0009ABFC7 /* ShowPhotoImageView.swift in Sources */,
+				C1A6C40825C898C100156FEB /* NetworkManager.swift in Sources */,
 				503CF0E6258B5E47008AC9D7 /* AvatarView.swift in Sources */,
 				C13370F025797EA2001A2A86 /* SceneDelegate.swift in Sources */,
 				50EF39892587A07E00E80D78 /* GroupInfoController.swift in Sources */,
 				50EF39822587823B00E80D78 /* StartScreenController.swift in Sources */,
 				C1D487C2258574FA001EC6E4 /* GroupClass.swift in Sources */,
+				C1A6C40425C8952100156FEB /* StartNetworkControllerViewController.swift in Sources */,
 				50EF397E258770B400E80D78 /* CurrentUserView.swift in Sources */,
 				5018E0E92583A53F00B82274 /* FriendPhotoController.swift in Sources */,
 				C11CBDBA2597F074009ABFC7 /* NewsMultiPhotoCell.swift in Sources */,
@@ -517,6 +537,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CK743H6YQY;
 				INFOPLIST_FILE = LMapp_for_VK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,7 +545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.losev-maksim.LMapp-for-VK";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -536,6 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CK743H6YQY;
 				INFOPLIST_FILE = LMapp_for_VK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -543,7 +565,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.losev-maksim.LMapp-for-VK";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
