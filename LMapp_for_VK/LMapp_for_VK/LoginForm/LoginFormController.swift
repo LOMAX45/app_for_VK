@@ -51,16 +51,6 @@ class LoginFormController: UIViewController {
     @IBAction func regButtonPressed(_ sender: Any) {}
     @IBAction func enterButtonPressed(_ sender: Any) {}
     
-    private func alerting (title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // Создаем кнопку для UIAlertController
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        // Добавляем кнопку на UIAlertController
-        alert.addAction(action)
-        // Показываем UIAlertController
-        present(alert, animated: true, completion: nil)
-    }
-    
     private func checkInputsFilling () -> Bool {
         return (nickNameRegInput.text != "" && passwordRegInput.text != "" && nameRegInput.text != "" && familyNameRegInput.text != "")
     }
@@ -78,10 +68,10 @@ class LoginFormController: UIViewController {
         switch identifier {
         case "Registration":
             if !checkInputsFilling() {
-                alerting(title: "ОШИБКА", message: "Все поля должны быть заполнены")
+                alerting(viewController: self, title: "ОШИБКА", message: "Все поля должны быть заполнены")
                 return false
             } else if checkAvailabilityOfNick(nick: nickNameRegInput) < listOfUsers.count || nickNameRegInput.text == "admin" {
-                alerting(title: "ОШИБКА", message: "Пользователь с таким ником уже существует.")
+                alerting(viewController: self, title: "ОШИБКА", message: "Пользователь с таким ником уже существует.")
                 return false
             } else {
                 currentUser = User(nickname: nickNameRegInput.text!, password: passwordRegInput.text!, name: nameRegInput.text!, familyName: familyNameRegInput.text!)
@@ -99,12 +89,12 @@ class LoginFormController: UIViewController {
                         listOfUsers.remove(at: index)
                         return true
                     } else {
-                        alerting(title: "ОШИБКА", message: "Вы ввели неверный пароль")
+                        alerting(viewController: self, title: "ОШИБКА", message: "Вы ввели неверный пароль")
                         passwordEntInput.text = ""
                         return false
                     }
                 } else {
-                    alerting(title: "ОШИБКА", message: "Пользователя с таким ником не существует")
+                    alerting(viewController: self, title: "ОШИБКА", message: "Пользователя с таким ником не существует")
                     return false
                 }
         default:

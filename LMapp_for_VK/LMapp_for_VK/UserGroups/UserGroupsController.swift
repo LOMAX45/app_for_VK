@@ -11,32 +11,34 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
     
     var userGroupsDemo = currentUser.memberOf
     
-    @IBOutlet weak var tableView: UITableView!
     
-    private func alerting (title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // Создаем кнопку для UIAlertController
-        let action = UIAlertAction(title: "ОК", style: .default, handler: nil)
-        // Добавляем кнопку на UIAlertController
-        alert.addAction(action)
-        // Показываем UIAlertController
-        present(alert, animated: true, completion: nil)
-    }
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if segue.identifier == "addGroup" {
-            guard let groupsController = segue.source as? GroupsController else {
+            
+            if let groupController = segue.source as? GroupsController {
+                if groupController.typeOfCell == "groupCell" {
+                    if let indexPath = groupController.tableView.indexPathForSelectedRow {
+                        let group = groupsDemo[indexPath.row]
+                        if !userGroupsDemo.contains(group) {
+                            userGroupsDemo.append(group)
+                            tableView.reloadData()
+                        } else {
+                            alerting(viewController: self, title: "", message: "Вы уже состоите в сообществе")
+                        }
+                    }
+                } else {
+                    userGroupsDemo = currentUser.memberOf
+                    tableView.reloadData()
+                }
+            } else if let groupInfoController = segue.source as? GroupInfoController {
+                userGroupsDemo = currentUser.memberOf
+                tableView.reloadData()
+            } else {
                 return
             }
-            if let indexPath = groupsController.tableView.indexPathForSelectedRow {
-                let group = groupsDemo[indexPath.row]
-                if !userGroupsDemo.contains(group) {
-                    userGroupsDemo.append(group)
-                    tableView.reloadData()
-                } else {
-                    alerting(title: "", message: "Вы уже состоите в сообществе")
-                }
-            }
+            
         }
     }
     
@@ -69,14 +71,15 @@ class UserGroupsController: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGroupInfo" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let group = userGroupsDemo[indexPath.row]
                 let groupInfoController = segue.destination as! GroupInfoController
-                groupInfoController.selectedGroup.append(group)
+                groupInfoController.selectedGroup = group
             }
         }
     }
-    
 }

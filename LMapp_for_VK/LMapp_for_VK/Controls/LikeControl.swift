@@ -42,11 +42,18 @@ class LikeControl: UIControl {
         if likeStatus == 0 {
             button.isSelected = true
             likeStatus += 1
+            
         } else {
             button.isSelected = false
             likeStatus -= 1
         }
-        quantity.text = "\(likeStatus)"
+        UIView.transition(with: quantity,
+                          duration: 0.5,
+                          options: .transitionFlipFromLeft,
+                          animations: {
+                            self.quantity.text = "\(self.likeStatus)"
+                          },
+                          completion: nil)
     }
 
 }
