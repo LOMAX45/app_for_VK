@@ -7,30 +7,23 @@
 
 import Foundation
 
-struct Response: Decodable {
-    let users: [UserVK]
-    
-    enum CodingKeys: String, CodingKey {
-        case users = "response"
-    }
+struct UsersResponse: Codable {
+    let response: [UserVK]
 }
 
-struct UserVK: Decodable {
-    
+struct UserVK: Codable {
     let id: Int
     var firstName: String
     var lastName: String
-    var canAccessClosed: Bool
-    var isClosed: Bool
     var avatar: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
-        case canAccessClosed = "can_access_closed"
-        case isClosed = "is_closed"
         case avatar = "photo_50"
     }
-    
 }
+
+
+

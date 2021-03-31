@@ -2,14 +2,15 @@
 //  FriendPhotoController.swift
 //  LMapp_for_VK
 //
-//  Created by Максим Лосев on 11.12.2020.
+//  Created by Максим Лосев on 19.02.2021.
 //
 
 import UIKit
 
 class FriendPhotoController: UIViewController {
     
-    var photosLibrary:[UIImage] = []
+    var photosLibrary:[PhotoProperties] = []
+    let networkManager = NetworkManager()
     
     var imageView:ShowPhotoImageView? = nil
     var backgroundView:UIView? = nil
@@ -37,14 +38,11 @@ class FriendPhotoController: UIViewController {
         
         collectionView.collectionViewLayout = layout
         
-        let threeDotLoadingIndicator = ThreeDotLoadingIndicator(frame: CGRect(x: self.view.center.x - 20, y: self.view.bounds.maxY - 120, width: 40, height: 10))
-        self.view.addSubview(threeDotLoadingIndicator)
-        threeDotLoadingIndicator.startAnimation()
-        
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeShowPhotoViewBySwipe(_:)))
         swipeDown.direction = .down
         self.view.addGestureRecognizer(swipeDown)
-        
+    
+                
     }
     
     func showPhoto(selectedPhoto: Int) {
@@ -135,7 +133,17 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
-        cell.setData(image: photosLibrary[indexPath.row])
+        
+//        print(photosLibrary[indexPath.row].url)
+
+        networkManager.getImage(by: photosLibrary[indexPath.row].url) { (image) in
+            DispatchQueue.main.async {
+                if let image = image as UIImage? {
+                    cell.setData(image: image)
+                }
+            }
+        }
+        
         cell.addLikeControl()
         return cell
     }
@@ -150,3 +158,4 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     }
     
 }
+

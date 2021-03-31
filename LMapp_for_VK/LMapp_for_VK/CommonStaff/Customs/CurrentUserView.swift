@@ -12,15 +12,16 @@ class CurrentUserView: UIView {
     @IBOutlet weak var currentUserAvatar: UIImageView! {
         didSet {
             currentUserAvatar.layer.cornerRadius = 14
-            currentUserAvatar.image = Session.instance.currentUser.avatar
+            currentUserAvatar.image = NetSession.instance.avatar
+            
         }
     }
-
+    
     
     @IBOutlet weak var currentUserName: UILabel! {
         didSet {
-            currentUserName.text = Session.instance.currentUser.name
+            currentUserName.text = NetSession.instance.currentUser?.firstName
         }
     }
-
+    
 }

@@ -21,7 +21,23 @@ class StartNetworkController: UIViewController {
         
         let networkManager = NetworkManager()
         networkManager.authorize(webview)
-
+        
+    }
+    
+    private func getCurrentUser(toVC: String) {
+        let networkManager = NetworkManager()
+        networkManager.getData(method: .getUsers) { (users) in
+            NetSession.instance.currentUser = users[0]
+            guard let url = NetSession.instance.currentUser?.avatar else { return }
+            networkManager.getImage(by: url) { (avatar) in
+                NetSession.instance.avatar = avatar
+            }
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(identifier: toVC)
+        show(controller, sender: nil)
+        
     }
     
 }
@@ -33,7 +49,7 @@ extension StartNetworkController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
-
+        
         let params = fragment
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=") }
@@ -43,16 +59,16 @@ extension StartNetworkController: WKNavigationDelegate {
                 let value = param[1]
                 dict[key] = value
                 return dict
-        }
-
+            }
+        
         guard let token = params["access_token"] else { return }
         guard let userId = params["user_id"] else { return }
         NetSession.instance.token = token
         NetSession.instance.userId = Int(userId) ?? 0
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(identifier: "NetFriendsListController")
-        show(controller, sender: nil)
+        print("USER IS IS \(NetSession.instance.userId)")
+        
+        getCurrentUser(toVC: "LoggedOnController")
         
         decisionHandler(.cancel)
         

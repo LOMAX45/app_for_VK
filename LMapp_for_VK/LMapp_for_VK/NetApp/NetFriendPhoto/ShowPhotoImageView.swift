@@ -2,7 +2,7 @@
 //  ShowPhotoImageView.swift
 //  LMapp_for_VK
 //
-//  Created by Максим Лосев on 13.01.2021.
+//  Created by Максим Лосев on 19.02.2021.
 //
 
 import UIKit
@@ -13,13 +13,23 @@ class ShowPhotoImageView: UIView {
     
     var initialCenter: CGPoint?
     
-    var photosLibrary: [UIImage]!
+    var photosLibrary: [PhotoProperties]!
     var selectedPhoto: Int!
     
+    let networkManager = NetworkManager()
+    
     func setImageView() {
+        networkManager.getImage(by: photosLibrary[selectedPhoto].url) { (image) in
+            DispatchQueue.main.async {
+                if let image = image as UIImage? {
+                    self.imageView.image = image
+                }
+            }
+        }
+        
         imageView = UIImageView(frame: self.bounds)
         imageView.backgroundColor = UIColor.systemGray2
-        imageView.image = photosLibrary[selectedPhoto]
+        
         self.addSubview(imageView)
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(changeView(_:)))
@@ -62,7 +72,13 @@ class ShowPhotoImageView: UIView {
                                     } else {
                                         self.selectedPhoto -= 1
                                     }
-                                    self.imageView.image = self.photosLibrary[self.selectedPhoto]
+                                    self.networkManager.getImage(by: self.photosLibrary[self.selectedPhoto].url) { (image) in
+                                        DispatchQueue.main.async {
+                                            if let image = image as UIImage? {
+                                                self.imageView.image = image
+                                            }
+                                        }
+                                    }
                                     UIView.animateKeyframes(withDuration: 0.15,
                                                             delay: 0.0,
                                                             options: [],
