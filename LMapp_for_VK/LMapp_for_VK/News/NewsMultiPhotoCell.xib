@@ -36,11 +36,15 @@
                         <color key="textColor" red="0.31737896799999998" green="0.45074021819999999" blue="0.64316034320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ctD-fv-tzp" userLabel="Body Image1">
-                        <rect key="frame" x="0.0" y="156" width="207" height="207"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ctD-fv-tzp" userLabel="Body Image1">
+                        <rect key="frame" x="0.0" y="156" width="206" height="206"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                        <color key="tintColor" systemColor="systemGrayColor"/>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XkS-9O-Kkl">
-                        <rect key="frame" x="207" y="156" width="207" height="207"/>
+                        <rect key="frame" x="208" y="156" width="206" height="206"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                        <color key="tintColor" systemColor="systemGrayColor"/>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3B-Xf-bEl">
                         <rect key="frame" x="0.0" y="64" width="414" height="92"/>
@@ -51,13 +55,17 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LCl-8J-vMj">
-                        <rect key="frame" x="0.0" y="363" width="207" height="207"/>
+                        <rect key="frame" x="0.0" y="364" width="206" height="206"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                        <color key="tintColor" systemColor="systemGrayColor"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="LCl-8J-vMj" secondAttribute="height" multiplier="1:1" id="ImY-eT-V7F"/>
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="41Q-om-aXy">
-                        <rect key="frame" x="207" y="363" width="207" height="207"/>
+                        <rect key="frame" x="208" y="364" width="206" height="206"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                        <color key="tintColor" systemColor="systemGrayColor"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="41Q-om-aXy" secondAttribute="height" multiplier="1:1" id="TEc-jw-Lfy"/>
                         </constraints>
@@ -192,10 +200,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="ctD-fv-tzp" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="leading" id="0ZL-a6-7gG"/>
-                    <constraint firstAttribute="centerX" secondItem="LCl-8J-vMj" secondAttribute="trailing" id="20X-p4-ZvR"/>
-                    <constraint firstAttribute="centerX" secondItem="ctD-fv-tzp" secondAttribute="trailing" id="3nB-4f-ZhF"/>
+                    <constraint firstAttribute="centerX" secondItem="LCl-8J-vMj" secondAttribute="trailing" constant="1" id="20X-p4-ZvR"/>
+                    <constraint firstAttribute="centerX" secondItem="ctD-fv-tzp" secondAttribute="trailing" constant="1" id="3nB-4f-ZhF"/>
                     <constraint firstItem="zzG-Ev-0MB" firstAttribute="top" secondItem="LKH-nB-EVF" secondAttribute="top" constant="10" id="89J-aw-C64"/>
-                    <constraint firstItem="XkS-9O-Kkl" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="centerX" id="A82-Pa-Du2"/>
+                    <constraint firstItem="XkS-9O-Kkl" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="centerX" constant="1" id="A82-Pa-Du2"/>
                     <constraint firstItem="f3B-Xf-bEl" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="leading" id="AiU-OA-pEl"/>
                     <constraint firstItem="zzG-Ev-0MB" firstAttribute="leading" secondItem="6xi-A8-tGd" secondAttribute="trailing" constant="8" symbolic="YES" id="DeS-FN-HC8"/>
                     <constraint firstItem="LCl-8J-vMj" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="leading" id="Fc5-16-QHF"/>
@@ -212,12 +220,12 @@
                     <constraint firstItem="6xi-A8-tGd" firstAttribute="top" secondItem="LKH-nB-EVF" secondAttribute="top" id="aKX-aH-LR5"/>
                     <constraint firstItem="bFl-ZR-bcT" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="leading" id="but-uA-zYI"/>
                     <constraint firstAttribute="trailing" secondItem="5OI-Dh-CkY" secondAttribute="trailing" constant="16" id="fVo-He-8hz"/>
-                    <constraint firstItem="LCl-8J-vMj" firstAttribute="top" secondItem="ctD-fv-tzp" secondAttribute="bottom" id="gj7-Fh-gSI"/>
+                    <constraint firstItem="LCl-8J-vMj" firstAttribute="top" secondItem="ctD-fv-tzp" secondAttribute="bottom" constant="2" id="gj7-Fh-gSI"/>
                     <constraint firstItem="5OI-Dh-CkY" firstAttribute="leading" secondItem="6xi-A8-tGd" secondAttribute="trailing" constant="8" symbolic="YES" id="hzy-TA-2OG"/>
                     <constraint firstAttribute="trailing" secondItem="bFl-ZR-bcT" secondAttribute="trailing" id="kav-5g-wQ1"/>
-                    <constraint firstItem="41Q-om-aXy" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="centerX" id="mB9-ox-3b4"/>
+                    <constraint firstItem="41Q-om-aXy" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="centerX" constant="1" id="mB9-ox-3b4"/>
                     <constraint firstItem="6xi-A8-tGd" firstAttribute="leading" secondItem="LKH-nB-EVF" secondAttribute="leading" id="ntA-Fp-Gtf"/>
-                    <constraint firstItem="41Q-om-aXy" firstAttribute="top" secondItem="XkS-9O-Kkl" secondAttribute="bottom" id="p8y-OA-mF9"/>
+                    <constraint firstItem="41Q-om-aXy" firstAttribute="top" secondItem="XkS-9O-Kkl" secondAttribute="bottom" constant="2" id="p8y-OA-mF9"/>
                     <constraint firstItem="XkS-9O-Kkl" firstAttribute="top" secondItem="f3B-Xf-bEl" secondAttribute="bottom" id="pi8-RV-SQR"/>
                     <constraint firstItem="ctD-fv-tzp" firstAttribute="width" secondItem="ctD-fv-tzp" secondAttribute="height" multiplier="1:1" id="sGr-e1-dic"/>
                 </constraints>
@@ -254,6 +262,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

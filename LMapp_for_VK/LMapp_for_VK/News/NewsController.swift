@@ -37,7 +37,7 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource {
         
         let index = indexPath.row
         
-        if demoNews[index].pictures.count > 1 {
+        if demoNews[index].pictures.count >= 4 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "newsMultiPhotoCell", for: indexPath) as! NewsMultiPhotoCell
             
@@ -66,7 +66,7 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource {
             let owner = demoNews[index].owner
             let creationDate = demoNews[index].creationDate
             let bodyText = demoNews[index].body
-            let bodyImage = demoNews[index].pictures[0]
+            let bodyImage = demoNews[index].pictures[Int.random(in: 0..<demoNews[index].pictures.count)]
             let numbersOfLikes = demoNews[index].likes
             let numbersOfComments = demoNews[index].numbersOfComments
             let numbersOfReposts = demoNews[index].reposts
