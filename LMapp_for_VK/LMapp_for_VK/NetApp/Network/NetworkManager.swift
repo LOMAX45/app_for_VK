@@ -49,7 +49,7 @@ class NetworkManager {
     }
     
     //Фукция создания шаблона URL
-    private func createApiUrlTemplate(method: ApiMethods) -> URLComponents {
+    func createApiUrlTemplate(method: ApiMethods) -> URLComponents {
         var urlApi = URLComponents()
         urlApi.scheme = "https"
         urlApi.host = "api.vk.com"
@@ -68,7 +68,7 @@ class NetworkManager {
         switch method {
         case .getFriends:
             var getFriendsConstructor = createApiUrlTemplate(method: method)
-//            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
             url = getFriendsConstructor.url
@@ -195,14 +195,29 @@ class NetworkManager {
         }
     }
     
-    func getJsonNews(method: ApiMethods, type:TypeOfNews, complitionHandler: @escaping (Data) -> ()) {
+    func getJson(method: ApiMethods, complitionHandler: @escaping (Data) -> ()) {
         switch method {
         case .getNews:
             var getNewsConstructor = createApiUrlTemplate(method: method)
-            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: type.rawValue), at: 0)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: "post"), at: 0)
             getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
             let url = getNewsConstructor.url
             
+            if url != nil {
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!) { (data, response, error) in
+                    if data != nil {
+                        complitionHandler(data!)
+                    }
+                }
+                task.resume()
+            }
+        case .getFriends:
+            var getFriendsConstructor = createApiUrlTemplate(method: method)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
+            let url = getFriendsConstructor.url
             if url != nil {
                 let session = URLSession.shared
                 let task = session.dataTask(with: url!) { (data, response, error) in

@@ -16,7 +16,7 @@ class UsersDB {
         do {
             let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
             db = try Realm(configuration: config)
-            print(db?.configuration.fileURL)
+//            print(db?.configuration.fileURL)
         } catch {
             print(error)
         }

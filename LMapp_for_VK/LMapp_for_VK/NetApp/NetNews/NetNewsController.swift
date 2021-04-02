@@ -43,7 +43,7 @@ class NetNewsController: UIViewController {
 //    }
     
     private func getNews() {
-        self.networkManager.getJsonNews(method: .getNews, type: .post) { [weak self] (data) in
+        self.networkManager.getJson(method: .getNews) { [weak self] (data) in
             guard let self = self else { return }
             let dispatchGroup = DispatchGroup()
             DispatchQueue.global().async(group: dispatchGroup) {

@@ -9,8 +9,7 @@ import UIKit
 
 class FriendsListController: UIViewController {
     
-    let networkManager = NetworkManager()
-//    var friends: [UserVkDb] = UsersDB().read() ?? []
+    let operationsQueue = OperationQueue()
     var friends: [UserVkDb] = []
     var sections: [String : [UserVkDb]] = [:]
     var keys: [String] = []
@@ -38,16 +37,35 @@ class FriendsListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        friends = UsersDB().read() ?? []
+        updateFriends()
+        
+        self.friends = UsersDB().read() ?? []
+        
         
         if friends.count != 0 {
             sort(array: friends)
             tableView.reloadData()
         }
 
+        tableView.reloadData()
+
         tableView.dataSource = self
         tableView.delegate = self
         
+    }
+    
+    private func updateFriends() {
+        let request = URLRequest(url: URL(string: "https://api.vk.com/method/friends.get?user_id=457116142&fields=photo_50&access_token=\(NetSession.instance.token)&v=5.126")!)
+        let getDataOperation = GetFriendsOperation(urlRequest: request)
+        operationsQueue.addOperation(getDataOperation)
+        
+        let parseDataOperation = DataParseOperation()
+        parseDataOperation.addDependency(getDataOperation)
+        operationsQueue.addOperation(parseDataOperation)
+        
+        let addRealmObjectsOperation = AddRealmObjectsOperation()
+        addRealmObjectsOperation.addDependency(parseDataOperation)
+        operationsQueue.addOperation(addRealmObjectsOperation)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,7 +79,6 @@ class FriendsListController: UIViewController {
             }
         }
     }
-    
 }
 
 extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
@@ -108,7 +125,6 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
 
 extension FriendsListController: UISearchBarDelegate {
@@ -146,7 +162,5 @@ extension FriendsListController: UISearchBarDelegate {
         sort(array: friends)
         tableView.reloadData()
     }
-    
-    
 }
 
