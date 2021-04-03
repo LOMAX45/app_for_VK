@@ -38,25 +38,13 @@ class FriendsListController: UIViewController {
         super.viewDidLoad()
         
         updateFriends()
-        
-        self.friends = UsersDB().read() ?? []
-        
-        
-        if friends.count != 0 {
-            sort(array: friends)
-            tableView.reloadData()
-        }
-
-        tableView.reloadData()
-
         tableView.dataSource = self
         tableView.delegate = self
         
     }
     
     private func updateFriends() {
-        let request = URLRequest(url: URL(string: "https://api.vk.com/method/friends.get?user_id=457116142&fields=photo_50&access_token=\(NetSession.instance.token)&v=5.126")!)
-        let getDataOperation = GetFriendsOperation(urlRequest: request)
+        let getDataOperation = GetFriendsOperation(apiMethod: .getFriends)
         operationsQueue.addOperation(getDataOperation)
         
         let parseDataOperation = DataParseOperation()
@@ -66,6 +54,11 @@ class FriendsListController: UIViewController {
         let addRealmObjectsOperation = AddRealmObjectsOperation()
         addRealmObjectsOperation.addDependency(parseDataOperation)
         operationsQueue.addOperation(addRealmObjectsOperation)
+        
+        let reloadFriendsTableOperation = ReloadFriendsTableOperation(controller: self)
+        reloadFriendsTableOperation.addDependency(addRealmObjectsOperation)
+        OperationQueue.main.addOperation(reloadFriendsTableOperation)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -10,14 +10,21 @@ import Foundation
 class AddRealmObjectsOperation: Operation {
     
     let db = UsersDB()
+    var isStoredFriends:[UserVkDb] = []
+    var outputData:[UserVkDb] = []
     
     override func main() {
-        print("START REALM")
         guard let dataParseOperation = dependencies.first as? DataParseOperation,
               let toAddData = dataParseOperation.outputData else { return }
-        toAddData.forEach({ db.write($0.toUserVkDb()) })
-        print("FINISHED REALM")
+        DispatchQueue.main.async {
+            self.isStoredFriends = self.db.read() ?? []
+            if toAddData.count < self.isStoredFriends.count {
+                self.db.delete()
+            }
+            toAddData.forEach({ self.db.write($0.toUserVkDb()) })
+            self.outputData = self.db.read() ?? []
+        }
     }
-
+    
     
 }

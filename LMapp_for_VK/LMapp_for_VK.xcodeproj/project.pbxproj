@@ -16,6 +16,7 @@
 		C12B4E6D261749BB007BEAC3 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12B4E6C261749BB007BEAC3 /* AsyncOperation.swift */; };
 		C12B4E7126174DDB007BEAC3 /* DataParseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12B4E7026174DDB007BEAC3 /* DataParseOperation.swift */; };
 		C12B4E742617525D007BEAC3 /* AddRealmObjectsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12B4E732617525D007BEAC3 /* AddRealmObjectsOperation.swift */; };
+		C12B4E7A2619010E007BEAC3 /* ReloadFriendsTableOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12B4E792619010E007BEAC3 /* ReloadFriendsTableOperation.swift */; };
 		C13370EE25797EA2001A2A86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13370ED25797EA2001A2A86 /* AppDelegate.swift */; };
 		C13370F025797EA2001A2A86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13370EF25797EA2001A2A86 /* SceneDelegate.swift */; };
 		C13370F525797EA2001A2A86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C13370F325797EA2001A2A86 /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 		C12B4E6C261749BB007BEAC3 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AsyncOperation.swift; path = LMapp_for_VK/NetApp/NetFriendsList/AsyncOperation.swift; sourceTree = SOURCE_ROOT; };
 		C12B4E7026174DDB007BEAC3 /* DataParseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataParseOperation.swift; path = LMapp_for_VK/NetApp/NetFriendsList/DataParseOperation.swift; sourceTree = SOURCE_ROOT; };
 		C12B4E732617525D007BEAC3 /* AddRealmObjectsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddRealmObjectsOperation.swift; path = LMapp_for_VK/NetApp/NetFriendsList/AddRealmObjectsOperation.swift; sourceTree = SOURCE_ROOT; };
+		C12B4E792619010E007BEAC3 /* ReloadFriendsTableOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadFriendsTableOperation.swift; sourceTree = "<group>"; };
 		C13370EA25797EA2001A2A86 /* LMapp_for_VK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LMapp_for_VK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C13370ED25797EA2001A2A86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C13370EF25797EA2001A2A86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				C12B4E65261746F3007BEAC3 /* GetFriendsOperation.swift */,
 				C12B4E7026174DDB007BEAC3 /* DataParseOperation.swift */,
 				C12B4E732617525D007BEAC3 /* AddRealmObjectsOperation.swift */,
+				C12B4E792619010E007BEAC3 /* ReloadFriendsTableOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				C1A6C40425C8952100156FEB /* StartNetworkController.swift in Sources */,
 				50EF397E258770B400E80D78 /* CurrentUserView.swift in Sources */,
 				C167F847260C4A9D009C2272 /* NetNewsController.swift in Sources */,
+				C12B4E7A2619010E007BEAC3 /* ReloadFriendsTableOperation.swift in Sources */,
 				505C6202258CD42700BE727B /* BackGroundAvatarView.swift in Sources */,
 				C110531D25B0D7C30035979E /* ThreeDotLoadingIndicator.swift in Sources */,
 			);

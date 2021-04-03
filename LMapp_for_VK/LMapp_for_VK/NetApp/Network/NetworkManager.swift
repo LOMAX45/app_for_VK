@@ -214,8 +214,8 @@ class NetworkManager {
             }
         case .getFriends:
             var getFriendsConstructor = createApiUrlTemplate(method: method)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
+            //            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
+            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "18"), at: 1)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
             let url = getFriendsConstructor.url
             if url != nil {
@@ -230,8 +230,6 @@ class NetworkManager {
         default: return
         }
     }
-    
-    
     
     func getImage(by urlStr: String, compltionHandler: @escaping (UIImage) -> Void) {
         guard let url = URL(string: urlStr) else { return }

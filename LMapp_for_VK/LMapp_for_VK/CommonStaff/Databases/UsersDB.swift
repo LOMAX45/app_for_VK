@@ -16,7 +16,7 @@ class UsersDB {
         do {
             let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
             db = try Realm(configuration: config)
-//            print(db?.configuration.fileURL)
+            print(db?.configuration.fileURL)
         } catch {
             print(error)
         }
@@ -73,6 +73,16 @@ class UsersDB {
             return Array(object)
         }
         return nil
+    }
+    
+    func delete(){
+        do {
+            db?.beginWrite()
+            db?.deleteAll()
+            try db?.commitWrite()
+        } catch {
+            print(error)
+        }
     }
     
 }

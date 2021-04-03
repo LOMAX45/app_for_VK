@@ -12,17 +12,15 @@ class DataParseOperation: Operation {
     var outputData: [UserVK]? = []
     
     override func main() {
-        print("START PARSING")
         guard let getDataOperation = dependencies.first as? GetFriendsOperation,
               let data = getDataOperation.data
         else {
             return
         }
         do {
-            let json = try JSONDecoder().decode(UsersResponse.self, from: data)
-            let friends: [UserVK] = json.response
+            let json = try JSONDecoder().decode(FriendsResponse.self, from: data)
+            let friends: [UserVK] = json.response.items
             outputData = friends
-            print("FINISH PARSING")
         } catch {
             print(error)
         }
