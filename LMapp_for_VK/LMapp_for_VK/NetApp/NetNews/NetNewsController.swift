@@ -24,31 +24,58 @@ class NetNewsController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "NetNewsPostCell", bundle: nil), forCellReuseIdentifier: "NetNewsPostCell")
         getNews()
-        
+
     }
     
-    private func loadingView () {
-        let loadingView = ThreeDotLoadingIndicator(frame: CGRect(x: self.view.layer.bounds.width / 2 - 20, y: self.view.layer.bounds.height / 2 - 5, width: 40, height: 10))
-        loadingView.startAnimation()
-        self.view.addSubview(loadingView)
-    }
+//    private func getNews() {
+//        self.networkManager.getNews(method: .getNews, type: .post) { [weak self] (news) in
+//            NewsDatabase.shared.items = news.items
+//            NewsDatabase.shared.profiles = news.profiles
+//            NewsDatabase.shared.groups = news.groups
+//            DispatchQueue.main.async {
+//                guard let self = self else { return }
+//                self.items = NewsDatabase.shared.items
+//                self.profiles = NewsDatabase.shared.profiles
+//                self.groups = NewsDatabase.shared.groups
+//                self.tableView.reloadData()
+//            }
+//        }
+//    }
     
     private func getNews() {
-        let dispatchGroup = DispatchGroup()
-        DispatchQueue.global().async(group: dispatchGroup) {
-            self.networkManager.getNews(method: .getNews, type: .post) { (news) in
-                NewsDatabase.shared.items = news.items
-                NewsDatabase.shared.profiles = news.profiles
-                NewsDatabase.shared.groups = news.groups
-            }
-        }
-        sleep(5)
-        dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+        self.networkManager.getJsonNews(method: .getNews, type: .post) { [weak self] (data) in
             guard let self = self else { return }
-            self.items = NewsDatabase.shared.items
-            self.profiles = NewsDatabase.shared.profiles
-            self.groups = NewsDatabase.shared.groups
-            self.tableView.reloadData()
+            let dispatchGroup = DispatchGroup()
+            DispatchQueue.global().async(group: dispatchGroup) {
+                do {
+                    let items = try JSONDecoder().decode(NewsJson.self, from: data).response.items
+                    NewsDatabase.shared.items = items
+                } catch {
+                    print(error)
+                }
+                
+                do {
+                    let groups = try JSONDecoder().decode(NewsJson.self, from: data).response.groups
+                    NewsDatabase.shared.groups = groups
+                } catch {
+                    print(error)
+                }
+                
+                do {
+                    let profiles = try JSONDecoder().decode(NewsJson.self, from: data).response.profiles
+                    NewsDatabase.shared.profiles = profiles
+                } catch {
+                    print(error)
+                }
+            }
+            
+            dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+                guard let self = self else { return }
+                self.items = NewsDatabase.shared.items
+                self.profiles = NewsDatabase.shared.profiles
+                self.groups = NewsDatabase.shared.groups
+                self.tableView.reloadData()
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ class ShowPhotoImageView: UIView {
     var imageView: UIImageView!
 //    var initialCenter: CGPoint?
 //
-    var photosLibrary: [SizesDb]?
+    var photosLibrary: [ItemRealm]?
 
 ////    var photosLibraryA:[String:String] = [:]
 //

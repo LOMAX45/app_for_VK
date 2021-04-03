@@ -42,6 +42,7 @@
 		C14ED60E25DFD41000509292 /* FriendPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED60D25DFD41000509292 /* FriendPhotoCell.swift */; };
 		C14ED61225DFD44600509292 /* ShowPhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ED61125DFD44600509292 /* ShowPhotoImageView.swift */; };
 		C167F847260C4A9D009C2272 /* NetNewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167F846260C4A9D009C2272 /* NetNewsController.swift */; };
+		C167F84C261256F1009C2272 /* NetPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167F84B261256F1009C2272 /* NetPhotos.swift */; };
 		C16983FC25E6704C000FD74F /* UsersDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16983FB25E6704C000FD74F /* UsersDB.swift */; };
 		C1760BA025B229AE0063F91E /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1760B9F25B229AE0063F91E /* CustomPushAnimator.swift */; };
 		C1760BA325B231B40063F91E /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1760BA225B231B40063F91E /* CustomPopAnimator.swift */; };
@@ -52,7 +53,6 @@
 		C1A6C40425C8952100156FEB /* StartNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40325C8952100156FEB /* StartNetworkController.swift */; };
 		C1A6C40825C898C100156FEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40725C898C100156FEB /* NetworkManager.swift */; };
 		C1AAF7A425DE4B5000339950 /* NetGroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AAF7A325DE4B5000339950 /* NetGroupVK.swift */; };
-		C1AAF7A725DE4B6600339950 /* NetPhotosVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AAF7A625DE4B6600339950 /* NetPhotosVK.swift */; };
 		C1AAF7B425DE908A00339950 /* FriendListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AAF7B325DE908A00339950 /* FriendListController.swift */; };
 		C1AAF7B825DE910100339950 /* FriendsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AAF7B725DE910100339950 /* FriendsListCell.swift */; };
 		C1AAF7BB25DE9AFF00339950 /* NetFriendsVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AAF7BA25DE9AFF00339950 /* NetFriendsVK.swift */; };
@@ -111,6 +111,7 @@
 		C14ED60D25DFD41000509292 /* FriendPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoCell.swift; sourceTree = "<group>"; };
 		C14ED61125DFD44600509292 /* ShowPhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPhotoImageView.swift; sourceTree = "<group>"; };
 		C167F846260C4A9D009C2272 /* NetNewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetNewsController.swift; sourceTree = "<group>"; };
+		C167F84B261256F1009C2272 /* NetPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetPhotos.swift; sourceTree = "<group>"; };
 		C16983FB25E6704C000FD74F /* UsersDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDB.swift; sourceTree = "<group>"; };
 		C1760B9F25B229AE0063F91E /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		C1760BA225B231B40063F91E /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
@@ -121,7 +122,6 @@
 		C1A6C40325C8952100156FEB /* StartNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNetworkController.swift; sourceTree = "<group>"; };
 		C1A6C40725C898C100156FEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C1AAF7A325DE4B5000339950 /* NetGroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetGroupVK.swift; sourceTree = "<group>"; };
-		C1AAF7A625DE4B6600339950 /* NetPhotosVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetPhotosVK.swift; sourceTree = "<group>"; };
 		C1AAF7B325DE908A00339950 /* FriendListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListController.swift; sourceTree = "<group>"; };
 		C1AAF7B725DE910100339950 /* FriendsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCell.swift; sourceTree = "<group>"; };
 		C1AAF7BA25DE9AFF00339950 /* NetFriendsVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetFriendsVK.swift; sourceTree = "<group>"; };
@@ -367,11 +367,11 @@
 			isa = PBXGroup;
 			children = (
 				C1B8788B25DCDD420000A3E9 /* NetUserVK.swift */,
-				C1AAF7A625DE4B6600339950 /* NetPhotosVK.swift */,
 				C1AAF7A325DE4B5000339950 /* NetGroupVK.swift */,
 				C1B8789825DD128B0000A3E9 /* NetSession.swift */,
 				C1AAF7BA25DE9AFF00339950 /* NetFriendsVK.swift */,
 				C13CCC6F260B3C200033D8C3 /* NetNews.swift */,
+				C167F84B261256F1009C2272 /* NetPhotos.swift */,
 			);
 			path = NetDataModel;
 			sourceTree = "<group>";
@@ -556,9 +556,9 @@
 				C1E190BF260B6BA000D80C17 /* NewsDB.swift in Sources */,
 				C16983FC25E6704C000FD74F /* UsersDB.swift in Sources */,
 				C1A6C40025C834BE00156FEB /* Session.swift in Sources */,
-				C1AAF7A725DE4B6600339950 /* NetPhotosVK.swift in Sources */,
 				C1B8789925DD128B0000A3E9 /* NetSession.swift in Sources */,
 				50CA14AC2595F29C00C43914 /* LocalNewsController.swift in Sources */,
+				C167F84C261256F1009C2272 /* NetPhotos.swift in Sources */,
 				C133710425797F0A001A2A86 /* LoginFormController.swift in Sources */,
 				50FBADF92592323A001BAA87 /* Alerts.swift in Sources */,
 				C1760BA325B231B40063F91E /* CustomPopAnimator.swift in Sources */,

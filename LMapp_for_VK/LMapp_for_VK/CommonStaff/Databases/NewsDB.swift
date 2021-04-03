@@ -11,6 +11,8 @@ class NewsDatabase {
     
     static let shared = NewsDatabase()
     
+    var jsonObject: Data?
+    
     var items: [NewsItem] = []
     var profiles: [UserVK] = []
     var groups: [GroupProperties] = []
