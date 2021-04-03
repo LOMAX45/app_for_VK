@@ -14,11 +14,18 @@ class DataParseOperation: Operation {
     override func main() {
         print("START PARSING")
         guard let getDataOperation = dependencies.first as? GetFriendsOperation,
-              let data = getDataOperation.data else { return }
-        guard let json = try? JSONDecoder().decode(UsersResponse.self, from: data) else { return }
-        let friends: [UserVK] = json.response
-        outputData = friends
-        print("FINISH PARSING")
+              let data = getDataOperation.data
+        else {
+            return
+        }
+        do {
+            let json = try JSONDecoder().decode(UsersResponse.self, from: data)
+            let friends: [UserVK] = json.response
+            outputData = friends
+            print("FINISH PARSING")
+        } catch {
+            print(error)
+        }
     }
     
 }

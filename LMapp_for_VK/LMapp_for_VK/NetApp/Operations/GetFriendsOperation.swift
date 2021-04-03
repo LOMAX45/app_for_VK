@@ -23,8 +23,9 @@ class GetFriendsOperation: AsyncOperation {
         URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, _ in
             guard let self = self else { return }
             self.data = data
-            self.state = .finished
             print("FINISH GET DATA")
+            self.state = .finished
+            
         }.resume()
         print("OPERATION FINISHED")
     }
