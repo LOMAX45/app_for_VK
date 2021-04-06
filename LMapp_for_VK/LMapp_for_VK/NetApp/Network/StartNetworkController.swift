@@ -21,9 +21,7 @@ class StartNetworkController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         networkManager.authorize(webview)
-        
     }
     
     private func getCurrentUser(toVC: String) {
@@ -38,73 +36,7 @@ class StartNetworkController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(identifier: toVC)
         show(controller, sender: nil)
-        
     }
-    
-    private func getFriends() {
-        networkManager.getData(method: .getFriends) { (friends) in
-            self.friends = friends
-            let friendsDb = UsersDB()
-            self.friends.forEach({ friendsDb.write($0.toUserVkDb()) })
-        }
-    }
-    
-//    private func getFriendsPhoto() {
-//
-//        let friendsDb = UsersDB()
-//        let friends: [UserVkDb] = friendsDb.read() ?? []
-//
-//        for friend in friends {
-//
-//            if friend.id != 0 {
-//
-//                let itemsPhoto = ItemsPhotoDb(ownerId: friend.id)
-//                let item = itemsPhoto.items
-//                let sizes = SizesDb(ownerId: friend.id)
-//                let size = sizes.sizes
-//
-//                networkManager.getData(method: .getPhotos, id: friend.id) { (response) in
-//                    response.items.forEach({
-//                        for i in 0..<$0.sizes.count {
-//                            let properties = PhotoPropertiesDb(type: $0.sizes[i].type, url: $0.sizes[i].url, photoId: $0.id)
-//                            size.append(properties)
-//                        }
-//                        item.append(sizes)
-//                    })
-//                    DispatchQueue.main.async {
-//                        friendsDb.write(itemsPhoto)
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
-    
-    private func getGroups() {
-        networkManager.getGroups(method: .getGroupsList) { (groups) in
-            groups.items.forEach({
-                let groupProperty = GroupPropertiesDb(id: $0.id, name: $0.name, screenName: $0.screenName, photo50: $0.photo50)
-                DispatchQueue.main.async {
-                    UsersDB().write(groupProperty)
-                }
-            })
-        }
-    }
-    
-//    private func getNews() {
-//        print("START FUNCTION")
-//        self.networkManager.getNews(method: .getNews) { (news) in
-//            NewsDatabase.shared.items = news.items
-//            NewsDatabase.shared.profiles = news.profiles
-//            NewsDatabase.shared.groups = news.groups
-//        }
-//    }
-    
-
-    
 }
 
 extension StartNetworkController: WKNavigationDelegate {
@@ -133,13 +65,9 @@ extension StartNetworkController: WKNavigationDelegate {
         
         print("USER IS IS \(NetSession.instance.userId)")
         print("TOKEN=\(NetSession.instance.token)")
-        
-//        getFriends()
-//        getFriendsPhoto()
-        getGroups()
+
         getCurrentUser(toVC: "LoggedOnController")
         
         decisionHandler(.cancel)
-        
     }
 }

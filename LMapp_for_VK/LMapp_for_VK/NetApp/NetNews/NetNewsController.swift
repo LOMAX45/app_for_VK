@@ -13,6 +13,7 @@ class NetNewsController: UIViewController {
 
     let networkManager = NetworkManager()
     var items:[NewsItem] = []
+    let parser = NewsItemsParser()
     
     
     override func viewDidLoad() {
@@ -27,7 +28,8 @@ class NetNewsController: UIViewController {
 
     private func getNews() {
         self.networkManager.getJson(method: .getNews) { [weak self] (data) in
-            NewsItemsParser().parseData(data: data) { (items) in
+            guard let self = self else { return }
+            self.parser.parseData(data: data) { [weak self] (items) in
                 guard let self = self else { return }
                 self.items = items
                 self.tableView.reloadData()

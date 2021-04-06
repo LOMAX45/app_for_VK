@@ -8,6 +8,9 @@
 import Foundation
 import WebKit
 import UIKit
+import PromiseKit
+import Alamofire
+import SwiftyJSON
 
 //Создаем перечисление, чтобы не вводить методы вручную
 enum ApiMethods: String {
@@ -19,9 +22,8 @@ enum ApiMethods: String {
     case getNews = "/method/newsfeed.get"
 }
 
-enum TypeOfNews: String {
-    case post = "post"
-    case photo = "photo"
+enum ErrorMessages: Error {
+    case somethingWentWrong(message: String)
 }
 
 class NetworkManager {
@@ -66,28 +68,6 @@ class NetworkManager {
         //создаем URL для указанного метода
         var url:URL? = nil
         switch method {
-        case .getFriends:
-            var getFriendsConstructor = createApiUrlTemplate(method: method)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
-            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
-            url = getFriendsConstructor.url
-            if url != nil {
-                let session = URLSession.shared
-                let task = session.dataTask(with: url!) { (data, response, error) in
-                    if data != nil {
-                        do {
-                            let response = try JSONDecoder().decode(FriendsResponse.self, from: data!).response.items
-                            compltionHandler(response)
-                        } catch {
-                            print(error)
-                        }
-                    } else {
-                        print("Data is nil")
-                    }
-                }
-                task.resume()
-            }
         case .getUsers:
             var getUserConstructor = createApiUrlTemplate(method: method)
             getUserConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 0)
@@ -140,67 +120,12 @@ class NetworkManager {
         }
     }
     
-    func getGroups(method: ApiMethods, comlitionHandler: @escaping (ItemsGroup) -> ()) {
-        switch method {
-        case .getGroupsList:
-            var getGroupsConstructor = createApiUrlTemplate(method: method)
-            getGroupsConstructor.queryItems?.insert(URLQueryItem(name: "extended", value: "1"), at: 0)
-            let url = getGroupsConstructor.url
-            
-            if url != nil {
-                
-                let session = URLSession.shared
-                let task = session.dataTask(with: url!) { (data, response, error) in
-                    if data != nil {
-                        do {
-                            let response = try JSONDecoder().decode(GroupResponse.self, from: data!).response
-                            comlitionHandler(response)
-                        } catch {
-                            print(error)
-                        }
-                    } else {
-                        print("Data is nil")
-                    }
-                }
-                task.resume()
-            }
-        default: return
-        }
-    }
-    
-    func getNews(method: ApiMethods, type: TypeOfNews, complitionHandler: @escaping (NewsResponse) -> ()) {
-        
-        switch method {
-        case .getNews:
-            var getNewsConstructor = createApiUrlTemplate(method: method)
-            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: type.rawValue), at: 0)
-            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
-            let url = getNewsConstructor.url
-            
-            if url != nil {
-                let session = URLSession.shared
-                let task = session.dataTask(with: url!) { (data, response, error) in
-                    if data != nil {
-                        do {
-                            let response = try JSONDecoder().decode(NewsJson.self, from: data!).response
-                            complitionHandler(response)
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
-                task.resume()
-            }
-        default: return
-        }
-    }
-    
     func getJson(method: ApiMethods, complitionHandler: @escaping (Data) -> ()) {
         switch method {
         case .getNews:
             var getNewsConstructor = createApiUrlTemplate(method: method)
             getNewsConstructor.queryItems?.insert(URLQueryItem(name: "filters", value: "post"), at: 0)
-            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "50"), at: 1)
+            getNewsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "100"), at: 1)
             let url = getNewsConstructor.url
             
             if url != nil {
@@ -208,13 +133,15 @@ class NetworkManager {
                 let task = session.dataTask(with: url!) { (data, response, error) in
                     if data != nil {
                         complitionHandler(data!)
+                    } else {
+                        print("Data is empty")
                     }
                 }
                 task.resume()
             }
         case .getFriends:
             var getFriendsConstructor = createApiUrlTemplate(method: method)
-            //            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
+//            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "18"), at: 1)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
             let url = getFriendsConstructor.url
@@ -223,6 +150,8 @@ class NetworkManager {
                 let task = session.dataTask(with: url!) { (data, response, error) in
                     if data != nil {
                         complitionHandler(data!)
+                    } else {
+                        print("Data is empty")
                     }
                 }
                 task.resume()
@@ -243,6 +172,32 @@ class NetworkManager {
             imageCache.setObject(image!, forKey: url as AnyObject)
             compltionHandler(image!)
         }
+    }
+    
+    func getGroupsAlamofire() -> Promise<[GroupProperties]> {
+        var baseUrlConstructor = createApiUrlTemplate(method: .getGroupsList)
+        baseUrlConstructor.queryItems?.insert(URLQueryItem(name: "extended", value: "1"), at: 0)
+        let promise = Promise<[GroupProperties]> { resolver in
+            AF.request(baseUrlConstructor, method: .get).responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    
+                    if let errorMessage = json["message"].string {
+                        let error = ErrorMessages.somethingWentWrong(message: errorMessage)
+                        resolver.reject(error)
+                        return
+                    }
+                    let groups = json["response"]["items"].arrayValue.map {
+                        GroupProperties(id: $0["id"].intValue, name: $0["name"].stringValue, screenName: $0["screen_name"].stringValue, photo50: $0["photo_50"].stringValue)
+                    }
+                    resolver.fulfill(groups)
+                case .failure(let error):
+                    resolver.reject(error)
+                }
+            }
+        }
+        return promise
     }
     
 }

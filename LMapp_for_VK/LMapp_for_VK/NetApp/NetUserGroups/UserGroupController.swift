@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class UserGroupController: UIViewController {
     
@@ -18,17 +19,31 @@ class UserGroupController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        networkManager.getGroupsAlamofire()
+            .done(on: .main) { [weak self] groups in
+                for group in groups {
+                    let groupProperty = GroupPropertiesDb(id: group.id, name: group.name, screenName: group.screenName, photo50: group.photo50)
+                    self?.database.write(groupProperty)
+                }
+                self?.userGroups = self?.database.read() ?? []
+                if self?.userGroups.count != 0 {
+                    self?.tableView.reloadData()
+                }
+            }
+        
         tableView.dataSource = self
         tableView.delegate = self
-        
-        userGroups = database.read() ?? []
-        
-        if userGroups.count != 0 {
-            tableView.reloadData()
-        }
-
     }
 
+    
+    private func convertToDB (groups: [GroupProperties]) {
+        var userGroupsTemp: [GroupPropertiesDb] = []
+        for group in groups {
+            userGroupsTemp.append(GroupPropertiesDb(id: group.id, name: group.name, screenName: group.screenName, photo50: group.photo50))
+            
+        }
+        self.userGroups = userGroupsTemp
+    }
 }
 
 extension UserGroupController: UITableViewDelegate, UITableViewDataSource {
