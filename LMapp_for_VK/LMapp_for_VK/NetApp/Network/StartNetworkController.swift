@@ -134,7 +134,7 @@ extension StartNetworkController: WKNavigationDelegate {
         print("USER IS IS \(NetSession.instance.userId)")
         print("TOKEN=\(NetSession.instance.token)")
         
-        getFriends()
+//        getFriends()
 //        getFriendsPhoto()
         getGroups()
         getCurrentUser(toVC: "LoggedOnController")

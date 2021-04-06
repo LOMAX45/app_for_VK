@@ -25,6 +25,8 @@ struct Views: Codable {
 
 struct NewsItem: Codable {
     let sourceId: Int
+    var sourceName: String = ""
+    var sourceAvatar: String = ""
     let date: Int
     let postType: String
     let text: String

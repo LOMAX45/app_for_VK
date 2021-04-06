@@ -75,4 +75,14 @@ class UsersDB {
         return nil
     }
     
+    func delete(){
+        do {
+            db?.beginWrite()
+            db?.deleteAll()
+            try db?.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+    
 }

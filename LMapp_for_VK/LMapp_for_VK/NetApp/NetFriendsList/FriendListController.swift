@@ -9,8 +9,7 @@ import UIKit
 
 class FriendsListController: UIViewController {
     
-    let networkManager = NetworkManager()
-//    var friends: [UserVkDb] = UsersDB().read() ?? []
+    let operationsQueue = OperationQueue()
     var friends: [UserVkDb] = []
     var sections: [String : [UserVkDb]] = [:]
     var keys: [String] = []
@@ -38,15 +37,27 @@ class FriendsListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        friends = UsersDB().read() ?? []
-        
-        if friends.count != 0 {
-            sort(array: friends)
-            tableView.reloadData()
-        }
-
+        updateFriends()
         tableView.dataSource = self
         tableView.delegate = self
+        
+    }
+    
+    private func updateFriends() {
+        let getDataOperation = GetFriendsOperation(apiMethod: .getFriends)
+        operationsQueue.addOperation(getDataOperation)
+        
+        let parseDataOperation = DataParseOperation()
+        parseDataOperation.addDependency(getDataOperation)
+        operationsQueue.addOperation(parseDataOperation)
+        
+        let addRealmObjectsOperation = AddRealmObjectsOperation()
+        addRealmObjectsOperation.addDependency(parseDataOperation)
+        operationsQueue.addOperation(addRealmObjectsOperation)
+        
+        let reloadFriendsTableOperation = ReloadFriendsTableOperation(controller: self)
+        reloadFriendsTableOperation.addDependency(addRealmObjectsOperation)
+        OperationQueue.main.addOperation(reloadFriendsTableOperation)
         
     }
     
@@ -61,7 +72,6 @@ class FriendsListController: UIViewController {
             }
         }
     }
-    
 }
 
 extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
@@ -108,7 +118,6 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
 
 extension FriendsListController: UISearchBarDelegate {
@@ -146,7 +155,5 @@ extension FriendsListController: UISearchBarDelegate {
         sort(array: friends)
         tableView.reloadData()
     }
-    
-    
 }
 
