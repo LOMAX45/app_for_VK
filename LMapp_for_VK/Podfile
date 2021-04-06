@@ -6,7 +6,9 @@ target 'LMapp_for_VK' do
   use_frameworks!
 
   # Pods for LMapp_for_VK
-  #pod 'AnyCodable-FlightSchool', '~> 0.4.0'
   pod 'RealmSwift'
+  pod 'PromiseKit'
+  pod 'Alamofire', '~> 5.2'
+  pod 'SwiftyJSON'
 
 end
