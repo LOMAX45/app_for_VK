@@ -14,6 +14,9 @@ class FriendsListCell: UITableViewCell {
     @IBOutlet weak var backGroundView: BackGroundAvatarView!
     @IBOutlet weak var avatarImage: UIImageView! {
         didSet {
+            
+            avatarImage.layer.cornerRadius = avatarImage.frame.height / 2
+            avatarImage.layer.masksToBounds = true
            
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(animAvatar(_:)))
             avatarImage.addGestureRecognizer(recognizer)

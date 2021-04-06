@@ -14,7 +14,7 @@ class NewsItemsParser {
     private var syncQueue = DispatchQueue(label: "NewsItemParserQueue", attributes: .concurrent, target: DispatchQueue.global(qos: .background))
     
     func parseData(data: Data, completion: @escaping ([NewsItem]) -> ()) {
-        var news: NewsJson!
+        var news: NewsJson
         do {
             news = try JSONDecoder().decode(NewsJson.self, from: data)
         } catch {
@@ -62,5 +62,4 @@ class NewsItemsParser {
             }
         }
     }
-    
 }
