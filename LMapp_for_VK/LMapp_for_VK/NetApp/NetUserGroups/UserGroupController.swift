@@ -21,13 +21,11 @@ class UserGroupController: UIViewController {
         
         networkManager.getGroupsAlamofire()
             .done(on: .main) { [weak self] groups in
-                for group in groups {
-                    let groupProperty = GroupPropertiesDb(id: group.id, name: group.name, screenName: group.screenName, photo50: group.photo50)
-                    self?.database.write(groupProperty)
-                }
-                self?.userGroups = self?.database.read() ?? []
-                if self?.userGroups.count != 0 {
-                    self?.tableView.reloadData()
+                guard let self = self else { return }
+                self.convertToDB(groups: groups)
+                self.userGroups = self.database.read() ?? []
+                if self.userGroups.count != 0 {
+                    self.tableView.reloadData()
                 }
             }
         
@@ -37,12 +35,10 @@ class UserGroupController: UIViewController {
 
     
     private func convertToDB (groups: [GroupProperties]) {
-        var userGroupsTemp: [GroupPropertiesDb] = []
         for group in groups {
-            userGroupsTemp.append(GroupPropertiesDb(id: group.id, name: group.name, screenName: group.screenName, photo50: group.photo50))
-            
+            let groupProperty = GroupPropertiesDb(id: group.id, name: group.name, screenName: group.screenName, photo50: group.photo50)
+            self.database.write(groupProperty)
         }
-        self.userGroups = userGroupsTemp
     }
 }
 
