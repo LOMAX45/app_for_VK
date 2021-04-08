@@ -174,30 +174,4 @@ class NetworkManager {
         }
     }
     
-    func getGroupsAlamofire() -> Promise<[GroupProperties]> {
-        var baseUrlConstructor = createApiUrlTemplate(method: .getGroupsList)
-        baseUrlConstructor.queryItems?.insert(URLQueryItem(name: "extended", value: "1"), at: 0)
-        let promise = Promise<[GroupProperties]> { resolver in
-            AF.request(baseUrlConstructor, method: .get).responseJSON { (response) in
-                switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    
-                    if let errorMessage = json["message"].string {
-                        let error = ErrorMessages.somethingWentWrong(message: errorMessage)
-                        resolver.reject(error)
-                        return
-                    }
-                    let groups = json["response"]["items"].arrayValue.map {
-                        GroupProperties(id: $0["id"].intValue, name: $0["name"].stringValue, screenName: $0["screen_name"].stringValue, photo50: $0["photo_50"].stringValue)
-                    }
-                    resolver.fulfill(groups)
-                case .failure(let error):
-                    resolver.reject(error)
-                }
-            }
-        }
-        return promise
-    }
-    
 }
