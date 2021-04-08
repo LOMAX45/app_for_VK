@@ -28,7 +28,6 @@ class UserGroupCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
         nameLabel.text = nil
         backGroungView.removeFromSuperview()
 
