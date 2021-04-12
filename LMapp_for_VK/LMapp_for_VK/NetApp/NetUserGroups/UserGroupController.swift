@@ -14,6 +14,7 @@ class UserGroupController: UIViewController {
     let networkManager = NetworkManager()
     let database = UsersDB()
     var userGroups:[GroupPropertiesDb] = []
+    var photoService: PhotoService?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -32,6 +33,7 @@ class UserGroupController: UIViewController {
         }
         tableView.dataSource = self
         tableView.delegate = self
+        photoService = PhotoService(container: tableView)
     }
     
     private func convertToDB (groups: [GroupProperties]) {
@@ -65,7 +67,8 @@ extension UserGroupController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userGroupCell", for: indexPath) as! UserGroupCell
-        cell.setData(name: userGroups[indexPath.row].name, imageStr: userGroups[indexPath.row].photo50)
+        cell.setData(name: userGroups[indexPath.row].name)
+        cell.backGroungView.setImage(((photoService?.photo(atIndexpath: indexPath, byUrl: userGroups[indexPath.row].photo50)) ?? UIImage(named: "robot"))!)
         return cell
     }
     

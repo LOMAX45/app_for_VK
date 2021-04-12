@@ -46,15 +46,15 @@ class NetNewsPostCell: UITableViewCell {
         return dateFormatter.string(from: NSDate(timeIntervalSince1970: TimeInterval(date)) as Date)
     }
     
-    func setData(ownerAvatar:String, ownerNickname:String, creationDate: Int, bodyText:String, numbersOfLikes: Int, numbersOfComments: Int, numbersOfReposts: Int, numbersOfViews: Int) {
+    func setData(ownerNickname:String, creationDate: Int, bodyText:String, numbersOfLikes: Int, numbersOfComments: Int, numbersOfReposts: Int, numbersOfViews: Int) {
         
-        networkManager.getImage(by: ownerAvatar) { (image) in
-            DispatchQueue.main.async {
-                if let ownerAvatar = image as UIImage? {
-                    self.ownerAvatar.image = ownerAvatar
-                }
-            }
-        }
+//        networkManager.getImage(by: ownerAvatar) { (image) in
+//            DispatchQueue.main.async {
+//                if let ownerAvatar = image as UIImage? {
+//                    self.ownerAvatar.image = ownerAvatar
+//                }
+//            }
+//        }
         
         self.ownerNickname.text = ownerNickname
         self.creationDate.text = unixDateToString(date: creationDate)

@@ -9,6 +9,7 @@ import UIKit
 
 class FriendsListController: UIViewController {
     
+    var photoService: PhotoService?
     let operationsQueue = OperationQueue()
     var friends: [UserVkDb] = []
     var sections: [String : [UserVkDb]] = [:]
@@ -37,6 +38,7 @@ class FriendsListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        photoService = PhotoService(container: tableView)
         updateFriends()
         tableView.dataSource = self
         tableView.delegate = self
@@ -110,7 +112,8 @@ extension FriendsListController: UITableViewDataSource, UITableViewDelegate {
         let info = "\(user.firstName) \(user.lastName)"
         let avatarUrl = user.avatar
         
-        cell.setData(nick: nick, info: info, avatar: avatarUrl)
+        cell.setData(nick: nick, info: info)
+        cell.avatarImage.image = photoService?.photo(atIndexpath: indexPath, byUrl: avatarUrl)
         
         return cell
     }

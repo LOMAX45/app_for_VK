@@ -27,17 +27,17 @@ class FriendsListCell: UITableViewCell {
     @IBOutlet weak var nickLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     
-    func setData (nick: String, info: String, avatar: String) {
+    func setData (nick: String, info: String) {
         nickLabel.text = nick
         infoLabel.text = info
         
-        networkManager.getImage(by: avatar) { (image) in
-            DispatchQueue.main.async {
-                if let avatar = image as UIImage? {
-                    self.avatarImage.image = avatar
-                }
-            }
-        }
+//        networkManager.getImage(by: avatar) { (image) in
+//            DispatchQueue.main.async {
+//                if let avatar = image as UIImage? {
+//                    self.avatarImage.image = avatar
+//                }
+//            }
+//        }
     }
     
     @objc func animAvatar(_ sender: UITapGestureRecognizer) {

@@ -13,10 +13,11 @@ class FriendPhotoController: UIViewController {
     var id:Int = 0
     var urlsDict = [String]()
     var photoImages: [UIImage] = []
-    var photoCache: [UIImage] = []
+//    var photoCache: [UIImage] = []
     var photosLibrary: [ItemRealm]?
     let database = UsersDB()
     let networkManager = NetworkManager()
+    var photoService: PhotoService?
     
     var imageView:ShowPhotoImageView? = nil
     var backgroundView:UIView? = nil
@@ -32,6 +33,8 @@ class FriendPhotoController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        photoService = PhotoService(container: collectionView)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -83,38 +86,39 @@ class FriendPhotoController: UIViewController {
             }
             dispatchGroup.notify(queue: DispatchQueue.main) { [self] in
                 self.photosLibrary = realmDB.read(id)
-                if let photosCount = self.photosLibrary?.count {
-                    for _ in 0..<photosCount {
-                        self.photoImages.append(UIImage(named: "robot")!)
-                    }
-                }
-                self.collectionView.reloadData()
+//                if let photosCount = self.photosLibrary?.count {
+//                    for _ in 0..<photosCount {
+//                        self.photoImages.append(UIImage(named: "robot")!)
+//                    }
+//                }
                 self.urlsDict = []
                 self.photosLibrary?.forEach({ [self] (item) in
                     self.urlsDict.append(self.getUrl(item: item))
                 })
-                self.loadingPhotos(urls: self.urlsDict)
+                self.collectionView.reloadData()
+//                self.loadingPhotos(urls: self.urlsDict)
             }
         }
     }
+
     
-    private func loadingPhotos(urls: [String]) {
-        self.photoCache = []
-        let dispatchGroup = DispatchGroup()
-        DispatchQueue.global().async(group: dispatchGroup) {
-            urls.forEach { (url) in
-                self.networkManager.getImage(by: url) { (image) in
-                    if let image = image as UIImage? {
-                        self.photoCache.append(image)
-                    }
-                }
-            }
-        }
-        dispatchGroup.notify(queue: DispatchQueue.main) {
-            self.photoImages = self.photoCache
-            self.collectionView.reloadData()
-        }
-    }
+//    private func loadingPhotos(urls: [String]) {
+//        self.photoCache = []
+//        let dispatchGroup = DispatchGroup()
+//        DispatchQueue.global().async(group: dispatchGroup) {
+//            urls.forEach { (url) in
+//                self.networkManager.getImage(by: url) { (image) in
+//                    if let image = image as UIImage? {
+//                        self.photoCache.append(image)
+//                    }
+//                }
+//            }
+//        }
+//        dispatchGroup.notify(queue: DispatchQueue.main) {
+//            self.photoImages = self.photoCache
+//            self.collectionView.reloadData()
+//        }
+//    }
     
     func showPhoto(selectedPhoto: Int) {
         backgroundView = UIView(frame: CGRect(origin: CGPoint(x: itemSize * CGFloat(column) , y: self.view.safeAreaInsets.bottom + itemSize * CGFloat(row)), size: CGSize(width: itemSize, height: itemSize)))
@@ -226,7 +230,8 @@ extension FriendPhotoController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! FriendPhotoCell
-        cell.setData(image: photoImages[indexPath.row])
+//        cell.setData(image: photoImages[indexPath.row])
+        cell.friendPhoto.image = photoService?.photo(atIndexpath: indexPath, byUrl: urlsDict[indexPath.row])
         cell.addLikeControl()
         return cell
     }

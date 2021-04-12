@@ -14,14 +14,14 @@ class UserGroupCell: UITableViewCell {
     
     let backGroungView = AvatarView(frame: CGRect(x: 8, y: 4, width: 56, height: 56))
     
-    func setData (name: String, imageStr: String) {
-        networkManager.getImage(by: imageStr) { (image) in
-            DispatchQueue.main.async {
-                if let logo = image as UIImage? {
-                    self.backGroungView.setImage(logo)
-                }
-            }
-        }
+    func setData (name: String) {
+//        networkManager.getImage(by: imageStr) { (image) in
+//            DispatchQueue.main.async {
+//                if let logo = image as UIImage? {
+//                    self.backGroungView.setImage(logo)
+//                }
+//            }
+//        }
         self.addSubview(backGroungView)
         nameLabel.text = name
     }
