@@ -46,15 +46,7 @@ class NetNewsPostCell: UITableViewCell {
         return dateFormatter.string(from: NSDate(timeIntervalSince1970: TimeInterval(date)) as Date)
     }
     
-    func setData(ownerAvatar:String, ownerNickname:String, creationDate: Int, bodyText:String, numbersOfLikes: Int, numbersOfComments: Int, numbersOfReposts: Int, numbersOfViews: Int) {
-        
-        networkManager.getImage(by: ownerAvatar) { (image) in
-            DispatchQueue.main.async {
-                if let ownerAvatar = image as UIImage? {
-                    self.ownerAvatar.image = ownerAvatar
-                }
-            }
-        }
+    func setData(ownerNickname:String, creationDate: Int, bodyText:String, numbersOfLikes: Int, numbersOfComments: Int, numbersOfReposts: Int, numbersOfViews: Int) {
         
         self.ownerNickname.text = ownerNickname
         self.creationDate.text = unixDateToString(date: creationDate)
@@ -65,9 +57,7 @@ class NetNewsPostCell: UITableViewCell {
         self.numbersOfViews.text = String(numbersOfViews)
         
     }
-    
-    
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

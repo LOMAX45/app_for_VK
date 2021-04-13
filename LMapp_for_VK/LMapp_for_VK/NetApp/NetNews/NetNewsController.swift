@@ -10,6 +10,7 @@ import UIKit
 class NetNewsController: UIViewController {
     
      @IBOutlet weak var tableView: UITableView!
+    var photoService: PhotoService?
 
     let networkManager = NetworkManager()
     var items:[NewsItem] = []
@@ -19,6 +20,7 @@ class NetNewsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        photoService = PhotoService(container: tableView)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "NetNewsPostCell", bundle: nil), forCellReuseIdentifier: "NetNewsPostCell")
@@ -48,15 +50,14 @@ extension NetNewsController: UITableViewDelegate, UITableViewDataSource {
         
         let item = items[indexPath.row]
         
-        cell.setData(ownerAvatar: item.sourceAvatar,
-                     ownerNickname: item.sourceName,
+        cell.setData(ownerNickname: item.sourceName,
                      creationDate: item.date,
                      bodyText: item.text,
                      numbersOfLikes: item.likes.count,
                      numbersOfComments: item.comments.count,
                      numbersOfReposts: item.reposts.count,
                      numbersOfViews: item.views.count)
-        
+        cell.ownerAvatar.image = photoService?.photo(atIndexpath: indexPath, byUrl: item.sourceAvatar)
         return cell
     }
     

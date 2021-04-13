@@ -32,6 +32,7 @@
 		C167F847260C4A9D009C2272 /* NetNewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167F846260C4A9D009C2272 /* NetNewsController.swift */; };
 		C167F84C261256F1009C2272 /* NetPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167F84B261256F1009C2272 /* NetPhotos.swift */; };
 		C16983FC25E6704C000FD74F /* UsersDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16983FB25E6704C000FD74F /* UsersDB.swift */; };
+		C1995B4B2624CBAC001666B1 /* PhotoServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1995B4A2624CBAC001666B1 /* PhotoServise.swift */; };
 		C1A6C40425C8952100156FEB /* StartNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40325C8952100156FEB /* StartNetworkController.swift */; };
 		C1A6C40825C898C100156FEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A6C40725C898C100156FEB /* NetworkManager.swift */; };
 		C1AAF7A425DE4B5000339950 /* NetGroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AAF7A325DE4B5000339950 /* NetGroupVK.swift */; };
@@ -74,6 +75,7 @@
 		C167F846260C4A9D009C2272 /* NetNewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetNewsController.swift; sourceTree = "<group>"; };
 		C167F84B261256F1009C2272 /* NetPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetPhotos.swift; sourceTree = "<group>"; };
 		C16983FB25E6704C000FD74F /* UsersDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDB.swift; sourceTree = "<group>"; };
+		C1995B4A2624CBAC001666B1 /* PhotoServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoServise.swift; sourceTree = "<group>"; };
 		C1A6C40325C8952100156FEB /* StartNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNetworkController.swift; sourceTree = "<group>"; };
 		C1A6C40725C898C100156FEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C1AAF7A325DE4B5000339950 /* NetGroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetGroupVK.swift; sourceTree = "<group>"; };
@@ -207,6 +209,14 @@
 			path = Databases;
 			sourceTree = "<group>";
 		};
+		C1995B492624CB88001666B1 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				C1995B4A2624CBAC001666B1 /* PhotoServise.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		C1A6C40225C894DE00156FEB /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +265,7 @@
 		C1B8789C25DD49CB0000A3E9 /* NetApp */ = {
 			isa = PBXGroup;
 			children = (
+				C1995B492624CB88001666B1 /* Cache */,
 				C12B4E6B26174991007BEAC3 /* Operations */,
 				C13CCC602608A8F40033D8C3 /* NetUserGroups */,
 				C13CCC5F2608A8C80033D8C3 /* NetNews */,
@@ -405,6 +416,7 @@
 				C13CCC6A2609B6F80033D8C3 /* UserGroupCell.swift in Sources */,
 				C13370F025797EA2001A2A86 /* SceneDelegate.swift in Sources */,
 				C12B4E66261746F3007BEAC3 /* GetFriendsOperation.swift in Sources */,
+				C1995B4B2624CBAC001666B1 /* PhotoServise.swift in Sources */,
 				C1A6C40425C8952100156FEB /* StartNetworkController.swift in Sources */,
 				50EF397E258770B400E80D78 /* CurrentUserView.swift in Sources */,
 				C167F847260C4A9D009C2272 /* NetNewsController.swift in Sources */,

@@ -142,7 +142,7 @@ class NetworkManager {
         case .getFriends:
             var getFriendsConstructor = createApiUrlTemplate(method: method)
 //            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "user_id", value: "457116142"), at: 0)
-//            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "18"), at: 1)
+//            getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "count", value: "2"), at: 1)
             getFriendsConstructor.queryItems?.insert(URLQueryItem(name: "fields", value: "photo_50"), at: 2)
             let url = getFriendsConstructor.url
             if url != nil {
@@ -172,6 +172,29 @@ class NetworkManager {
             imageCache.setObject(image!, forKey: url as AnyObject)
             compltionHandler(image!)
         }
+    }
+    
+    func getGroupsAlamofire() -> Promise<JSON> {
+        var baseUrlConstructor = createApiUrlTemplate(method: .getGroupsList)
+        baseUrlConstructor.queryItems?.insert(URLQueryItem(name: "extended", value: "1"), at: 0)
+        let promise = Promise<JSON> { resolver in
+            AF.request(baseUrlConstructor, method: .get).responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    
+                    if let errorMessage = json["message"].string {
+                        let error = ErrorMessages.somethingWentWrong(message: errorMessage)
+                        resolver.reject(error)
+                        return
+                    }
+                    resolver.fulfill(json)
+                case .failure(let error):
+                    resolver.reject(error)
+                }
+            }
+        }
+        return promise
     }
     
 }
