@@ -10,7 +10,7 @@ import Alamofire
 
 class PhotoService {
     
-    private let cacheLifeTime: TimeInterval = 30 * 24 * 60 * 60
+    private static let cacheLifeTime: TimeInterval = 24 * 60 * 60
     private static let pathName: String = {
         
         let pathName = "images"
@@ -33,31 +33,34 @@ class PhotoService {
         return cachesDirectory.appendingPathComponent(PhotoService.pathName + "/" + hashName).path
     }
     
+    private class func isFileObsolete(path: String) -> Bool {
+        guard let info = try? FileManager.default.attributesOfItem(atPath: path),
+              let modificationDate = info[FileAttributeKey.modificationDate] as? Date
+        else { return true }
+        
+        let lifeTime = Date().timeIntervalSince(modificationDate)
+        
+        return lifeTime > cacheLifeTime
+    }
+    
     private func saveImageToCache(url: String, image: UIImage) {
         guard let fileName = getFilePath(url: url),
-        let data = image.pngData() else { return }
+              let data = image.pngData() else { return }
         FileManager.default.createFile(atPath: fileName, contents: data, attributes: nil)
     }
     
     private func getImageFromCache(url: String) -> UIImage? {
         guard
             let fileName = getFilePath(url: url),
-            let info = try? FileManager.default.attributesOfItem(atPath: fileName),
-            let modificationDate = info[FileAttributeKey.modificationDate] as? Date
-            else { return nil }
-        
-        let lifeTime = Date().timeIntervalSince(modificationDate)
-        
-        guard
-            lifeTime <= cacheLifeTime,
+            !PhotoService.isFileObsolete(path: fileName),
             let image = UIImage(contentsOfFile: fileName) else { return nil }
-
-        DispatchQueue.main.async {
-            self.images[url] = image
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.images[url] = image
         }
         return image
     }
-
+    
     
     private var images = [String: UIImage]()
     
@@ -74,10 +77,9 @@ class PhotoService {
             DispatchQueue.main.async {
                 self?.container.reloadRow(atIndexpath: indexPath)
             }
-            
         }
     }
-
+    
     func photo(atIndexpath indexPath: IndexPath, byUrl url: String) -> UIImage? {
         var image: UIImage?
         if let photo = images[url] {
@@ -90,6 +92,26 @@ class PhotoService {
         return image
     }
     
+    private class func getImagesFolderPath() -> String? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return nil }
+        return cachesDirectory.appendingPathComponent(PhotoService.pathName).path
+    }
+    
+    class func clearObsoleteImages() throws {
+        guard let imagesFolderPath = getImagesFolderPath() else { return }
+        print("imagesFolderPath: \(imagesFolderPath)")
+        let cachedImages = try FileManager.default.contentsOfDirectory(atPath: imagesFolderPath)
+        let dispatchGroup = DispatchGroup()
+        DispatchQueue.global().async(group: dispatchGroup) {
+            for cachedImage in cachedImages {
+                let imagePath = imagesFolderPath + "/" + cachedImage
+                if isFileObsolete(path: imagePath) {
+                    try? FileManager.default.removeItem(atPath: imagePath)
+                }
+            }
+        }
+    }
+    
     private let container: DataReloadable
     
     init(container: UITableView) {
@@ -100,7 +122,7 @@ class PhotoService {
         self.container = Collection(collection: container)
     }
     
-        
+    
 }
 
 fileprivate protocol DataReloadable {

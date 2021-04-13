@@ -30,14 +30,6 @@ class FriendsListCell: UITableViewCell {
     func setData (nick: String, info: String) {
         nickLabel.text = nick
         infoLabel.text = info
-        
-//        networkManager.getImage(by: avatar) { (image) in
-//            DispatchQueue.main.async {
-//                if let avatar = image as UIImage? {
-//                    self.avatarImage.image = avatar
-//                }
-//            }
-//        }
     }
     
     @objc func animAvatar(_ sender: UITapGestureRecognizer) {
